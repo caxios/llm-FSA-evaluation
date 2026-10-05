@@ -72,3 +72,22 @@ class CallCache:
 
     def close(self) -> None:
         self.conn.close()
+
+
+class NullCache:
+    """Cache that stores nothing (synthetic validation at scale: nothing to reuse)."""
+
+    def get(self, key: str) -> RunRecord | None:
+        return None
+
+    def has(self, key: str) -> bool:
+        return False
+
+    def put(self, record: RunRecord) -> None:
+        return None
+
+    def records(self, model_key: str | None = None) -> list[RunRecord]:
+        return []
+
+    def __len__(self) -> int:
+        return 0

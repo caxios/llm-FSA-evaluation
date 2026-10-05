@@ -204,6 +204,25 @@ Format per entry: date, phase, options considered, decision, reason, affected do
 ### Smoke-run findings for the pilot
 - gemini-2.5-flash-lite: 11/12 valid; unit slips (KRW billion instead of million; share count 1,000× too small), very large spread between reps, English rationale, and "Analyst Projections" in `sources_used` under condition C. A stricter extraction instruction (copy table values without unit conversion) is a candidate prompt change before the preregistration freeze; decide in P7.
 
+## P6 decisions (2026-10-05)
+
+### D6.1–D6.5 — Metric conventions
+- D6.1: theoretical per-share changes use the agent's own median `shares_used` in the baseline cell.
+- D6.2: single-item perturbations (E3) are compared with the E0 cell (same firm, condition C, unperturbed).
+- D6.3: CB variants are compared with V1 (terms removed); E and N come from the agent's V1 cell, F and the conversion shares from each variant's perturbation metadata. Placebo shifts (V4) are measured against V0, whose text the placebo is appended to.
+- D6.4: percentile bootstrap, resampling runs within cells, fixed seed; 1,000 replicates by default (the synthetic validation uses 200 for speed).
+- D6.5: beta = OLS of log V on log k per firm × condition over valid runs with V > 0, HC3 SE (checked against statsmodels); quadratic term and median-based beta reported as robustness.
+
+### Other P6 choices
+- E9 reflection test uses the shares behind the per-share value: the reported diluted shares when the agent says it applied dilution, else `shares_used` (an if-converted valuation reports basic `shares_used` alongside diluted shares).
+- E6 quiz units follow the prompt (Q1–Q3 in 억 원, Q4 in KRW). Q5 needs keywords in `quiz_truth.main_business` (still empty): unmatched answers go to a review list and are left out of M_i until scored by a person.
+- "R by tier" (2/5/10%) is not split out in the firm table yet; tier runs appear as separate perturbation cells.
+
+### Synthetic oracle (revises the P5 note)
+- Margin = mean of the three reported years with a 5% floor (with last-year margins, 4 of the 5 fixture firms and most loss-makers had negative values, leaving the CB checks empty).
+- Noise multiplies every amount the oracle reads (flows, cash, debt, non-operating assets, CB face), so the per-share value moves by exactly exp(z) and the outputs stay self-consistent.
+- The validation follows the design order E0 → sizing (`decide_size`) → E3. With a fixed 5%-of-book-equity size, noise swamped the cash response (oracle R = 0.21 on fixtures).
+
 ---
 
 ## Research-plan revision

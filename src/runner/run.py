@@ -117,7 +117,8 @@ class Runner:
 # ---------------------------------------------------------------- run-level table
 
 COLUMNS = ["job_id", "cache_key", "experiment", "tag", "firm_id", "group", "condition",
-           "perturbation_type", "perturbation_params", "agent_structure", "model_key",
+           "perturbation_type", "perturbation_params", "schema_name", "agent_structure",
+           "model_key",
            "model_reported", "prompt_version", "prompt_sha", "rep", "valid", "error",
            "attempts", "value_per_share", "equity_value", "shares_used", "net_debt",
            "enterprise_value", "wacc", "terminal_growth", "dilution_applied",
@@ -135,7 +136,8 @@ def flatten(rec: RunRecord) -> dict:
         "perturbation_type": r.perturbation.type,
         "perturbation_params": json.dumps(r.perturbation.params, ensure_ascii=False,
                                           sort_keys=True),
-        "agent_structure": r.agent_structure, "model_key": r.model_key,
+        "schema_name": r.schema_name, "agent_structure": r.agent_structure,
+        "model_key": r.model_key,
         "model_reported": rec.model_reported, "prompt_version": r.prompt_version,
         "prompt_sha": r.prompt_sha, "rep": r.rep, "valid": rec.valid, "error": rec.error,
         "attempts": rec.attempts, "value_per_share": res.get("value_per_share"),

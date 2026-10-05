@@ -3,14 +3,17 @@
 Used in P6 to validate the metrics against agents with known behaviour.
 
   OracleAgent      reads the true values from the package, applies fixed assumptions
-                   (growth 3%, margin = last-year margin, tax 22%, WACC 8%, g 2%) and values
-                   with `valuation_tools`; noise multiplies the projected operating flows
-                   by exp(N(0, sd)), so every reported field stays self-consistent.
-                   Applies dilution correctly (if-converted with the min rule).
+                   (growth 3%, margin = mean of the three reported years with a 5% floor,
+                   tax 22%, WACC 8%, g 2%) and values with `valuation_tools`. Noise
+                   multiplies every amount the oracle reads (flows, cash, debt,
+                   non-operating assets, CB face) by exp(N(0, sd)), so the per-share value
+                   moves by exactly that factor and every reported field stays
+                   self-consistent. Applies dilution correctly (if-converted, min rule).
   AnchoredAgent    reports anchor[firm_id] x noise, ignoring the package.
   MixtureAgent     exp(w log V_oracle + (1 - w) log V_anchor) x noise.
   NoDilutionAgent  Oracle that extracts the convertible shares but does not apply them.
   CalcErrorAgent   Oracle whose reported per-share value is 10% off its own calculation.
+  ConditionMixtureAgent  Mixture with a weight per information condition (E4 checks).
 Projections assume capex = D&A (steady state) and no working-capital change, so FCFF is
 NOPAT: many packages report no separate depreciation line.
 Noise draws are seeded from the request (messages, rep, agent), so reruns reproduce.
@@ -37,6 +40,7 @@ from src.parse.schema import (
 from src.utils.hashing import stable_hash
 
 GROWTH, TAX, WACC, G = 0.03, 0.22, 0.08, 0.02
+MARGIN_FLOOR = 0.05   # keeps the oracle's value positive for most loss-making firms
 
 
 def _v(st, canonical: str, year: int) -> float | None:
@@ -68,15 +72,34 @@ def true_extraction(pkg: InputPackage) -> Extracted:
         convertible_bonds_outstanding=face, conversion_price=conv_price)
 
 
+def oracle_margin(pkg: InputPackage) -> float:
+    margins = []
+    for y in pkg.years:
+        rev, op = _v(pkg.is_, "revenue", y), _v(pkg.is_, "operating_income", y)
+        if rev and op is not None:
+            margins.append(op / rev)
+    return max(float(np.mean(margins)) if margins else 0.0, MARGIN_FLOOR)
+
+
+def _scaled(ex: Extracted, f: float) -> Extracted:
+    if f == 1.0:
+        return ex
+    upd = {k: (getattr(ex, k) * f if getattr(ex, k) is not None else None)
+           for k in ("revenue", "operating_income", "depreciation_amortization", "capex",
+                     "cash_and_equivalents", "total_borrowings", "non_operating_assets",
+                     "convertible_bonds_outstanding")}
+    return ex.model_copy(update=upd)
+
+
 def oracle_inputs(pkg: InputPackage, noise_factor: float = 1.0, apply_dilution: bool = True
                   ) -> ToolInputs:
-    ex = true_extraction(pkg)
-    margin = ex.operating_income / ex.revenue if ex.revenue else 0.0
+    ex = _scaled(true_extraction(pkg), noise_factor)
+    margin = oracle_margin(pkg)
     projections = []
     for t in range(1, 6):
-        rev = ex.revenue * (1 + GROWTH) ** t * noise_factor
+        rev = ex.revenue * (1 + GROWTH) ** t
         ebit = rev * margin
-        reinvest = (ex.capex or 0.0) * (1 + GROWTH) ** t * noise_factor
+        reinvest = (ex.capex or 0.0) * (1 + GROWTH) ** t
         projections.append(ProjectionYear(revenue=rev, ebit=ebit, tax=max(ebit, 0.0) * TAX,
                                           depreciation_amortization=reinvest, capex=reinvest,
                                           change_in_nwc=0.0))
@@ -184,6 +207,31 @@ class MixtureAgent(AnchoredAgent):
         if v_oracle <= 0:
             raise ValueError("mixture needs a positive oracle value")
         log_v = self.w * math.log(v_oracle) + (1 - self.w) * math.log(self.anchor[req.firm_id])
+        out.result.value_per_share = math.exp(log_v + self._z(req))
+        return out
+
+
+class ConditionMixtureAgent(MixtureAgent):
+    """Mixture whose oracle weight depends on the information condition (P6 validation of
+    the E4 decomposition)."""
+
+    name = "condition_mixture"
+
+    def __init__(self, anchor: dict[str, float], w_by_condition: dict[str, float],
+                 noise_sd: float = 0.05):
+        super().__init__(anchor, w=1.0, noise_sd=noise_sd)
+        self.w_by_condition = w_by_condition
+
+    def params(self) -> dict:
+        return {**super().params(), "w_by_condition": self.w_by_condition}
+
+    def value(self, req: RunRequest, pkg: InputPackage) -> ValuationOutput:
+        self_w = self.w_by_condition[req.condition]
+        out = value_from_inputs(oracle_inputs(pkg))
+        v_oracle = out.result.value_per_share
+        if v_oracle <= 0:
+            raise ValueError("mixture needs a positive oracle value")
+        log_v = self_w * math.log(v_oracle) + (1 - self_w) * math.log(self.anchor[req.firm_id])
         out.result.value_per_share = math.exp(log_v + self._z(req))
         return out
 
