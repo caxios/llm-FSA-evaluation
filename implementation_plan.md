@@ -543,7 +543,7 @@ Phase-local decisions (`Dn.k`) are listed in each phase plan under `docs/plans/`
 - [ ] P0 Repo scaffold, configs, data-access memo, model and dates fixed
 - [x] P1 Raw data fetched and reproducible (KOSDAQ prices provisional until KRX approval)
 - [x] P2 150 packages + ground truth (small-cap selection provisional; manual checks pending)
-- [ ] P3 Perturbation engine with full identity sweep passing
+- [x] P3 Perturbation engine with full identity sweep passing (human read of V2/V3 texts pending)
 - [ ] P4 Redaction audit complete, fake names assigned
 - [ ] P5 Plain + tool agents, cache, validator, runner working end to end
 - [ ] P6 Metrics validated on synthetic agents

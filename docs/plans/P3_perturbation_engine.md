@@ -4,10 +4,19 @@
 |---|---|
 | Roadmap | R§5 |
 | Weeks | 4–5 |
-| Status | Ready (develop on fixture packages) |
+| Status | Implemented 2026-10-05 (human read of V2/V3 texts pending) |
 | Version | v0.1 (2026-10-05) |
 | Depends on | P2 Step 2.1 (schema freeze, fixtures, `check_identities`, ancestry map) |
 | Unlocks | P6, P7 |
+
+> **Implementation notes (2026-10-05)** — see `docs/decisions_log.md` (P3 decisions):
+> - Code: `src/perturb/{base,scale,shares,cash_distribution,non_operating,cb,text_numbers,sizing}.py`, placebo templates in `src/perturb/templates/`. Sweep: `scripts/sweep_identities.py` → `results/qa/perturbation_sweep.csv` and `results/qa/cb_variant_samples.md` (V0/V2/V3 texts of 5 seeded small caps for the human read).
+> - Interface: registered functions edit the copy `perturb()` hands them; `perturb()` raises `PerturbationInconsistent` on any hard identity violation and on any *new* soft violation (ending cash ≠ BS cash). Expected failures are `PerturbationOutOfRange` and `PerturbationNotApplicable`. `PerturbMeta` adds `instruments` (per-series CB details).
+> - Ancestry is resolved per package: the line's own `parent`, then `config/ancestry.yaml`, skipping subtotals the firm does not report. CF now routes `cfo/cfi/cff → net_change_before_fx → net_change_in_cash → ending_cash`.
+> - Cash-flow lines follow the firm's sign convention (`cf_outflow_sign`): a dividend of X is shown as +X (or −X) while the financing subtotal falls by X. Missing lines (dividends paid, FVOCI asset, OCI reserve, BS convertible bond, CF CB proceeds) are created as `derived` lines with earlier years unreported.
+> - CB texts are regenerated from edited instruments (D3.6) rather than edited in place; `text_numbers` verifies the old values are gone and the new ones present. V1 drops the CB block (`cb = None`), so the prompt reads "없음".
+> - Sweep on the 150 packages: 2,100 perturbations, 0 identity violations, 0 unexpected errors. Out of range: 66 cash distributions above the cash balance (46 firms, mostly the 10% tier). Not applicable: 4 small caps for V3 (every series at its floor). V3 effective ratios 0.70–0.94.
+> - The sweep exposed a P2 builder bug: 10 firms list equity components before the equity total in DART `ord`, so those lines were filed under non-current assets (also visible in their rendered prompts). Fixed in `package_builder.py`; the 10 packages were rebuilt (`build_packages.py --stage packages,truth,report`). Test coverage of `src/perturb/`: 94%.
 
 ## 1. Objective
 
@@ -183,10 +192,10 @@ Property-based tests with `hypothesis` for scale and shares (random k/m in a ran
 
 ## 8. Exit criteria & verification
 
-- [ ] All unit tests pass on the 5 fixtures.
-- [ ] `sweep_identities.py` on all 150 packages: 0 violations, 0 unexpected exceptions; `PerturbationOutOfRange` cases listed with reasons.
-- [ ] For 5 randomly chosen small caps, the rendered V2 and V3 texts are read by a human: every amount and price was updated, and the text still reads naturally.
-- [ ] D2, D3, D3.1–D3.4 recorded in the decisions log.
+- [x] All unit tests pass on the 5 fixtures.
+- [x] `sweep_identities.py` on all 150 packages: 0 violations, 0 unexpected exceptions; `PerturbationOutOfRange` cases listed with reasons.
+- [ ] For 5 randomly chosen small caps, the rendered V2 and V3 texts are read by a human: every amount and price was updated, and the text still reads naturally (`results/qa/cb_variant_samples.md`).
+- [x] D2, D3, D3.1–D3.4 recorded in the decisions log.
 
 ## 9. Risks & fallbacks
 

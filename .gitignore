@@ -5,6 +5,7 @@
 data/raw/
 data/processed/
 results/runs/
+results/qa/
 *.sqlite
 *.sqlite-journal
 *.sqlite-wal
@@ -18,6 +19,7 @@ __pycache__/
 .pytest_cache/
 .ruff_cache/
 .hypothesis/
+.coverage
 build/
 dist/
 

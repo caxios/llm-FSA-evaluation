@@ -1,6 +1,6 @@
 # Sample Report (P2)
 
-- Generated: 2026-10-05 19:58
+- Generated: 2026-10-05 20:27
 - `T_post`: 2026-04-01; universe firms: 1432
 
 ## Package builds

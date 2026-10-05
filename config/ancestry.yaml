@@ -10,9 +10,12 @@ BS:
   equity_owners: total_equity
   non_controlling_interest: total_equity
   total_equity: total_liabilities_and_equity
+# Missing subtotals are skipped (resolved per package in src/perturb/base.py): a firm that
+# reports only the pre-FX change routes cfo/cfi/cff -> net_change_before_fx -> ending_cash.
 CF:
-  cfo: net_change_in_cash
-  cfi: net_change_in_cash
-  cff: net_change_in_cash
+  cfo: net_change_before_fx
+  cfi: net_change_before_fx
+  cff: net_change_before_fx
+  net_change_before_fx: net_change_in_cash
   fx_effect_on_cash: net_change_in_cash
   net_change_in_cash: ending_cash

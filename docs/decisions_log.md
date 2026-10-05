@@ -140,6 +140,33 @@ Format per entry: date, phase, options considered, decision, reason, affected do
 - `main_business` in `quiz_truth` must be filled by hand before E6 (P8).
 - Hand checks required by the P2 exit criteria: 10 CB rows against the DART viewer; read the rendered prompts in `tests/fixtures/rendered/`.
 
+## P3 decisions (2026-10-05)
+
+### D2 — Equity counterpart of the non-operating asset perturbation
+- Decision: FVOCI asset +X (existing non-current FVOCI line, else a new "기타포괄손익-공정가치 측정 금융자산" line) against the accumulated OCI reserve (`oci_reserve`, else `other_equity`, else a new "기타포괄손익누계액" line). IS and CF unchanged.
+- Limitation: a fair-value gain arising in the year would also appear in the year's OCI; the IS is left unchanged so that the perturbation touches the balance sheet only.
+
+### D3 — Balancing entry for CB V2
+- Decision: cash +ΔF with a CF inflow on "전환사채의 발행" (created if absent); BS convertible-bond line +ΔF (the largest `debt:convertible` line, else a new "전환사채" line under non-current liabilities). Net debt and equity are unchanged (tested).
+
+### D3.1, D3.2 — Shares and cash distribution
+- D3.1: m = 2; EPS and DPS ÷ m in all years. When a CB block is present it gets the standard anti-dilution adjustment (conversion price and floor ÷ m, convertible shares × m), so the dilution ratio is unchanged.
+- D3.2: DPS of the latest year + X / common shares outstanding. The dividend line follows the firm's sign convention; a "배당금의 지급" line is created under financing activities when none exists.
+
+### D3.3 (implementation) — V3 floor when undisclosed
+- The package carries only the current conversion price, so an undisclosed floor is set to 70% of the *current* price (equal to 70% of the initial price unless the series was already refixed). New prices are rounded up to the won so they never fall below the floor. Per-series `ratio` and `floor_assumed` are recorded in `PerturbMeta.instruments`. Series at the floor stay unchanged; a firm with every series at its floor is not applicable (4 of 50).
+
+### D3.4 — CB block in scale packages
+- `scale` refuses packages with a CB block; E2 callers pass `without_cb(pkg)`.
+
+### D3.6 — CB text editing
+- Decision: V2/V3 regenerate the CB text from the edited instruments with the P2 template (D2.6) instead of replacing numbers in place. `text_numbers` checks that every changed amount or price is gone and its new value is present. The general replacement helpers (`replace_amount`, `replace_price`) are implemented and tested for use on original filing text.
+- V1 drops the CB block entirely (prompt shows "없음") rather than leaving an empty block.
+- V4 placebos come from templates filled with the firm's own data (redeemed-CB placebo: earlier series number, median face and price, dates three years earlier). The package carries no actual redeemed series.
+
+### P2 fix found by the P3 sweep
+- 10 firms list equity components (자본잉여금, 기타자본, 기타포괄손익누계액) before the equity total in DART `ord`; the builder filed them under non-current assets, which put them in the wrong place in the rendered statements. The builder now reassigns equity components (by canonical, account ID or label) to equity; the 10 packages were rebuilt. Sample and ground truth unchanged.
+
 ---
 
 ## Research-plan revision

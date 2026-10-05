@@ -17,6 +17,17 @@ def load_fixture(*parts: str) -> Any:
     return path.read_text(encoding="utf-8")
 
 
+PACKAGE_NAMES = ["large_pref", "mid", "small_cb_multi", "small_cb_single", "unmapped_heavy"]
+CB_PACKAGE_NAMES = ["small_cb_multi", "small_cb_single", "unmapped_heavy"]
+
+
+def load_package(name: str):
+    from src.data.package_schema import InputPackage
+
+    path = FIXTURES / "packages" / f"{name}.json"
+    return InputPackage.from_json(path.read_text(encoding="utf-8"))
+
+
 class FakeResponse:
     def __init__(self, status_code: int = 200, body: Any = None, content: bytes | None = None):
         self.status_code = status_code

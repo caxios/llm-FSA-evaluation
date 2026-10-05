@@ -40,6 +40,12 @@ from src.perturb.consistency import cash_roll_ok, check_identities
 BS_SECTIONS = ("current_assets", "non_current_assets", "current_liabilities",
                "non_current_liabilities", "total_equity")
 BS_RESET = ("total_assets", "total_liabilities", "total_liabilities_and_equity")
+EQUITY_COMPONENTS = ("issued_capital", "retained_earnings", "oci_reserve", "other_equity")
+_EQUITY_ID = re.compile(r"CapitalSurplus|SharePremium|StockholdersEquity|TreasuryShares|"
+                        r"OtherComprehensiveIncomeLossAccumulated|IssuedCapital|"
+                        r"RetainedEarnings|CapitalAdjustment")
+_EQUITY_LABEL = re.compile(r"(자본금|자본잉여금|주식발행초과금|자본조정|기타자본|"
+                           r"기타포괄손익누계액|이익잉여금|결손금|자기주식|기타불입자본|신종자본증권)")
 CF_SECTIONS = ("cfo", "cfi", "cff")
 CF_RESET = ("beginning_cash", "ending_cash", "net_change_in_cash", "net_change_before_fx",
             "fx_effect_on_cash")
@@ -143,6 +149,13 @@ def build_statement(fs: pd.DataFrame, code: str, years: list[int],
     if code == "IS":
         _fix_income_statement(lines)
 
+    # Some filers list equity components before the equity total in DART `ord`, so the
+    # section tracking files them under the preceding asset or liability section.
+    if code == "BS":
+        for ln in lines:
+            if ln.parent in BS_SECTIONS[:4] and _is_equity_component(ln):
+                ln.parent = "total_equity"
+
     # Equity components roll into owners' equity when it is reported (consolidated).
     if code == "BS":
         has_owners = any(ln.canonical == "equity_owners" for ln in lines)
@@ -161,6 +174,11 @@ def build_statement(fs: pd.DataFrame, code: str, years: list[int],
     if missing:
         issues.append(f"{code} missing required: {', '.join(missing)}")
     return Statement(code=code, title=title, lines=lines), issues
+
+
+def _is_equity_component(ln: LineItem) -> bool:
+    return (ln.canonical in EQUITY_COMPONENTS or bool(_EQUITY_ID.search(ln.account_id))
+            or bool(_EQUITY_LABEL.match(normalize_label(ln.label))))
 
 
 def _fix_income_statement(lines: list[LineItem]) -> None:
