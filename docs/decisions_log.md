@@ -97,6 +97,16 @@ Format per entry: date, phase, options considered, decision, reason, affected do
 - Reason: probe results (`docs/data_access_memo.md`).
 - Open item: the KOSDAQ daily trading service (`ksq_bydd_trd`) is not yet approved for the project's KRX key.
 
+## D0.1 — Primary model
+- Date: 2026-10-05
+- Phase: P0
+- Options considered: Llama 4 Scout / Gemma 3 27B (open weights, Aug 2024 cutoff; need another provider); Gemini 3.7 Flash (cutoff March 2026, conflicts with `T_post`); Gemini 2.5 Flash (closed to new users); Gemini 2.5 Flash-Lite (cutoff January 2025).
+- Decision: **Gemini 2.5 Flash-Lite** (`gemini-2.5-flash-lite`) via the Google Gemini API, per the user's instruction to use an earlier-released model.
+- Reason: oldest GA model available on the project's key; documented cutoff 14 months before `T_post`, so D1 and the time-based identification (E7) remain valid.
+- Trade-offs: closed-weight model (deviation from research plan §6.4, which specifies an open-weight primary model); high run-to-run noise in the probe; deprecation risk.
+- Affects: `config/models.yaml`, research plan §6.3–§6.4 wording, P5, P7
+- Research-plan deviation: yes (§6.4 "오픈웨이트 주 모델")
+
 ---
 
 ## Research-plan revision
@@ -108,6 +118,4 @@ Format per entry: date, phase, options considered, decision, reason, affected do
 | ID | Decision | Status |
 |---|---|---|
 | D2, D3, D4, D6, D7 | Roadmap decisions (see `implementation_plan.md` R§16) | Resolved in their phases |
-| D0.1 | Primary model | **Set by the user 2026-10-05: Gemini 3.7 Flash** (working choice, "for now"). Probe 5/5 schema-valid |
-| D1-conflict | Gemini 3.7 Flash cutoff (March 2026) vs `T_post = 2026-04-01` | Open. Options: (a) keep both, drop the time-based identification and E7 to exploratory; (b) Gemini as comparison model, an open-weight model with an August 2024 cutoff as primary; (c) move `T_post` to the 2026 half-year report (big design change) |
-| D0.2 | Comparison model | Not needed until P9 |
+| D0.2 | Comparison model | Candidate: Gemini 3.7 Flash (probe 5/5). Decide in P9 |

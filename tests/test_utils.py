@@ -43,6 +43,23 @@ def test_write_raw_creates_sidecar_and_redacts(tmp_path: Path):
     assert "fetched_at" in meta
 
 
+def test_atomic_write_retries_transient_permission_error(tmp_path: Path, monkeypatch):
+    target = tmp_path / "quota.json"
+    real_replace = os.replace
+    calls = {"n": 0}
+
+    def flaky(src, dst):
+        calls["n"] += 1
+        if calls["n"] < 3:
+            raise PermissionError("[WinError 5] Access is denied")
+        real_replace(src, dst)
+
+    monkeypatch.setattr(os, "replace", flaky)
+    monkeypatch.setattr(io.time, "sleep", lambda s: None)
+    io.atomic_write(target, b"{}")
+    assert target.read_bytes() == b"{}" and calls["n"] == 3
+
+
 def test_atomic_write_leaves_no_partial_file(tmp_path: Path, monkeypatch):
     target = tmp_path / "out.bin"
     target.write_bytes(b"old")

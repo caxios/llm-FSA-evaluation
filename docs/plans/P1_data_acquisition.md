@@ -17,6 +17,13 @@
 > - `cb_parser`: DART XML cells use `TE`/`TU` tags in addition to `TD`/`TH`; two-level header; unit caption `(단위 : 원, 주)`; final row `합 계`.
 > - `cvbdIsDecsn.json` provides the refixing floor (`act_mktprcfl_cvprc_lwtrsprc`) directly; dates are Korean strings.
 
+> **Implementation notes (2026-10-05)** — where the code differs from the design below:
+> - Code: `src/data/{rate_limit,parsing,dart_client,krx_client,price_client,cb_parser,cb_collect,universe,pipeline,coverage}.py`, CLI `scripts/fetch_all.py`. P1 tables go to `data/processed/p1/*.parquet`.
+> - Stage order: `corpcodes, listing, cb_issuers, company, universe, fs, shares, cb, prices, report`. `company.json` is fetched only for KOSPI issues trading on KRX at `T_post` plus KOSDAQ CB issuers (~1,500 calls instead of ~4,000).
+> - Refixings are collected for the window (FY end, `T_post`], because the annual-report table already reflects earlier adjustments.
+> - The CB-table parser reports `status`: `table` / `none_declared` ("해당사항 없음") / `not_found` / `no_report`.
+> - The `prices` stage stores closes at `T_post` and at the primary model's training cutoff (for E7). KOSDAQ prices fall back to yfinance until the KRX KOSDAQ service is approved (see the data memo on yfinance adjustments).
+
 ## 1. Objective
 
 Build idempotent, rate-limited clients for OpenDART, KRX, and prices. Use them to fetch the raw data for the full candidate universe into `data/raw/`, reproducibly via one script.

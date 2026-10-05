@@ -3,7 +3,18 @@
 | Item | Value |
 |---|---|
 | Date | 2026-10-05 |
-| Status | **Working primary set by the user: Gemini 3.7 Flash** (see update below). Conflict with D1 open |
+| Status | **Primary: Gemini 2.5 Flash-Lite** (user decision: use an older model). D1 conflict resolved |
+
+## Update 2026-10-05 (2): Gemini 2.5 Flash-Lite as primary
+
+- The user asked for an earlier-released model so that the cutoff precedes `T_post`.
+- `gemini-2.5-flash` returns 404 "no longer available to new users". Models callable on the key and older than Gemini 3.7: `gemini-2.5-flash-lite` (GA, released 2025-06-17, **cutoff January 2025**), `gemini-3-flash-preview` (preview, Gemini 3 family), `gemma-4-31b-it` (cutoff not documented in sources found).
+- Chosen: **`gemini-2.5-flash-lite`** — oldest GA model available, documented cutoff 14 months before `T_post = 2026-04-01`. `T_post`/`T_pre` (D1) stay as they are.
+- Probe (same prompt, temperature 0.3, 5 runs): **JSON 5/5, schema 5/5**, intermediates populated; median latency 4.0 s; ~5,100 input / ~900 output tokens, **no thinking tokens**.
+- **Noise warning**: value per share ranged 41,327–259,500 KRW (median 120,237) over 5 runs — much wider than Gemini 3.7 Flash (97,613–124,433). The pilot must check gate G4 (measurability) carefully; more repetitions may be needed.
+- Cost: ≈ $0.0009 per valuation call → **≈ $35 for the main design**.
+- Availability risk: Gemini 2.5 Flash is already closed to new users; Flash-Lite may follow. Mitigation: record the model id per call (P5), run the main experiments without long gaps, and keep `gemini-3-flash-preview` as the fallback (verify its cutoff first).
+- Gemini 3.7 Flash remains a candidate for the comparison model (P9).
 | Probe | `scripts/probes/probe_model.py` (`--dry-run` verified; prompt built from the Samsung FY2025 fixture) |
 
 ## Update 2026-10-05: Gemini 3.7 Flash as working primary

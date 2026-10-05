@@ -1,0 +1,84 @@
+[
+ {
+  "rep": 0,
+  "latency": 4.278575500007719,
+  "usage": {
+   "completion_tokens": 992,
+   "prompt_tokens": 5087,
+   "total_tokens": 6079
+  },
+  "model_reported": "gemini-2.5-flash-lite",
+  "json_ok": true,
+  "schema_ok": true,
+  "value_per_share": 120913.0,
+  "intermediates_populated": true
+ },
+ {
+  "rep": 1,
+  "latency": 3.9547176000196487,
+  "usage": {
+   "completion_tokens": 943,
+   "prompt_tokens": 5087,
+   "prompt_tokens_details": {
+    "cached_tokens": 4086
+   },
+   "total_tokens": 6030
+  },
+  "model_reported": "gemini-2.5-flash-lite",
+  "json_ok": true,
+  "schema_ok": true,
+  "value_per_share": 41327.0,
+  "intermediates_populated": true
+ },
+ {
+  "rep": 2,
+  "latency": 3.537918500136584,
+  "usage": {
+   "completion_tokens": 804,
+   "prompt_tokens": 5087,
+   "prompt_tokens_details": {
+    "cached_tokens": 4086
+   },
+   "total_tokens": 5891
+  },
+  "model_reported": "gemini-2.5-flash-lite",
+  "json_ok": true,
+  "schema_ok": true,
+  "value_per_share": 94828.0,
+  "intermediates_populated": true
+ },
+ {
+  "rep": 3,
+  "latency": 3.7915145000442863,
+  "usage": {
+   "completion_tokens": 848,
+   "prompt_tokens": 5087,
+   "prompt_tokens_details": {
+    "cached_tokens": 4086
+   },
+   "total_tokens": 5935
+  },
+  "model_reported": "gemini-2.5-flash-lite",
+  "json_ok": true,
+  "schema_ok": true,
+  "value_per_share": 259500.0,
+  "intermediates_populated": true
+ },
+ {
+  "rep": 4,
+  "latency": 4.275872899917886,
+  "usage": {
+   "completion_tokens": 896,
+   "prompt_tokens": 5087,
+   "prompt_tokens_details": {
+    "cached_tokens": 4086
+   },
+   "total_tokens": 5983
+  },
+  "model_reported": "gemini-2.5-flash-lite",
+  "json_ok": true,
+  "schema_ok": true,
+  "value_per_share": 120237.0,
+  "intermediates_populated": true
+ }
+]

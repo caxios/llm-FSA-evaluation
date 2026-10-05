@@ -1,0 +1,171 @@
+<html>
+ <head> 
+  <meta content="gdi" http-equiv="X-UA-TextLayoutMetrics"> 
+  <meta content="text/html; charset=euc-kr" http-equiv="Content-Type"> 
+  <STYLE>
+.xforms * { font-family: 돋움체;}
+.xforms_title * { font-size: 13pt; padding : 0 0 10 0;}
+
+.xforms table {
+    font-size: 10px;
+    padding:0px;
+    border-collapse:collapse;
+    color: #3D3D3D;
+}
+.xforms td {
+    padding-left:0px;
+    padding-top:0px;
+    border-collapse:collapse;
+    line-height:22px;
+    color: #3D3D3D;
+    /*text-align:right;*/
+    vertical-align:middle;
+    border: 1px solid #7f7f7f;
+}
+
+.xforms span {
+    /*display: inline-block;*/
+    padding-left:3px;
+    padding-right: 1px;
+    line-height:22px;
+    padding-top:0px;
+    padding-bottom:0px;
+    text-align:left;
+    vertical-align:middle;
+    border: 0px solid #DBDBDB;
+}
+
+.xforms.img{
+    border : 0px;
+}
+
+.xforms a:link {
+
+    color: #194866;
+    text-decoration: none;
+}
+.xforms a:active {
+
+    color: #194866;
+    text-decoration: none;
+}
+.xforms a:visited {
+    color: #194866;
+    text-decoration: none;
+}
+
+.xforms A:hover {
+    color:008BE3;
+    text-decoration: none;
+}
+
+.xforms_input{
+    border: 0px solid #DBDBDB;
+    padding-left:3px;
+    padding-right: 1px;
+    height:22px;
+    padding-top:0px;
+    padding-bottom:0px;
+    text-align:left;
+}
+</STYLE> 
+  <title>빛과전자/전환가액의조정/(2026.08.26)전환가액의조정(제17회차)</title> 
+ </head> 
+ <body> 
+  <div class="xforms"> 
+   <div> 
+    <span class="noprint" style="display:none;width:600px;font-size:10pt;"> </span> 
+    <div class="xforms_title"> 
+     <div> 
+      <span style="width:596px;font-weight:bold;text-align:center;">전환가액의 조정</span> 
+     </div> 
+    </div> 
+    <span class="noprint" style="display:none;width:600px;font-size:10pt;"> </span> 
+    <table border="1" bordercolordark="white" bordercolorlight="#666666" cellpadding="1" cellspacing="0" id="XFormD25_Form0_RepeatTable1" style="margin:0px 0px 20px 0px;width:599px;font-size:10pt;border:1px solid #7f7f7f;"> 
+     <tbody> 
+      <tr> 
+       <td colspan="2" rowspan="2" width="168"> <span style="width:168px;font-size:10pt;">1. 조정에 관한 사항</span> </td> 
+       <td width="40"> <span style="width:40px;font-size:10pt;text-align:center;">회차</span> </td> 
+       <td width="84"> <span style="width:84px;font-size:10pt;text-align:center;">상장여부</span> </td> 
+       <td width="145"> <span style="width:145px;font-size:10pt;text-align:center;">조정전 전환가액 (원)</span> </td> 
+       <td colspan="2" width="162"> <span style="width:162px;font-size:10pt;text-align:center;">조정후 전환가액 (원)</span> </td> 
+      </tr> 
+      <tr> 
+       <td width="40"> <span class="xforms_input" style="width:40px;font-size:10pt;text-align:center;">17</span> </td> 
+       <td width="84"> <span class="xforms_input" style="width:84px;font-size:10pt;text-align:center;">비상장</span> </td> 
+       <td width="145"> <span class="xforms_input" style="width:145px;font-size:10pt;text-align:right;">5,769</span> </td> 
+       <td colspan="2" width="162"> <span class="xforms_input" style="width:162px;font-size:10pt;text-align:right;">4,039</span> </td> 
+      </tr> 
+      <tr> 
+       <td colspan="2" rowspan="2" width="168"> <span style="width:168px;font-size:10pt;">2. 전환가능주식수 변동</span> </td> 
+       <td width="40"> <span style="width:40px;font-size:10pt;text-align:center;">회차</span> </td> 
+       <td colspan="2" width="229"> <span style="width:229px;font-size:10pt;text-align:center;">미전환사채의 권면(전자등록)총액 (통화단위)</span> </td> 
+       <td width="81"> <span style="width:81px;font-size:10pt;text-align:center;">조정전 전환가능 주식수 (주)</span> </td> 
+       <td width="81"> <span style="width:81px;font-size:10pt;text-align:center;">조정후 전환가능 주식수 (주)</span> </td> 
+      </tr> 
+      <tr> 
+       <td width="40"> <span class="xforms_input" style="width:40px;font-size:10pt;text-align:center;">17</span> </td> 
+       <td width="84"> <span class="xforms_input" style="width:84px;font-size:10pt;text-align:right;">8,000,000,000</span> </td> 
+       <td width="145"> <span class="xforms_input" style="width:145px;font-size:10pt;">KRW : South-Korean Won</span> </td> 
+       <td width="81"> <span class="xforms_input" style="width:81px;font-size:10pt;text-align:right;">1,386,722</span> </td> 
+       <td width="81"> <span class="xforms_input" style="width:81px;font-size:10pt;text-align:right;">1,980,688</span> </td> 
+      </tr> 
+      <tr> 
+       <td colspan="2" width="168"> <span style="width:168px;font-size:10pt;">3. 조정사유</span> </td> 
+       <td colspan="5" width="431"> <span class="xforms_input" style="width:431px;font-size:10pt;">시가하락에 따른 전환가액 조정</span> </td> 
+      </tr> 
+      <tr> 
+       <td colspan="2" width="168"> <span style="width:168px;font-size:10pt;">4. 조정근거 및 방법</span> </td> 
+       <td colspan="5" width="431"> <span class="xforms_input" style="width:431px;font-size:10pt;">1.조정근거 <br xmlns:java="http://xml.apache.org/xalan/java">라. 위 (가) 내지 (다)와는 별도로, 본 사채 발행 후 매3개월이 경과한 날(2026년 08월 26일, 2026년 11월 26일, 2027년 02월 26일, 2027년 05월 26일, 2027년 08월 26일, 2027년 11월 26일, 2028년 02월 26일, 2028년 05월 26일, 2028년 08월 26일, 2028년 11월 26일, 2029년 02월 26일)을 전환가액 조정일로 하고, 각 전환가액 조정일 전일을 기산일로 하여 (i) 그 기산일로부터 소급한 1개월 가중산술평균주가, 1주일 가중산술평균주가 및 기산일 가중산술평균주가를 산술평균한 가액과 (ii) 기산일 가중산술평균주가 중 높은 가격이 해당 조정일 직전일 현재의 전환가액보다 낮은 경우 동 낮은 가격을 새로운 전환가액으로 한다. 단, 새로운 전환가액의 조정한도는 동조 제(3)호 전환가액의 70%에 해당하는 가격으로 한다. <br xmlns:java="http://xml.apache.org/xalan/java"> <br xmlns:java="http://xml.apache.org/xalan/java">마. 위 (라)목과는 별도로, 위 (라)목에 따라 산정한 시가산정가액이 해당 조정일 직전일 현재의 전환가액보다 높은 경우에는 동 높은 가액을 새로운 전환가액으로 한다. 단, 본 목에 따른 조정 후 전환가액은 최초 전환가액(조정일 전에 신주의 할인발행 등 또는 감자 등의 사유로 전환가액을 이미 하향 또는 상향 조정한 경우에는 이를 감안하여 산정한 가액)을 상한으로 한다. <br xmlns:java="http://xml.apache.org/xalan/java"> <br xmlns:java="http://xml.apache.org/xalan/java">바. 위 (가)목 내지 (마)목에 의하여 조정된 전환가액이 주식의 액면가 이하일 경우에는 액면가를 전환가액으로 하며, 각 전환사채의 전환으로 인하여 발행할 주식의 발행가액의 합계액은 각 전환사채의 발행가액을 초과할 수 없다. <br xmlns:java="http://xml.apache.org/xalan/java"> <br xmlns:java="http://xml.apache.org/xalan/java">사. 본 호에 의한 조정 후 전환가액 중 원단위 미만은 절상한다. <br xmlns:java="http://xml.apache.org/xalan/java"> <br xmlns:java="http://xml.apache.org/xalan/java">2. 조정방법 <br xmlns:java="http://xml.apache.org/xalan/java">
+         <!--?javax.xml.transform.disable-output-escaping?--> 
+         <!--?javax.xml.transform.enable-output-escaping?-->①1개월 가중산술평균주가 : 2,785.02원 <br xmlns:java="http://xml.apache.org/xalan/java">
+         <!--?javax.xml.transform.disable-output-escaping?--> 
+         <!--?javax.xml.transform.enable-output-escaping?-->②1주일 가중산술평균주가 : 2,703.96원 <br xmlns:java="http://xml.apache.org/xalan/java">
+         <!--?javax.xml.transform.disable-output-escaping?--> 
+         <!--?javax.xml.transform.enable-output-escaping?-->③최근일 가중산술평균주가: 2,740.68원 <br xmlns:java="http://xml.apache.org/xalan/java">
+         <!--?javax.xml.transform.disable-output-escaping?--> 
+         <!--?javax.xml.transform.enable-output-escaping?-->④산술평균가액((①+②+③)/3): 2,743.22원 <br xmlns:java="http://xml.apache.org/xalan/java">
+         <!--?javax.xml.transform.disable-output-escaping?--> 
+         <!--?javax.xml.transform.enable-output-escaping?-->⑤기준주가(③,④ 중 높은가액): 2,743.22원 <br xmlns:java="http://xml.apache.org/xalan/java">
+         <!--?javax.xml.transform.disable-output-escaping?--> 
+         <!--?javax.xml.transform.enable-output-escaping?-->⑥조정전 전환가액: 5,769원 <br xmlns:java="http://xml.apache.org/xalan/java">
+         <!--?javax.xml.transform.disable-output-escaping?--> 
+         <!--?javax.xml.transform.enable-output-escaping?-->⑦전환가액 조정 최저한도(70%): 4,039원 <br xmlns:java="http://xml.apache.org/xalan/java">
+         <!--?javax.xml.transform.disable-output-escaping?--> 
+         <!--?javax.xml.transform.enable-output-escaping?-->⑧조정후 전환가액 : 4,039원(원단위 미만 절상)</span> </td> 
+      </tr> 
+      <tr> 
+       <td colspan="2" width="168"> <span style="width:168px;font-size:10pt;">5. 조정가액 적용일</span> </td> 
+       <td colspan="5" width="431"> <span class="xforms_input" style="width:431px;font-size:10pt;">2026-08-26</span> </td> 
+      </tr> 
+      <tr> 
+       <td colspan="2" width="168"> <span style="width:168px;font-size:10pt;">6. 이사회결의일(결정일)</span> </td> 
+       <td colspan="5" width="431"> <span class="xforms_input" style="width:431px;font-size:10pt;">-</span> </td> 
+      </tr> 
+      <tr> 
+       <td rowspan="2" width="101"> <span style="width:101px;font-size:10pt;">- 사외이사 참석여부</span> </td> 
+       <td width="67"> <span style="width:67px;font-size:10pt;">참석(명)</span> </td> 
+       <td colspan="5" width="431"> <span class="xforms_input" style="width:431px;font-size:10pt;text-align:right;">-</span> </td> 
+      </tr> 
+      <tr> 
+       <td width="67"> <span style="width:67px;font-size:10pt;">불참(명)</span> </td> 
+       <td colspan="5" width="431"> <span class="xforms_input" style="width:431px;font-size:10pt;text-align:right;">-</span> </td> 
+      </tr> 
+      <tr> 
+       <td colspan="2" width="168"> <span style="width:168px;font-size:10pt;">- 감사(사외이사가 아닌 감사위원) 참석여부</span> </td> 
+       <td colspan="5" width="431"> <span class="xforms_input" style="width:431px;font-size:10pt;">-</span> </td> 
+      </tr> 
+      <tr> 
+       <td colspan="2" rowspan="2" width="168"> <span style="width:168px;font-size:10pt;">7. 기타 투자판단에 참고할 사항</span> </td> 
+       <td colspan="5" width="431"> <span class="xforms_input" style="width:431px;font-size:10pt;">-</span> </td> 
+      </tr> 
+      <tr> 
+       <td colspan="2" width="124"> <span style="width:124px;font-size:10pt;">※ 관련공시</span> </td> 
+       <td colspan="3" width="307"> <span style="width:307px;font-size:10pt;"> <a href="http://kind.krx.co.kr/common/disclsviewer.do?method=search&amp;acptno=20260515002578&amp;rcpno=20260515002359&amp;orgid=F&amp;tran=Y&amp;langTpCd=0" target="_blank" xmlns="http://www.w3.org/1999/xhtml" xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xh="http://www.w3.org/1999/xhtml" xmlns:xsd="http://www.w3.org/2001/XMLSchema">2026-05-15 전환사채권발행결정(제17회차)</a> <br xmlns:java="http://xml.apache.org/xalan/java"> <a href="http://kind.krx.co.kr/common/disclsviewer.do?method=search&amp;acptno=20260526000537&amp;rcpno=20260526000537&amp;orgid=K&amp;tran=Y&amp;langTpCd=0" target="_blank" xmlns="http://www.w3.org/1999/xhtml" xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xh="http://www.w3.org/1999/xhtml" xmlns:xsd="http://www.w3.org/2001/XMLSchema">2026-05-26 증권 발행결과(자율공시)(제17회차)</a> <br xmlns:java="http://xml.apache.org/xalan/java"> </span> </td> 
+      </tr> 
+     </tbody> 
+    </table> 
+   </div> 
+  </div>  
+ </body>
+</html>

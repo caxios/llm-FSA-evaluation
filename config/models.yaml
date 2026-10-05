@@ -18,21 +18,21 @@
 #     context_window: 128000
 #     structured_output: false
 models:
-  # D0.1 (2026-10-05, user decision): Gemini 3.7 Flash as the working primary model.
-  # Probe: 5/5 schema-valid (docs/model_selection_memo.md).
+  # D0.1 (2026-10-05, user decision): an older model whose cutoff precedes T_post.
+  # gemini-2.5-flash is closed to new users; gemini-2.5-flash-lite is the oldest available
+  # GA model on this key. Probe: 5/5 schema-valid (docs/model_selection_memo.md).
   primary:
     provider: openai_compatible
-    model_id: gemini-3.7-flash          # API version string: 3.7-flash-08-2026
+    model_id: gemini-2.5-flash-lite
     base_url: https://generativelanguage.googleapis.com/v1beta/openai
     api_key_env: GOOGLE_API_KEY
-    # Model card: "March 2026", uneven across domains (some limited to January 2025).
-    training_cutoff: 2026-03-01
-    cutoff_source: https://storage.googleapis.com/deepmind-media/Model-Cards/Gemini-3-7-Flash-Model-Card.pdf
-    reasoning: true                     # internal thinking tokens are billed as output
+    training_cutoff: 2025-01-01
+    cutoff_source: https://docs.cloud.google.com/vertex-ai/generative-ai/docs/models/gemini/2-5-flash-lite
+    reasoning: false                    # thinking off by default; probe showed no thinking tokens
     temperature: 0.3
-    max_output_tokens: 8192             # thinking tokens count against this budget
+    max_output_tokens: 8192
     max_concurrency: 4
-    price_in_per_mtok: 0.75             # third-party price listings, Oct 2026; verify on ai.google.dev
-    price_out_per_mtok: 3.75
+    price_in_per_mtok: 0.10             # verify on ai.google.dev pricing page
+    price_out_per_mtok: 0.40
     context_window: 1048576
     structured_output: false

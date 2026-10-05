@@ -59,6 +59,7 @@ Status legend: **available** / **workaround** / **unavailable** / **action neede
 | 069540 | 2023-04-03 | 2,775 | 2,775 | n/a (KOSDAQ not approved) |
 
 - KRX close is the official, unadjusted point-in-time price. yfinance `Close` matches it for past dates but differed on 2026-04-01 for two tickers; yfinance `Adj Close` is dividend-adjusted and must not be used as "the price on that date".
+- **P1 smoke-run finding**: for KOSDAQ tickers, yfinance `Close` is retroactively adjusted for bonus issues and rights offerings (non-integer prices such as 2,954.17 KRW; a 2024-12-30 close of 9,051.07 KRW). It is therefore **not** a point-in-time price for firms with capital changes. Until the KRX KOSDAQ service is approved, KOSDAQ prices in `prices_snapshot` are marked `source = yfinance` and must not be used as ground truth for the ITM test, the quiz, or E7.
 - **Recommendation (D0.3)**: KRX Open API close for all point-in-time prices (quiz truth, ITM test, $P^{old}$, $P^{new}$). For the E7 log price change, adjust for share-count changes (splits, bonus issues) using `LIST_SHRS` changes and DART capital-change filings; yfinance `Close` only as a fallback.
 
 ## Decisions proposed from the probes

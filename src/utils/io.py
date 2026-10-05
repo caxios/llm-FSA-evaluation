@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import os
 import tempfile
+import time
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -20,6 +21,19 @@ def redact(params: dict[str, Any] | None) -> dict[str, Any]:
     return {k: (REDACTED if k.lower() in SECRET_KEYS else v) for k, v in params.items()}
 
 
+def _replace_with_retry(src: str, dst: Path, attempts: int = 10, delay: float = 0.05) -> None:
+    """os.replace, retried on PermissionError: on Windows the target can be briefly locked by
+    antivirus or search indexing ("Access is denied")."""
+    for i in range(attempts):
+        try:
+            os.replace(src, dst)
+            return
+        except PermissionError:
+            if i == attempts - 1:
+                raise
+            time.sleep(delay * (i + 1))
+
+
 def atomic_write(path: Path, data: bytes) -> None:
     """Write `data` to `path` via a temp file + rename, so readers never see a partial file."""
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -27,7 +41,7 @@ def atomic_write(path: Path, data: bytes) -> None:
     try:
         with os.fdopen(fd, "wb") as f:
             f.write(data)
-        os.replace(tmp, path)
+        _replace_with_retry(tmp, path)
     except BaseException:
         if os.path.exists(tmp):
             os.remove(tmp)

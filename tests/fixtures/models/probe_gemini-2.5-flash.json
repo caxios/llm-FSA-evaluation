@@ -1,0 +1,27 @@
+[
+ {
+  "rep": 0,
+  "json_ok": false,
+  "error": "HTTPError: 404 Client Error: Not Found for url: https://generativelanguage.googleapis.com/v1beta/openai/chat/completions"
+ },
+ {
+  "rep": 1,
+  "json_ok": false,
+  "error": "HTTPError: 404 Client Error: Not Found for url: https://generativelanguage.googleapis.com/v1beta/openai/chat/completions"
+ },
+ {
+  "rep": 2,
+  "json_ok": false,
+  "error": "HTTPError: 404 Client Error: Not Found for url: https://generativelanguage.googleapis.com/v1beta/openai/chat/completions"
+ },
+ {
+  "rep": 3,
+  "json_ok": false,
+  "error": "HTTPError: 404 Client Error: Not Found for url: https://generativelanguage.googleapis.com/v1beta/openai/chat/completions"
+ },
+ {
+  "rep": 4,
+  "json_ok": false,
+  "error": "HTTPError: 404 Client Error: Not Found for url: https://generativelanguage.googleapis.com/v1beta/openai/chat/completions"
+ }
+]
