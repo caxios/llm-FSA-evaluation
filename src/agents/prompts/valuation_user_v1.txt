@@ -1,0 +1,14 @@
+[기업 정보]
+{company_block}
+
+[재무제표] (단위: 백만 원, 주당 금액은 원)
+{financial_statements}
+
+[주식 정보]
+{share_info}
+
+[주석 요약]
+{notes}
+
+[추가 공시]
+{additional_filings}

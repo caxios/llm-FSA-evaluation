@@ -186,6 +186,24 @@ Format per entry: date, phase, options considered, decision, reason, affected do
 - On the 150 sample packages no label contains a name, investee, ticker or CEO, so A/B/D differ from C only in the company block. The redactor matters for future inputs (E10, robustness runs) and is tested on planted labels.
 - The LLM check lists only tokens literally present in the prompt; firm names the model infers from the numbers are not redaction failures (E5 measures them).
 
+## P5 decisions (2026-10-05)
+
+### D4 / D5.1 — Schema additions and prompt rules
+- `calculation` adds `non_operating_assets_added`, `shares_used`, `discounting_convention`; the prompt asks for end-of-year discounting and states the equity bridge (EV − net debt + non-operating assets) and per-share rule. Rates given as percentages are converted and flagged (`normalized_percent`); WACC ≤ g is invalid.
+- Mid-year convention in `valuation_tools`: flows at t − 0.5, terminal value at 4.5.
+
+### D5.3 / D5.4 — Cache key and retries
+- Cache key = hash of rendered messages, agent identity (model id + decoding, or synthetic agent parameters), rep, agent structure, schema name and schema version. The experiment is not part of the key, so identical prompts across experiments (E0, E7, E8-V1 vs E2) are one call.
+- Up to 2 schema retries within the same conversation and rep; a rep that still fails is stored invalid and not re-run.
+
+### Infrastructure deviations
+- Thread pool + per-model semaphore + RPM limiter instead of `asyncio`; OpenAI-compatible client only (no Anthropic adapter needed for the configured models).
+- One builder module (`src/experiments/builders.py`) instead of six files. E3 without E0-based `SizeDecision`s uses 5% of book equity as a placeholder (tag such runs).
+- The runner halts (`ModelChanged`) if the provider reports a different model id mid-run.
+
+### Smoke-run findings for the pilot
+- gemini-2.5-flash-lite: 11/12 valid; unit slips (KRW billion instead of million; share count 1,000× too small), very large spread between reps, English rationale, and "Analyst Projections" in `sources_used` under condition C. A stricter extraction instruction (copy table values without unit conversion) is a candidate prompt change before the preregistration freeze; decide in P7.
+
 ---
 
 ## Research-plan revision

@@ -58,3 +58,41 @@ class FakeSession:
         if endpoint not in self.routes:
             raise AssertionError(f"unexpected request to {endpoint}")
         return self.routes[endpoint](dict(params or {}))
+
+
+class FixtureStore:
+    """PackageStore over the fixture packages (runner and job-builder tests)."""
+
+    def __init__(self, names: list[str] | None = None):
+        from src.conditions.identifiers import FirmIdentifiers, name_variants
+
+        self._ids = FirmIdentifiers
+        self._variants = name_variants
+        self.pkgs = {}
+        for n in names or PACKAGE_NAMES:
+            p = load_package(n)
+            self.pkgs[p.meta.firm_id] = p
+        import pandas as pd
+
+        self.sample = pd.DataFrame({"firm_id": list(self.pkgs),
+                                    "group": [p.meta.group for p in self.pkgs.values()]}
+                                   ).set_index("firm_id")
+
+    def package(self, firm_id):
+        return self.pkgs[firm_id]
+
+    def group(self, firm_id):
+        return self.pkgs[firm_id].meta.group
+
+    def condition(self, pkg, condition):
+        from src.conditions.build import make_condition
+
+        ids = self._ids(firm_id=pkg.meta.firm_id, names=self._variants(pkg.meta.real_name))
+        return make_condition(pkg, condition, ids,
+                              fake_name="마루테크" if condition == "D" else None)
+
+    def real_name(self, firm_id):
+        return self.pkgs[firm_id].meta.real_name
+
+    def eval_date(self):
+        return next(iter(self.pkgs.values())).meta.eval_date

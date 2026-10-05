@@ -4,10 +4,18 @@
 |---|---|
 | Roadmap | R§7 |
 | Weeks | 3–6 |
-| Status | Ready |
+| Status | Implemented 2026-10-05 (smoke run 11/12 valid; see notes) |
 | Version | v0.1 (2026-10-05) |
 | Depends on | P0 (model config, prompt language); P2 Step 2.1 + renderer for end-to-end runs |
 | Unlocks | P6, P7 |
+
+> **Implementation notes (2026-10-05)** — see `docs/decisions_log.md` (P5 decisions):
+> - Code: `src/parse/{schema,validate}.py`, `src/agents/{llm_client,base,plain,tool,synthetic,valuation_tools}.py`, `src/agents/prompts/` (6 prompt files + `registry.py`), `src/runner/{cache,logger,jobs,cost,run}.py`, `src/experiments/builders.py` (one module with all builders instead of six files). CLI: `python -m src.runner.run`.
+> - Concurrency uses a thread pool with a per-model semaphore and a requests-per-minute limiter (not `asyncio`): the clients are `requests`-based. Only the OpenAI-compatible client exists; every configured model (Gemini primary and comparison) uses it.
+> - `RunRecord.output` is a dict (valuation, identification or quiz schema; `RunRequest.schema_name` says which). Agents take `run(req, package)`; synthetic agents read the package. The experiment name is not in the cache key, so E0, E7 and E8-V1 reuse the E2 calls with identical prompts.
+> - Synthetic oracle: capex = D&A and no working-capital change (FCFF = NOPAT), because many packages report no depreciation line; noise scales the projected operating flows so every reported field stays self-consistent.
+> - Dry run of the main design (no cache): E2 30,000, E3 4,320, E8 2,960 (V0–V3 + two V4 placebos; 4 V3 skips), E7 1,800 and E0 1,500 (all identical to E2 prompts), E5 2,700, E6 450. New valuation calls ≈ 36,800 vs R§10 36,900 (−0.3%). Estimated ≈ $47 with default token counts.
+> - Smoke run (gemini-2.5-flash-lite, E2, condition C, L001/M001/S001, k ∈ {1, 2}, 2 reps): 11/12 valid; the invalid rep returned malformed JSON three times. Rerun: 0 calls, identical parquet. Output quality issues for the pilot (gates G2/G4): unit slips (amounts read in KRW billion, share count 1,000× too small in one rep), large run-to-run spread (L001 k=2: 471,540 vs 4,821), rationale written in English, and `sources_used` citing "Analyst Projections" in condition C.
 
 ## 1. Objective
 
@@ -274,10 +282,10 @@ All tests use `FakeClient` or synthetic agents; no network. Coverage target ≥ 
 
 ## 8. Exit criteria & verification
 
-- [ ] Smoke run produces 12 valid records with populated intermediate fields.
-- [ ] Re-running the smoke command: 0 API calls, identical parquet output.
-- [ ] `--dry-run` for the full main design prints a job count matching R§10 (±5%).
-- [ ] Synthetic agents run through the same runner path as real agents.
+- [ ] Smoke run produces 12 valid records with populated intermediate fields (11/12; one malformed-JSON failure after 2 retries).
+- [x] Re-running the smoke command: 0 API calls, identical parquet output.
+- [x] `--dry-run` for the full main design prints a job count matching R§10 (±5%).
+- [x] Synthetic agents run through the same runner path as real agents.
 
 ## 9. Risks & fallbacks
 

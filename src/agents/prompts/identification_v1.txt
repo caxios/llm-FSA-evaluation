@@ -1,0 +1,8 @@
+아래 재무 자료는 한국 상장회사 한 곳의 것입니다. 이 회사가 어느 회사인지 추정하십시오.
+결과는 다음 JSON 하나로만 답하십시오.
+{"guess_name": "회사명 또는 모른다", "guess_ticker": "종목코드 6자리 또는 모른다", "confidence": 0.0}
+confidence는 추정이 맞을 확률을 0과 1 사이 소수로 기재하십시오. 짐작이 가지 않으면
+guess_name과 guess_ticker에 "모른다"라고 쓰고 confidence를 0으로 하십시오.
+
+---
+{package}
