@@ -107,6 +107,39 @@ Format per entry: date, phase, options considered, decision, reason, affected do
 - Affects: `config/models.yaml`, research plan §6.3–§6.4 wording, P5, P7
 - Research-plan deviation: yes (§6.4 "오픈웨이트 주 모델")
 
+## P2 decisions (2026-10-05)
+
+### D7 — Firms failing reported-statement identities
+- Decision: **exclude** (no reconciling lines). After widening the checks to real filing formats (held-for-sale assets outside current/non-current; extra cash-flow adjustment lines such as FX translation or hyperinflation), 86 of 1,432 firms still fail and are excluded.
+- Reason: with 1,321 valid packages (KOSPI 672, KOSDAQ 649) there is no need to patch statements.
+
+### D2.1, D2.3, D2.4 — Package content
+- All reported lines are kept; ~50 key lines carry a unique `canonical`, debt and non-operating asset lines carry a `category`, and every line has a `parent` subtotal taken from the DART `ord` grouping (a subtotal row precedes its components). Display order is rebuilt (DART `ord` is not the filing's display order).
+- Share classes stored separately; internal unit KRW million (float), rendered as integers.
+- Cash-flow signs are kept as reported; most firms report outflows as positive numbers. The package records `cf_outflow_sign` for P3.
+
+### D2.6 — CB disclosure text
+- Decision: the CB text in packages is **generated from structured data** (annual-report outstanding table + refixings + issuance terms), not the original filing text.
+- Reason: lets P3 edit amounts and prices reliably; V0–V4 share one template.
+
+### D2.7 — CB data cleaning
+- Unit captions near the annual-report CB table are unreliable (neighbouring captions, share counts in thousands). Units are chosen so that outstanding face / conversion price matches the reported convertible shares (±5%); rows that match no combination, and residues below 10 million KRW, are dropped.
+- Refixing floors from issuance filings can be stale after capital changes; a floor outside [0.65, 1.0] × the current conversion price is set to unknown (70 of 127 sample series keep a floor).
+- Conversions between the fiscal year end and `T_post` are not observed (face amounts stay at year-end values). Limitation.
+
+### D2.8 — Small-cap selection
+- In-the-money CB at the `T_post` market price; ranked by dilution potential (ITM convertible shares / common shares), excluding firms above 100% (implausible or distressed). Selected range 25%–81%, median 36.6%.
+- **Provisional**: KOSDAQ prices are yfinance closes until the KRX KOSDAQ service is approved. Re-run `build_packages.py --stage small,select,packages,truth,report` after approval.
+- `cb_complex` (call options, net settlement) is unknown for now: the structured issuance data has no field for it.
+
+### D2.9 — Availability at T_post
+- A firm counts as filed by `T_post` if its original FY2025 annual report was filed by then, even when a corrected report came later (171 of 173 such firms). The corrected figures are used — a small look-ahead, recorded as a limitation.
+
+### Pending from P2
+- Administrative-issue exclusion (D0.6) not applied yet.
+- `main_business` in `quiz_truth` must be filled by hand before E6 (P8).
+- Hand checks required by the P2 exit criteria: 10 CB rows against the DART viewer; read the rendered prompts in `tests/fixtures/rendered/`.
+
 ---
 
 ## Research-plan revision

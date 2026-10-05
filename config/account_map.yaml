@@ -1,0 +1,168 @@
+# DART account mapping (P2 Step 2.2), drafted from scripts/account_inventory.py over the
+# 1,431 FY2025 statements fetched in P1.
+#
+# unique: one line per statement. Matched by account_id first, then by normalized label
+#         (spaces and parentheses removed). The first matching line (display order) wins.
+# categories: many lines per firm. Rules are tried in order on the account_id (regex), then
+#         on the normalized label (regex), restricted to the listed BS sections.
+
+unique:
+  BS:
+    total_assets: {ids: [ifrs-full_Assets], labels: [자산총계]}
+    current_assets: {ids: [ifrs-full_CurrentAssets], labels: [유동자산]}
+    non_current_assets: {ids: [ifrs-full_NoncurrentAssets], labels: [비유동자산]}
+    total_liabilities: {ids: [ifrs-full_Liabilities], labels: [부채총계]}
+    current_liabilities: {ids: [ifrs-full_CurrentLiabilities], labels: [유동부채]}
+    non_current_liabilities: {ids: [ifrs-full_NoncurrentLiabilities], labels: [비유동부채]}
+    total_equity: {ids: [ifrs-full_Equity], labels: [자본총계]}
+    total_liabilities_and_equity:
+      ids: [ifrs-full_EquityAndLiabilities]
+      labels: [자본과부채총계, 부채와자본총계, 부채및자본총계]
+    cash:
+      ids: [ifrs-full_CashAndCashEquivalents]
+      labels: [현금및현금성자산, 현금및현금등가물]
+    equity_owners:
+      ids: [ifrs-full_EquityAttributableToOwnersOfParent]
+      labels: [지배기업의소유주에게귀속되는자본, 지배기업소유주지분, 지배기업의소유지분]
+    non_controlling_interest: {ids: [ifrs-full_NoncontrollingInterests], labels: [비지배지분]}
+    issued_capital: {ids: [ifrs-full_IssuedCapital], labels: [자본금]}
+    retained_earnings:
+      ids: [ifrs-full_RetainedEarnings,
+            dart_RetainedEarningsBeforeAppropriationsAccumulatedDeficitBeforeDisposition]
+      labels: [이익잉여금, 이익잉여금결손금, 결손금, 미처분이익잉여금미처리결손금]
+    oci_reserve:
+      ids: [dart_OtherComprehensiveIncomeLossAccumulatedAmount,
+            ifrs-full_AccumulatedOtherComprehensiveIncome]
+      labels: [기타포괄손익누계액]
+    other_equity:
+      ids: [dart_ElementsOfOtherStockholdersEquity]
+      labels: [기타자본구성요소, 기타자본항목, 기타자본]
+  IS:
+    revenue:
+      ids: [ifrs-full_Revenue]
+      labels: [매출액, 수익매출액, 영업수익, 매출]
+    cost_of_sales: {ids: [ifrs-full_CostOfSales], labels: [매출원가, 영업원가]}
+    gross_profit: {ids: [ifrs-full_GrossProfit], labels: [매출총이익, 매출총이익손실]}
+    sga:
+      ids: [dart_TotalSellingGeneralAdministrativeExpenses,
+            ifrs-full_SellingGeneralAndAdministrativeExpense]
+      labels: [판매비와관리비]
+    operating_expense: {ids: [ifrs-full_OperatingExpense], labels: [영업비용]}
+    operating_income:
+      ids: [dart_OperatingIncomeLoss]
+      labels: [영업이익, 영업이익손실, 영업손실, 영업손익]
+    finance_income: {ids: [ifrs-full_FinanceIncome], labels: [금융수익]}
+    finance_costs: {ids: [ifrs-full_FinanceCosts], labels: [금융비용, 금융원가]}
+    pretax_income:
+      ids: [ifrs-full_ProfitLossBeforeTax]
+      labels: [법인세비용차감전순이익, 법인세비용차감전순이익손실, 법인세차감전순이익]
+    income_tax:
+      ids: [ifrs-full_IncomeTaxExpenseContinuingOperations]
+      labels: [법인세비용, 법인세비용수익, 법인세수익비용]
+    net_income:
+      ids: [ifrs-full_ProfitLoss]
+      labels: [당기순이익, 당기순이익손실, 당기순손실, 당기순손익]
+    net_income_owners:
+      ids: [ifrs-full_ProfitLossAttributableToOwnersOfParent]
+      labels: [지배기업의소유주에게귀속되는당기순이익손실, 지배기업소유주지분]
+    net_income_nci:
+      ids: [ifrs-full_ProfitLossAttributableToNoncontrollingInterests]
+      labels: []
+    eps_basic:
+      ids: [ifrs-full_BasicEarningsLossPerShare]
+      labels: [기본주당이익, 기본주당이익손실, 기본주당순이익, 기본주당순이익손실]
+    eps_diluted:
+      ids: [ifrs-full_DilutedEarningsLossPerShare]
+      labels: [희석주당이익, 희석주당이익손실, 희석주당순이익]
+  CF:
+    cfo: {ids: [ifrs-full_CashFlowsFromUsedInOperatingActivities], labels: [영업활동현금흐름]}
+    cfi: {ids: [ifrs-full_CashFlowsFromUsedInInvestingActivities], labels: [투자활동현금흐름]}
+    cff: {ids: [ifrs-full_CashFlowsFromUsedInFinancingActivities], labels: [재무활동현금흐름]}
+    beginning_cash:
+      ids: [dart_CashAndCashEquivalentsAtBeginningOfPeriodCf]
+      labels: [기초현금및현금성자산, 기초의현금및현금성자산]
+    ending_cash:
+      ids: [dart_CashAndCashEquivalentsAtEndOfPeriodCf]
+      labels: [기말현금및현금성자산, 기말의현금및현금성자산]
+    net_change_in_cash:
+      ids: [ifrs-full_IncreaseDecreaseInCashAndCashEquivalents]
+      labels: [현금및현금성자산의순증가감소, 현금및현금성자산의증가감소]
+    net_change_before_fx:
+      ids: [ifrs-full_IncreaseDecreaseInCashAndCashEquivalentsBeforeEffectOfExchangeRateChanges]
+      labels: [환율변동효과반영전현금및현금성자산의순증가감소]
+    fx_effect_on_cash:
+      ids: [ifrs-full_EffectOfExchangeRateChangesOnCashAndCashEquivalents]
+      labels: [현금및현금성자산에대한환율변동효과, 외화환산으로인한현금의변동]
+    dividends_paid:
+      ids: [ifrs-full_DividendsPaidClassifiedAsFinancingActivities]
+      labels: [배당금의지급, 배당금지급, 현금배당금의지급]
+    capex_ppe:
+      ids: [ifrs-full_PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities]
+      labels: [유형자산의취득]
+    capex_intangibles:
+      ids: [ifrs-full_PurchaseOfIntangibleAssetsClassifiedAsInvestingActivities]
+      labels: [무형자산의취득]
+    depreciation:
+      ids: [ifrs-full_AdjustmentsForDepreciationExpense]
+      labels: [감가상각비, 유형자산감가상각비]
+    amortisation:
+      ids: [ifrs-full_AdjustmentsForAmortisationExpense]
+      labels: [무형자산상각비]
+    proceeds_from_bonds:
+      ids: [dart_ProceedsFromBonds]
+      labels: [사채의발행, 사채의증가]
+    proceeds_from_convertible_bonds:
+      ids: [dart_ProceedsFromConvertibleBonds]
+      labels: [전환사채의발행, 전환사채의증가]
+
+categories:
+  # Interest-bearing debt (liability sections only). Specific types first.
+  - name: "debt:rcps"
+    sections: [current_liabilities, non_current_liabilities]
+    id: "ConvertibleRedeemablePreferred|RedeemableConvertiblePreferred"
+    label: "상환전환우선주|전환상환우선주|전환우선주부채|상환우선주부채"
+  - name: "debt:convertible"
+    sections: [current_liabilities, non_current_liabilities]
+    id: "ConvertibleBond"
+    label: "전환사채"
+  - name: "debt:bond_with_warrant"
+    sections: [current_liabilities, non_current_liabilities]
+    id: "BondWithWarrant"
+    label: "신주인수권부사채"
+  - name: "debt:exchangeable"
+    sections: [current_liabilities, non_current_liabilities]
+    id: "Exchangeable"
+    label: "교환사채"
+  - name: "debt:lease"
+    sections: [current_liabilities, non_current_liabilities]
+    id: "LeaseLiabilit"
+    label: "리스부채"
+  - name: "debt:bonds"
+    sections: [current_liabilities, non_current_liabilities]
+    id: "Bonds?Issued|PortionOfBonds|^dart_Bonds"
+    label: "사채$|^유동성사채|^회사채|^단기사채"
+  - name: "debt:borrowings"
+    sections: [current_liabilities, non_current_liabilities]
+    id: "Borrowings|LoansReceived"
+    label: "차입금|유동성장기부채|차입부채"
+  # Non-operating assets (asset sections only).
+  - name: "nonop:equity_method"
+    sections: [current_assets, non_current_assets]
+    id: "EquityMethod|InvestmentsInAssociates|InvestmentsInJointVentures|InvestmentsInSubsidiaries"
+    label: "관계기업|공동기업|지분법"
+  - name: "nonop:fvoci"
+    sections: [current_assets, non_current_assets]
+    id: "FairValueThroughOtherComprehensiveIncome|DesignatedAtFairValueThroughOther|MeasuredAtFairValueThroughOtherCompre"
+    label: "기타포괄손익.*공정가치|기타포괄손익인식"
+  - name: "nonop:fvpl"
+    sections: [current_assets, non_current_assets]
+    id: "FairValueThroughProfitOrLoss|FairValueFinancialAsset"
+    label: "당기손익.*공정가치|당기손익인식"
+  - name: "nonop:investment_property"
+    sections: [non_current_assets]
+    id: "InvestmentProperty"
+    label: "투자부동산"
+  - name: "nonop:lt_investments"
+    sections: [non_current_assets]
+    id: "^$"
+    label: "장기투자증권|장기투자자산|매도가능"

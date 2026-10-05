@@ -16,6 +16,12 @@
 > - `ifrs-full_ProfitLossAttributableToOwnersOfParent` exists in CFS only.
 > - `T_post = 2026-04-01`: exclude firms whose FY2025 annual report was not filed by then (late filers exist).
 
+> **Implementation notes (2026-10-05)** — see `docs/decisions_log.md` (P2 decisions) and `docs/sample_report.md`:
+> - Code: `src/data/{package_schema,account_map,package_builder,render,cb_truth,sample,ground_truth,p2_inputs,p2_pipeline,sample_report}.py`, `src/perturb/consistency.py`, config `account_map.yaml`, `ancestry.yaml`, `industry_labels.yaml`. CLI: `scripts/build_packages.py --stage all` (stages: builds, availability, newsworthiness, small, select, packages, truth, report). Inventory: `scripts/account_inventory.py`.
+> - Schema differences from §5.1: `LineItem` adds `account_id`, `category`, `parent`, `derived`; `Statement` adds `title`; `ShareInfo.as_of`; `PackageMeta` adds `fiscal_year`, `net_change_includes_fx`, `flags`, and group `U` for non-sample builds. `config/ancestry.yaml` maps subtotals to their parents (lines carry their own `parent`).
+> - Results: 1,321 / 1,432 packages built; sample 50 / 50 / 50 written to `data/processed/packages/{firm_id}.json`; ground truth in `data/ground_truth/`. Fixture packages for P3/P4/P6 in `tests/fixtures/packages/` with golden renders in `tests/fixtures/rendered/`.
+> - Open: KOSDAQ prices provisional (yfinance) until KRX approval; admin-issue exclusion; manual checks listed in the decisions log.
+
 ## 1. Objective
 
 Turn raw DART/KRX data into (a) the 150-firm sample, (b) one standardized, accounting-consistent **input package** per firm, (c) a deterministic renderer that produces the prompt text, and (d) ground-truth tables for CB, memory quiz, and stale-anchor experiments.

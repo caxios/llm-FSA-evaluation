@@ -5,6 +5,7 @@ DART XML tables use TE/TU cell tags in addition to TD/TH (docs/data_access_memo.
 
 from __future__ import annotations
 
+import bisect
 import logging
 import re
 import warnings
@@ -62,6 +63,45 @@ def _is_unredeemed_cb_table(rows: list[list[str]]) -> bool:
     return "전환청구가능기간" in header and "전환가능주식수" in header and "미상환" in header
 
 
+_TABLE_OPEN = re.compile(r"<table\b", re.IGNORECASE)
+_TABLE_CLOSE = re.compile(r"</table\s*>", re.IGNORECASE)
+_TAG = re.compile(r"<[^>]+>")
+_UNIT = re.compile(r"단위\s*[:：]?[^)<]{0,20}")
+
+
+def _read_text(source: Path | str) -> str:
+    if isinstance(source, Path):
+        return source.read_text(encoding="utf-8", errors="replace")
+    return source
+
+
+def _candidate_tables(raw: str, keyword: str) -> list[tuple[int, int]]:
+    """(start, end) spans of the tables that contain `keyword`, found with regexes only.
+
+    Annual reports are ~2 MB of XML with ~700 tables; parsing the whole document with
+    BeautifulSoup is slow and memory-hungry, so only the matching tables are parsed.
+    """
+    opens = [m.start() for m in _TABLE_OPEN.finditer(raw)]
+    spans: list[tuple[int, int]] = []
+    for m in re.finditer(keyword, raw):
+        i = bisect.bisect_right(opens, m.start()) - 1
+        if i < 0:
+            continue
+        close = _TABLE_CLOSE.search(raw, m.start())
+        if close is None:
+            continue
+        span = (opens[i], close.end())
+        if span not in spans:
+            spans.append(span)
+    return spans
+
+
+def _unit_before(raw: str, start: int, window: int = 3000) -> str | None:
+    text = _TAG.sub(" ", raw[max(0, start - window):start])
+    hits = _UNIT.findall(text)
+    return f"({hits[-1].strip()})" if hits else None
+
+
 def parse_unredeemed_cb_table(source: Path | str) -> tuple[pd.DataFrame, dict]:
     """Parse the annual report's "미상환 전환사채 발행현황" table.
 
@@ -69,22 +109,25 @@ def parse_unredeemed_cb_table(source: Path | str) -> tuple[pd.DataFrame, dict]:
     info["status"]: "table" (table found; it may hold only a total row), "none_declared"
     (the section says there is nothing to report), or "not_found" (no table, no statement).
     """
-    soup = load_soup(source)
-    matches = [(t, table_rows(t)) for t in soup.find_all("table")]
-    matches = [(t, rows) for t, rows in matches if rows and _is_unredeemed_cb_table(rows)]
+    raw = _read_text(source)
+    matches = []
+    for start, end in _candidate_tables(raw, "전환청구가능기간"):
+        table = BeautifulSoup(raw[start:end], "lxml").find("table")
+        rows = table_rows(table) if table else []
+        if rows and _is_unredeemed_cb_table(rows):
+            matches.append((start, rows))
     info: dict = {"found": bool(matches), "status": "table", "n_tables": len(matches),
                   "unit": None, "warnings": []}
     if not matches:
         # Firms without CBs often write "미상환 전환사채 발행현황 ... 해당사항 없습니다".
-        text = re.sub(r"\s+", "", soup.get_text(" "))
+        text = re.sub(r"\s+", "", _TAG.sub(" ", raw))
         m = re.search(r"미상환전환사채발행현황(.{0,30})", text)
         info["status"] = ("none_declared" if m and "해당사항" in m.group(1) else "not_found")
         return pd.DataFrame(columns=CB_COLUMNS), info
     if len(matches) > 1:
         info["warnings"].append(f"{len(matches)} matching tables; using the first")
-    table, rows = matches[0]
-    caption = table.find_previous(string=re.compile("단위"))
-    info["unit"] = caption.strip() if caption else None
+    start, rows = matches[0]
+    info["unit"] = _unit_before(raw, start)
     mult = unit_multiplier(info["unit"])
 
     records = []

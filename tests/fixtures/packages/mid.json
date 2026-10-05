@@ -1,0 +1,2183 @@
+{
+ "schema_version": "1.0",
+ "meta": {
+  "firm_id": "M001",
+  "corp_code": "01412725",
+  "ticker": "336260",
+  "real_name": "두산퓨얼셀 주식회사",
+  "ksic": "28111",
+  "industry_label": "국내 전기장비 제조 기업",
+  "group": "M",
+  "market": "KOSPI",
+  "eval_date": "2026-04-01",
+  "fiscal_year": 2025,
+  "source_rcept_no": "20260318001264",
+  "fs_div": "CFS",
+  "net_change_includes_fx": true,
+  "flags": [
+   "no_depreciation_line",
+   "cf_outflow_sign=+1"
+  ]
+ },
+ "unit": "KRW_million",
+ "years": [
+  2023,
+  2024,
+  2025
+ ],
+ "bs": {
+  "code": "BS",
+  "title": "재무상태표",
+  "lines": [
+   {
+    "line_id": "bs_001",
+    "label": "유동자산",
+    "account_id": "ifrs-full_CurrentAssets",
+    "canonical": "current_assets",
+    "category": null,
+    "parent": null,
+    "kind": "monetary",
+    "values": {
+     "2023": 648072.793252,
+     "2024": 660567.068897,
+     "2025": 569347.286281
+    },
+    "order": 0,
+    "indent": 0,
+    "derived": false
+   },
+   {
+    "line_id": "bs_002",
+    "label": "파생상품 평가자산",
+    "account_id": "dart_CurrentDerivativeAsset",
+    "canonical": null,
+    "category": null,
+    "parent": "current_assets",
+    "kind": "monetary",
+    "values": {
+     "2023": 0.0,
+     "2024": 0.0,
+     "2025": 491.240072
+    },
+    "order": 1,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "bs_003",
+    "label": "기타채권",
+    "account_id": "dart_CurrentNontradeReceivables",
+    "canonical": null,
+    "category": null,
+    "parent": "current_assets",
+    "kind": "monetary",
+    "values": {
+     "2023": 65094.060387,
+     "2024": 30781.337448,
+     "2025": 4560.423024
+    },
+    "order": 2,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "bs_004",
+    "label": "현금및현금성자산",
+    "account_id": "ifrs-full_CashAndCashEquivalents",
+    "canonical": "cash",
+    "category": null,
+    "parent": "current_assets",
+    "kind": "monetary",
+    "values": {
+     "2023": 50173.401453,
+     "2024": 137561.652237,
+     "2025": 64784.777076
+    },
+    "order": 3,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "bs_005",
+    "label": "당기법인세자산",
+    "account_id": "ifrs-full_CurrentTaxAssets",
+    "canonical": null,
+    "category": null,
+    "parent": "current_assets",
+    "kind": "monetary",
+    "values": {
+     "2023": 191.21962,
+     "2024": 448.54229,
+     "2025": 859.375229
+    },
+    "order": 4,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "bs_006",
+    "label": "매출채권",
+    "account_id": "ifrs-full_CurrentTradeReceivables",
+    "canonical": null,
+    "category": null,
+    "parent": "current_assets",
+    "kind": "monetary",
+    "values": {
+     "2023": 44379.285404,
+     "2024": 69536.528372,
+     "2025": 77624.831654
+    },
+    "order": 5,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "bs_007",
+    "label": "재고자산",
+    "account_id": "ifrs-full_Inventories",
+    "canonical": null,
+    "category": null,
+    "parent": "current_assets",
+    "kind": "monetary",
+    "values": {
+     "2023": 460086.137063,
+     "2024": 380405.943261,
+     "2025": 372993.528293
+    },
+    "order": 6,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "bs_008",
+    "label": "기타유동자산",
+    "account_id": "ifrs-full_OtherCurrentAssets",
+    "canonical": null,
+    "category": null,
+    "parent": "current_assets",
+    "kind": "monetary",
+    "values": {
+     "2023": 26748.689325,
+     "2024": 30264.698853,
+     "2025": 46148.477031
+    },
+    "order": 7,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "bs_009",
+    "label": "단기금융상품",
+    "account_id": "ifrs-full_ShorttermDepositsNotClassifiedAsCashEquivalents",
+    "canonical": null,
+    "category": null,
+    "parent": "current_assets",
+    "kind": "monetary",
+    "values": {
+     "2023": 1400.0,
+     "2024": 11568.366436,
+     "2025": 1884.633902
+    },
+    "order": 8,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "bs_010",
+    "label": "비유동자산",
+    "account_id": "ifrs-full_NoncurrentAssets",
+    "canonical": "non_current_assets",
+    "category": null,
+    "parent": null,
+    "kind": "monetary",
+    "values": {
+     "2023": 422769.729909,
+     "2024": 519087.569168,
+     "2025": 629076.139662
+    },
+    "order": 9,
+    "indent": 0,
+    "derived": false
+   },
+   {
+    "line_id": "bs_011",
+    "label": "장기기타채권",
+    "account_id": "dart_NoncurrentNontradeReceivables",
+    "canonical": null,
+    "category": null,
+    "parent": "non_current_assets",
+    "kind": "monetary",
+    "values": {
+     "2023": 3640.442573,
+     "2024": 4584.405667,
+     "2025": 5561.596205
+    },
+    "order": 10,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "bs_012",
+    "label": "장기투자증권",
+    "account_id": "-표준계정코드 미사용-",
+    "canonical": null,
+    "category": "nonop:lt_investments",
+    "parent": "non_current_assets",
+    "kind": "monetary",
+    "values": {
+     "2023": 5699.848043,
+     "2024": 7422.842111,
+     "2025": 7726.911979
+    },
+    "order": 11,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "bs_013",
+    "label": "이연법인세자산",
+    "account_id": "ifrs-full_DeferredTaxAssets",
+    "canonical": null,
+    "category": null,
+    "parent": "non_current_assets",
+    "kind": "monetary",
+    "values": {
+     "2023": 17278.244731,
+     "2024": 17364.101329,
+     "2025": 7685.184727
+    },
+    "order": 12,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "bs_014",
+    "label": "무형자산",
+    "account_id": "ifrs-full_IntangibleAssetsOtherThanGoodwill",
+    "canonical": null,
+    "category": null,
+    "parent": "non_current_assets",
+    "kind": "monetary",
+    "values": {
+     "2023": 34223.64476,
+     "2024": 32626.049941,
+     "2025": 99501.358017
+    },
+    "order": 13,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "bs_015",
+    "label": "관계기업투자",
+    "account_id": "ifrs-full_InvestmentsInAssociates",
+    "canonical": null,
+    "category": "nonop:equity_method",
+    "parent": "non_current_assets",
+    "kind": "monetary",
+    "values": {
+     "2023": 3804.246548,
+     "2024": 4584.277331,
+     "2025": 8822.895135
+    },
+    "order": 14,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "bs_016",
+    "label": "기타비유동자산",
+    "account_id": "ifrs-full_OtherNoncurrentAssets",
+    "canonical": null,
+    "category": null,
+    "parent": "non_current_assets",
+    "kind": "monetary",
+    "values": {
+     "2023": 86811.459386,
+     "2024": 117828.026,
+     "2025": 125218.902587
+    },
+    "order": 15,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "bs_017",
+    "label": "유형자산",
+    "account_id": "ifrs-full_PropertyPlantAndEquipment",
+    "canonical": null,
+    "category": null,
+    "parent": "non_current_assets",
+    "kind": "monetary",
+    "values": {
+     "2023": 271311.843868,
+     "2024": 334677.866789,
+     "2025": 374559.291012
+    },
+    "order": 16,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "bs_000",
+    "label": "자산총계",
+    "account_id": "ifrs-full_Assets",
+    "canonical": "total_assets",
+    "category": null,
+    "parent": null,
+    "kind": "monetary",
+    "values": {
+     "2023": 1070842.523161,
+     "2024": 1179654.638065,
+     "2025": 1198423.425943
+    },
+    "order": 17,
+    "indent": 0,
+    "derived": false
+   },
+   {
+    "line_id": "bs_027",
+    "label": "유동부채",
+    "account_id": "ifrs-full_CurrentLiabilities",
+    "canonical": "current_liabilities",
+    "category": null,
+    "parent": null,
+    "kind": "monetary",
+    "values": {
+     "2023": 287371.274263,
+     "2024": 365954.063568,
+     "2025": 462927.733135
+    },
+    "order": 18,
+    "indent": 0,
+    "derived": false
+   },
+   {
+    "line_id": "bs_028",
+    "label": "유동파생상품부채",
+    "account_id": "dart_CurrentDerivativeLiabilities",
+    "canonical": null,
+    "category": null,
+    "parent": "current_liabilities",
+    "kind": "monetary",
+    "values": {
+     "2023": 0.0,
+     "2024": 0.0,
+     "2025": 26.219667
+    },
+    "order": 19,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "bs_029",
+    "label": "기타채무",
+    "account_id": "dart_CurrentNontradePayables",
+    "canonical": null,
+    "category": null,
+    "parent": "current_liabilities",
+    "kind": "monetary",
+    "values": {
+     "2023": 33992.615135,
+     "2024": 26022.140681,
+     "2025": 26783.954138
+    },
+    "order": 20,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "bs_030",
+    "label": "유동성사채",
+    "account_id": "dart_CurrentPortionOfBonds",
+    "canonical": null,
+    "category": "debt:bonds",
+    "parent": "current_liabilities",
+    "kind": "monetary",
+    "values": {
+     "2023": 106340.94926,
+     "2024": 80897.324268,
+     "2025": 147945.593585
+    },
+    "order": 21,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "bs_031",
+    "label": "유동판매보증충당부채",
+    "account_id": "dart_CurrentProvisionsForProductWarranties",
+    "canonical": null,
+    "category": null,
+    "parent": "current_liabilities",
+    "kind": "monetary",
+    "values": {
+     "2023": 6094.661362,
+     "2024": 13697.751259,
+     "2025": 24456.76607
+    },
+    "order": 22,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "bs_032",
+    "label": "유동성장기차입금",
+    "account_id": "-표준계정코드 미사용-",
+    "canonical": null,
+    "category": "debt:borrowings",
+    "parent": "current_liabilities",
+    "kind": "monetary",
+    "values": {
+     "2023": 0.0,
+     "2024": 10000.0,
+     "2025": 23333.36
+    },
+    "order": 23,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "bs_033",
+    "label": "유동성장기유동화채무",
+    "account_id": "-표준계정코드 미사용-",
+    "canonical": null,
+    "category": null,
+    "parent": "current_liabilities",
+    "kind": "monetary",
+    "values": {
+     "2023": 16661.898433,
+     "2024": 33244.34014,
+     "2025": 19070.450872
+    },
+    "order": 24,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "bs_034",
+    "label": "유동 리스부채",
+    "account_id": "ifrs-full_CurrentLeaseLiabilities",
+    "canonical": null,
+    "category": "debt:lease",
+    "parent": "current_liabilities",
+    "kind": "monetary",
+    "values": {
+     "2023": 2980.803394,
+     "2024": 3340.434341,
+     "2025": 1737.544754
+    },
+    "order": 25,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "bs_035",
+    "label": "기타 유동부채",
+    "account_id": "ifrs-full_OtherCurrentLiabilities",
+    "canonical": null,
+    "category": null,
+    "parent": "current_liabilities",
+    "kind": "monetary",
+    "values": {
+     "2023": 19164.493719,
+     "2024": 39034.783362,
+     "2025": 24186.386267
+    },
+    "order": 26,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "bs_036",
+    "label": "기타충당부채",
+    "account_id": "ifrs-full_OtherShorttermProvisions",
+    "canonical": null,
+    "category": null,
+    "parent": "current_liabilities",
+    "kind": "monetary",
+    "values": {
+     "2023": 11633.683962,
+     "2024": 22160.927799,
+     "2025": 57995.15951
+    },
+    "order": 27,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "bs_037",
+    "label": "단기차입금",
+    "account_id": "ifrs-full_ShorttermBorrowings",
+    "canonical": null,
+    "category": "debt:borrowings",
+    "parent": "current_liabilities",
+    "kind": "monetary",
+    "values": {
+     "2023": 60000.0,
+     "2024": 100000.0,
+     "2025": 76000.0
+    },
+    "order": 28,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "bs_038",
+    "label": "매입채무",
+    "account_id": "ifrs-full_TradeAndOtherCurrentPayablesToTradeSuppliers",
+    "canonical": null,
+    "category": null,
+    "parent": "current_liabilities",
+    "kind": "monetary",
+    "values": {
+     "2023": 30502.168998,
+     "2024": 37556.361718,
+     "2025": 61392.298272
+    },
+    "order": 29,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "bs_040",
+    "label": "비유동부채",
+    "account_id": "ifrs-full_NoncurrentLiabilities",
+    "canonical": "non_current_liabilities",
+    "category": null,
+    "parent": null,
+    "kind": "monetary",
+    "values": {
+     "2023": 270819.371368,
+     "2024": 314804.734666,
+     "2025": 368015.246572
+    },
+    "order": 30,
+    "indent": 0,
+    "derived": false
+   },
+   {
+    "line_id": "bs_041",
+    "label": "장기파생상품평가부채",
+    "account_id": "dart_NonCurrentDerivativeLiabilities",
+    "canonical": null,
+    "category": null,
+    "parent": "non_current_liabilities",
+    "kind": "monetary",
+    "values": {
+     "2023": 0.0,
+     "2024": 0.0,
+     "2025": 1717.949479
+    },
+    "order": 31,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "bs_042",
+    "label": "비유동판매보증충당부채",
+    "account_id": "dart_NonCurrentProvisionsForProductWarranties",
+    "canonical": null,
+    "category": null,
+    "parent": "non_current_liabilities",
+    "kind": "monetary",
+    "values": {
+     "2023": 65887.519679,
+     "2024": 75928.255159,
+     "2025": 79883.061252
+    },
+    "order": 32,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "bs_043",
+    "label": "장기기타채무",
+    "account_id": "dart_NoncurrentNontradePayables",
+    "canonical": null,
+    "category": null,
+    "parent": "non_current_liabilities",
+    "kind": "monetary",
+    "values": {
+     "2023": 938.113181,
+     "2024": 939.074859,
+     "2025": 1115.011069
+    },
+    "order": 33,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "bs_044",
+    "label": "장기유동화채무",
+    "account_id": "-표준계정코드 미사용-",
+    "canonical": null,
+    "category": null,
+    "parent": "non_current_liabilities",
+    "kind": "monetary",
+    "values": {
+     "2023": 52762.102132,
+     "2024": 19391.955508,
+     "2025": 60389.761096
+    },
+    "order": 34,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "bs_045",
+    "label": "비유동 리스부채",
+    "account_id": "ifrs-full_NoncurrentLeaseLiabilities",
+    "canonical": null,
+    "category": "debt:lease",
+    "parent": "non_current_liabilities",
+    "kind": "monetary",
+    "values": {
+     "2023": 4551.091887,
+     "2024": 3812.961715,
+     "2025": 4791.068453
+    },
+    "order": 35,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "bs_046",
+    "label": "사채",
+    "account_id": "ifrs-full_NoncurrentPortionOfNoncurrentBondsIssued",
+    "canonical": null,
+    "category": "debt:bonds",
+    "parent": "non_current_liabilities",
+    "kind": "monetary",
+    "values": {
+     "2023": 70813.635163,
+     "2024": 147646.637014,
+     "2025": 157341.510224
+    },
+    "order": 36,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "bs_047",
+    "label": "장기차입금",
+    "account_id": "ifrs-full_NoncurrentPortionOfNoncurrentLoansReceived",
+    "canonical": null,
+    "category": "debt:borrowings",
+    "parent": "non_current_liabilities",
+    "kind": "monetary",
+    "values": {
+     "2023": 70000.0,
+     "2024": 60000.0,
+     "2025": 56666.64
+    },
+    "order": 37,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "bs_048",
+    "label": "기타비유동충당부채",
+    "account_id": "ifrs-full_OtherLongtermProvisions",
+    "canonical": null,
+    "category": null,
+    "parent": "non_current_liabilities",
+    "kind": "monetary",
+    "values": {
+     "2023": 87.922932,
+     "2024": 53.626412,
+     "2025": 58.250112
+    },
+    "order": 38,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "bs_049",
+    "label": "기타 비유동 부채",
+    "account_id": "ifrs-full_OtherNoncurrentLiabilities",
+    "canonical": null,
+    "category": null,
+    "parent": "non_current_liabilities",
+    "kind": "monetary",
+    "values": {
+     "2023": 902.917592,
+     "2024": 1820.598033,
+     "2025": 4473.051384
+    },
+    "order": 39,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "bs_050",
+    "label": "순확정급여부채",
+    "account_id": "ifrs-full_RecognisedLiabilitiesDefinedBenefitPlan",
+    "canonical": null,
+    "category": null,
+    "parent": "non_current_liabilities",
+    "kind": "monetary",
+    "values": {
+     "2023": 4876.068802,
+     "2024": 5211.625966,
+     "2025": 1578.943503
+    },
+    "order": 40,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "bs_039",
+    "label": "부채총계",
+    "account_id": "ifrs-full_Liabilities",
+    "canonical": "total_liabilities",
+    "category": null,
+    "parent": null,
+    "kind": "monetary",
+    "values": {
+     "2023": 558190.645631,
+     "2024": 680758.798234,
+     "2025": 830942.979707
+    },
+    "order": 41,
+    "indent": 0,
+    "derived": false
+   },
+   {
+    "line_id": "bs_019",
+    "label": "지배기업의 소유주에게 귀속되는 자본",
+    "account_id": "ifrs-full_EquityAttributableToOwnersOfParent",
+    "canonical": "equity_owners",
+    "category": null,
+    "parent": null,
+    "kind": "monetary",
+    "values": {
+     "2023": 512651.87753,
+     "2024": 498895.839831,
+     "2025": 367480.446236
+    },
+    "order": 42,
+    "indent": 0,
+    "derived": false
+   },
+   {
+    "line_id": "bs_020",
+    "label": "자본잉여금",
+    "account_id": "dart_CapitalSurplus",
+    "canonical": null,
+    "category": null,
+    "parent": "equity_owners",
+    "kind": "monetary",
+    "values": {
+     "2023": 477519.232198,
+     "2024": 476113.452802,
+     "2025": 476126.037424
+    },
+    "order": 43,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "bs_021",
+    "label": "기타자본구성요소",
+    "account_id": "dart_ElementsOfOtherStockholdersEquity",
+    "canonical": "other_equity",
+    "category": null,
+    "parent": "equity_owners",
+    "kind": "monetary",
+    "values": {
+     "2023": -104.081986,
+     "2024": -148.519519,
+     "2025": -145.016275
+    },
+    "order": 44,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "bs_022",
+    "label": "기타포괄손익누계액",
+    "account_id": "dart_OtherComprehensiveIncomeLossAccumulatedAmount",
+    "canonical": "oci_reserve",
+    "category": null,
+    "parent": "equity_owners",
+    "kind": "monetary",
+    "values": {
+     "2023": 712.495486,
+     "2024": 719.376774,
+     "2025": 667.657836
+    },
+    "order": 45,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "bs_023",
+    "label": "자본금",
+    "account_id": "ifrs-full_IssuedCapital",
+    "canonical": "issued_capital",
+    "category": null,
+    "parent": "equity_owners",
+    "kind": "monetary",
+    "values": {
+     "2023": 8184.4226,
+     "2024": 8184.4226,
+     "2025": 8184.4226
+    },
+    "order": 46,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "bs_024",
+    "label": "이익잉여금(결손금)",
+    "account_id": "ifrs-full_RetainedEarnings",
+    "canonical": "retained_earnings",
+    "category": null,
+    "parent": "equity_owners",
+    "kind": "monetary",
+    "values": {
+     "2023": 26339.809232,
+     "2024": 14027.107174,
+     "2025": -117352.655349
+    },
+    "order": 47,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "bs_025",
+    "label": "비지배지분",
+    "account_id": "ifrs-full_NoncontrollingInterests",
+    "canonical": "non_controlling_interest",
+    "category": null,
+    "parent": null,
+    "kind": "monetary",
+    "values": {
+     "2023": 0.0,
+     "2024": 0.0,
+     "2025": 0.0
+    },
+    "order": 48,
+    "indent": 0,
+    "derived": false
+   },
+   {
+    "line_id": "bs_018",
+    "label": "자본총계",
+    "account_id": "ifrs-full_Equity",
+    "canonical": "total_equity",
+    "category": null,
+    "parent": null,
+    "kind": "monetary",
+    "values": {
+     "2023": 512651.87753,
+     "2024": 498895.839831,
+     "2025": 367480.446236
+    },
+    "order": 49,
+    "indent": 0,
+    "derived": false
+   },
+   {
+    "line_id": "bs_026",
+    "label": "자본과부채총계",
+    "account_id": "ifrs-full_EquityAndLiabilities",
+    "canonical": "total_liabilities_and_equity",
+    "category": null,
+    "parent": null,
+    "kind": "monetary",
+    "values": {
+     "2023": 1070842.523161,
+     "2024": 1179654.638065,
+     "2025": 1198423.425943
+    },
+    "order": 50,
+    "indent": 0,
+    "derived": false
+   }
+  ]
+ },
+ "is": {
+  "code": "IS",
+  "title": "포괄손익계산서",
+  "lines": [
+   {
+    "line_id": "is_024",
+    "label": "매출액",
+    "account_id": "ifrs-full_Revenue",
+    "canonical": "revenue",
+    "category": null,
+    "parent": null,
+    "kind": "monetary",
+    "values": {
+     "2023": 260886.184003,
+     "2024": 411783.710408,
+     "2025": 454794.706613
+    },
+    "order": 0,
+    "indent": 0,
+    "derived": false
+   },
+   {
+    "line_id": "is_007",
+    "label": "매출원가",
+    "account_id": "ifrs-full_CostOfSales",
+    "canonical": "cost_of_sales",
+    "category": null,
+    "parent": null,
+    "kind": "monetary",
+    "values": {
+     "2023": 221348.74501,
+     "2024": 375621.745861,
+     "2025": 517094.472515
+    },
+    "order": 1,
+    "indent": 0,
+    "derived": false
+   },
+   {
+    "line_id": "is_012",
+    "label": "매출총이익",
+    "account_id": "ifrs-full_GrossProfit",
+    "canonical": "gross_profit",
+    "category": null,
+    "parent": null,
+    "kind": "monetary",
+    "values": {
+     "2023": 39537.438993,
+     "2024": 36161.964547,
+     "2025": -62299.765902
+    },
+    "order": 2,
+    "indent": 0,
+    "derived": false
+   },
+   {
+    "line_id": "is_003",
+    "label": "판매비와관리비",
+    "account_id": "dart_TotalSellingGeneralAdministrativeExpenses",
+    "canonical": "sga",
+    "category": null,
+    "parent": null,
+    "kind": "monetary",
+    "values": {
+     "2023": 37895.645019,
+     "2024": 37891.004254,
+     "2025": 43373.628634
+    },
+    "order": 3,
+    "indent": 0,
+    "derived": false
+   },
+   {
+    "line_id": "is_000",
+    "label": "영업이익(손실)",
+    "account_id": "dart_OperatingIncomeLoss",
+    "canonical": "operating_income",
+    "category": null,
+    "parent": null,
+    "kind": "monetary",
+    "values": {
+     "2023": 1641.793974,
+     "2024": -1729.039707,
+     "2025": -105673.394536
+    },
+    "order": 4,
+    "indent": 0,
+    "derived": false
+   },
+   {
+    "line_id": "is_001",
+    "label": "기타수익",
+    "account_id": "dart_OtherGains",
+    "canonical": null,
+    "category": null,
+    "parent": null,
+    "kind": "monetary",
+    "values": {
+     "2023": 6642.270359,
+     "2024": 7665.832235,
+     "2025": 1356.789461
+    },
+    "order": 5,
+    "indent": 0,
+    "derived": false
+   },
+   {
+    "line_id": "is_002",
+    "label": "기타비용",
+    "account_id": "dart_OtherLosses",
+    "canonical": null,
+    "category": null,
+    "parent": null,
+    "kind": "monetary",
+    "values": {
+     "2023": 8745.102642,
+     "2024": 5067.074143,
+     "2025": 394.519999
+    },
+    "order": 6,
+    "indent": 0,
+    "derived": false
+   },
+   {
+    "line_id": "is_005",
+    "label": "비지배지분",
+    "account_id": "ifrs-full_ComprehensiveIncomeAttributableToNoncontrollingInterests",
+    "canonical": null,
+    "category": null,
+    "parent": null,
+    "kind": "monetary",
+    "values": {
+     "2023": 0.0,
+     "2024": 0.0,
+     "2025": 0.0
+    },
+    "order": 7,
+    "indent": 0,
+    "derived": false
+   },
+   {
+    "line_id": "is_016",
+    "label": "현금흐름위험회피파생상품평가이익",
+    "account_id": "ifrs-full_GainsLossesOnCashFlowHedgesNetOfTax",
+    "canonical": null,
+    "category": null,
+    "parent": null,
+    "kind": "monetary",
+    "values": {
+     "2023": 384.038648,
+     "2024": 0.0,
+     "2025": -199.296876
+    },
+    "order": 8,
+    "indent": 0,
+    "derived": false
+   },
+   {
+    "line_id": "is_019",
+    "label": "재평가잉여금",
+    "account_id": "ifrs-full_OtherComprehensiveIncomeNetOfTaxGainsLossesOnRevaluation",
+    "canonical": null,
+    "category": null,
+    "parent": null,
+    "kind": "monetary",
+    "values": {
+     "2023": 68.527676,
+     "2024": 6.881288,
+     "2025": 147.577938
+    },
+    "order": 9,
+    "indent": 0,
+    "derived": false
+   },
+   {
+    "line_id": "is_022",
+    "label": "지배기업 소유주지분",
+    "account_id": "ifrs-full_ProfitLossAttributableToOwnersOfParent",
+    "canonical": null,
+    "category": null,
+    "parent": null,
+    "kind": "monetary",
+    "values": {
+     "2023": -8500.099581,
+     "2024": -10474.726734,
+     "2025": -132804.248876
+    },
+    "order": 10,
+    "indent": 0,
+    "derived": false
+   },
+   {
+    "line_id": "is_025",
+    "label": "지분법손익",
+    "account_id": "ifrs-full_ShareOfProfitLossOfAssociatesAndJointVenturesAccountedForUsingEquityMethod",
+    "canonical": null,
+    "category": null,
+    "parent": null,
+    "kind": "monetary",
+    "values": {
+     "2023": 1327.82479,
+     "2024": 764.915783,
+     "2025": -717.561954
+    },
+    "order": 11,
+    "indent": 0,
+    "derived": false
+   },
+   {
+    "line_id": "is_011",
+    "label": "금융수익",
+    "account_id": "ifrs-full_FinanceIncome",
+    "canonical": "finance_income",
+    "category": null,
+    "parent": null,
+    "kind": "monetary",
+    "values": {
+     "2023": 7453.163786,
+     "2024": 10388.624974,
+     "2025": 8481.824759
+    },
+    "order": 12,
+    "indent": 0,
+    "derived": false
+   },
+   {
+    "line_id": "is_010",
+    "label": "금융비용",
+    "account_id": "ifrs-full_FinanceCosts",
+    "canonical": "finance_costs",
+    "category": null,
+    "parent": null,
+    "kind": "monetary",
+    "values": {
+     "2023": 20860.631086,
+     "2024": 22245.315137,
+     "2025": 27066.580148
+    },
+    "order": 13,
+    "indent": 0,
+    "derived": false
+   },
+   {
+    "line_id": "is_023",
+    "label": "법인세비용차감전순이익(손실)",
+    "account_id": "ifrs-full_ProfitLossBeforeTax",
+    "canonical": "pretax_income",
+    "category": null,
+    "parent": null,
+    "kind": "monetary",
+    "values": {
+     "2023": -12540.680819,
+     "2024": -10222.055995,
+     "2025": -124013.442417
+    },
+    "order": 14,
+    "indent": 0,
+    "derived": false
+   },
+   {
+    "line_id": "is_013",
+    "label": "법인세비용(수익)",
+    "account_id": "ifrs-full_IncomeTaxExpenseContinuingOperations",
+    "canonical": "income_tax",
+    "category": null,
+    "parent": null,
+    "kind": "monetary",
+    "values": {
+     "2023": -4040.581238,
+     "2024": 252.670739,
+     "2025": 8790.806459
+    },
+    "order": 15,
+    "indent": 0,
+    "derived": false
+   },
+   {
+    "line_id": "is_020",
+    "label": "당기순이익(손실)",
+    "account_id": "ifrs-full_ProfitLoss",
+    "canonical": "net_income",
+    "category": null,
+    "parent": null,
+    "kind": "monetary",
+    "values": {
+     "2023": -8500.099581,
+     "2024": -10474.726734,
+     "2025": -132804.248876
+    },
+    "order": 16,
+    "indent": 0,
+    "derived": false
+   },
+   {
+    "line_id": "is_006",
+    "label": "지배기업 소유주지분",
+    "account_id": "ifrs-full_ComprehensiveIncomeAttributableToOwnersOfParent",
+    "canonical": "net_income_owners",
+    "category": null,
+    "parent": null,
+    "kind": "monetary",
+    "values": {
+     "2023": -10478.288567,
+     "2024": -12305.82077,
+     "2025": -131431.481461
+    },
+    "order": 17,
+    "indent": 0,
+    "derived": false
+   },
+   {
+    "line_id": "is_021",
+    "label": "비지배지분",
+    "account_id": "ifrs-full_ProfitLossAttributableToNoncontrollingInterests",
+    "canonical": "net_income_nci",
+    "category": null,
+    "parent": null,
+    "kind": "monetary",
+    "values": {
+     "2023": 0.0,
+     "2024": 0.0,
+     "2025": 0.0
+    },
+    "order": 18,
+    "indent": 0,
+    "derived": false
+   },
+   {
+    "line_id": "is_004",
+    "label": "총포괄손익",
+    "account_id": "ifrs-full_ComprehensiveIncome",
+    "canonical": null,
+    "category": null,
+    "parent": null,
+    "kind": "monetary",
+    "values": {
+     "2023": -10478.288567,
+     "2024": -12305.82077,
+     "2025": -131431.481461
+    },
+    "order": 19,
+    "indent": 0,
+    "derived": false
+   },
+   {
+    "line_id": "is_014",
+    "label": "기타포괄손익",
+    "account_id": "ifrs-full_OtherComprehensiveIncome",
+    "canonical": null,
+    "category": null,
+    "parent": null,
+    "kind": "monetary",
+    "values": {
+     "2023": -1978.188986,
+     "2024": -1831.094036,
+     "2025": 1372.767415
+    },
+    "order": 20,
+    "indent": 0,
+    "derived": false
+   },
+   {
+    "line_id": "is_015",
+    "label": "당기손익으로 재분류될 수 있는 항목(세후기타포괄손익)",
+    "account_id": "ifrs-full_OtherComprehensiveIncomeThatWillBeReclassifiedToProfitOrLossNetOfTax",
+    "canonical": null,
+    "category": null,
+    "parent": null,
+    "kind": "monetary",
+    "values": {
+     "2023": 384.038648,
+     "2024": 0.0,
+     "2025": -199.296876
+    },
+    "order": 21,
+    "indent": 0,
+    "derived": false
+   },
+   {
+    "line_id": "is_017",
+    "label": "당기손익으로 재분류되지 않는항목(세후기타포괄손익)",
+    "account_id": "ifrs-full_OtherComprehensiveIncomeThatWillNotBeReclassifiedToProfitOrLossNetOfTax",
+    "canonical": null,
+    "category": null,
+    "parent": null,
+    "kind": "monetary",
+    "values": {
+     "2023": -2362.227634,
+     "2024": -1831.094036,
+     "2025": 1572.064291
+    },
+    "order": 22,
+    "indent": 0,
+    "derived": false
+   },
+   {
+    "line_id": "is_018",
+    "label": "확정급여제도의재측정요소",
+    "account_id": "ifrs-full_OtherComprehensiveIncomeNetOfTaxGainsLossesOnRemeasurementsOfDefinedBenefitPlans",
+    "canonical": null,
+    "category": null,
+    "parent": null,
+    "kind": "monetary",
+    "values": {
+     "2023": -2430.75531,
+     "2024": -1837.975324,
+     "2025": 1424.486353
+    },
+    "order": 23,
+    "indent": 0,
+    "derived": false
+   },
+   {
+    "line_id": "is_009",
+    "label": "보통주기본주당이익(손실)",
+    "account_id": "ifrs-full_BasicEarningsLossPerShare",
+    "canonical": "eps_basic",
+    "category": null,
+    "parent": null,
+    "kind": "per_share",
+    "values": {
+     "2023": -104.0,
+     "2024": -128.0,
+     "2025": -1623.0
+    },
+    "order": 24,
+    "indent": 0,
+    "derived": false
+   },
+   {
+    "line_id": "is_008",
+    "label": "구형우선주 기본주당순손실",
+    "account_id": "dart_BasicEarningsLossPerSharePreferredStock",
+    "canonical": null,
+    "category": null,
+    "parent": null,
+    "kind": "per_share",
+    "values": {
+     "2023": -104.0,
+     "2024": -128.0,
+     "2025": -1623.0
+    },
+    "order": 25,
+    "indent": 0,
+    "derived": false
+   }
+  ]
+ },
+ "cf": {
+  "code": "CF",
+  "title": "현금흐름표",
+  "lines": [
+   {
+    "line_id": "cf_033",
+    "label": "영업활동현금흐름",
+    "account_id": "ifrs-full_CashFlowsFromUsedInOperatingActivities",
+    "canonical": "cfo",
+    "category": null,
+    "parent": null,
+    "kind": "monetary",
+    "values": {
+     "2023": 7772.755535,
+     "2024": 101055.360914,
+     "2025": -56507.117413
+    },
+    "order": 0,
+    "indent": 0,
+    "derived": false
+   },
+   {
+    "line_id": "cf_034",
+    "label": "영업활동으로 인한 자산 부채의 변동",
+    "account_id": "dart_AdjustmentsForAssetsLiabilitiesOfOperatingActivities",
+    "canonical": null,
+    "category": null,
+    "parent": "cfo",
+    "kind": "monetary",
+    "values": {
+     "2023": -37437.24624,
+     "2024": 47288.517802,
+     "2025": -84440.204042
+    },
+    "order": 1,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "cf_035",
+    "label": "영업에서 창출된 현금",
+    "account_id": "dart_NetCashflowsFromUsedInOperations",
+    "canonical": null,
+    "category": null,
+    "parent": "cfo",
+    "kind": "monetary",
+    "values": {
+     "2023": 32465.373811,
+     "2024": 125976.000636,
+     "2025": -33796.917055
+    },
+    "order": 2,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "cf_036",
+    "label": "조정",
+    "account_id": "ifrs-full_AdjustmentsForReconcileProfitLoss",
+    "canonical": null,
+    "category": null,
+    "parent": "cfo",
+    "kind": "monetary",
+    "values": {
+     "2023": 78402.719632,
+     "2024": 89162.209568,
+     "2025": 183447.535863
+    },
+    "order": 3,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "cf_037",
+    "label": "배당금의 수취",
+    "account_id": "ifrs-full_DividendsReceivedClassifiedAsOperatingActivities",
+    "canonical": null,
+    "category": null,
+    "parent": "cfo",
+    "kind": "monetary",
+    "values": {
+     "2023": 1568.0,
+     "2024": 0.0,
+     "2025": 181.222242
+    },
+    "order": 4,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "cf_038",
+    "label": "법인세의 납부",
+    "account_id": "ifrs-full_IncomeTaxesPaidRefundClassifiedAsOperatingActivities",
+    "canonical": null,
+    "category": null,
+    "parent": "cfo",
+    "kind": "monetary",
+    "values": {
+     "2023": 3310.43104,
+     "2024": 222.42849,
+     "2025": 410.832939
+    },
+    "order": 5,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "cf_039",
+    "label": "이자의 지급",
+    "account_id": "ifrs-full_InterestPaidClassifiedAsOperatingActivities",
+    "canonical": null,
+    "category": null,
+    "parent": "cfo",
+    "kind": "monetary",
+    "values": {
+     "2023": 24228.376072,
+     "2024": 27092.366209,
+     "2025": 25139.13221
+    },
+    "order": 6,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "cf_040",
+    "label": "이자의 수취",
+    "account_id": "ifrs-full_InterestReceivedClassifiedAsOperatingActivities",
+    "canonical": null,
+    "category": null,
+    "parent": "cfo",
+    "kind": "monetary",
+    "values": {
+     "2023": 1278.188836,
+     "2024": 2394.154977,
+     "2025": 2658.542549
+    },
+    "order": 7,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "cf_041",
+    "label": "당기순이익(손실)",
+    "account_id": "ifrs-full_ProfitLoss",
+    "canonical": null,
+    "category": null,
+    "parent": "cfo",
+    "kind": "monetary",
+    "values": {
+     "2023": -8500.099581,
+     "2024": -10474.726734,
+     "2025": -132804.248876
+    },
+    "order": 8,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "cf_017",
+    "label": "투자활동현금흐름",
+    "account_id": "ifrs-full_CashFlowsFromUsedInInvestingActivities",
+    "canonical": "cfi",
+    "category": null,
+    "parent": null,
+    "kind": "monetary",
+    "values": {
+     "2023": -95709.122838,
+     "2024": -82727.592014,
+     "2025": -102508.894318
+    },
+    "order": 9,
+    "indent": 0,
+    "derived": false
+   },
+   {
+    "line_id": "cf_018",
+    "label": "투자활동으로 인한 현금유입액",
+    "account_id": "ifrs-full_InflowsOfCashFromInvestingActivities",
+    "canonical": null,
+    "category": null,
+    "parent": "cfi",
+    "kind": "monetary",
+    "values": {
+     "2023": 22053.768105,
+     "2024": 1482.884182,
+     "2025": 10487.345039
+    },
+    "order": 10,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "cf_019",
+    "label": "대여금의 회수",
+    "account_id": "dart_DecreaseInLoans",
+    "canonical": null,
+    "category": null,
+    "parent": "cfi",
+    "kind": "monetary",
+    "values": {
+     "2023": 678.523549,
+     "2024": 569.634108,
+     "2025": 673.756613
+    },
+    "order": 11,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "cf_020",
+    "label": "사업결합으로 인한 현금유입",
+    "account_id": "-표준계정코드 미사용-",
+    "canonical": null,
+    "category": null,
+    "parent": "cfi",
+    "kind": "monetary",
+    "values": {
+     "2023": 0.0,
+     "2024": 790.616682,
+     "2025": 0.0
+    },
+    "order": 12,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "cf_021",
+    "label": "기타 투자활동으로 인한 현금유입",
+    "account_id": "-표준계정코드 미사용-",
+    "canonical": null,
+    "category": null,
+    "parent": "cfi",
+    "kind": "monetary",
+    "values": {
+     "2023": 627.00725,
+     "2024": 40.39604,
+     "2025": 153.29132
+    },
+    "order": 13,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "cf_022",
+    "label": "단기금융상품의 처분",
+    "account_id": "-표준계정코드 미사용-",
+    "canonical": null,
+    "category": null,
+    "parent": "cfi",
+    "kind": "monetary",
+    "values": {
+     "2023": 19578.165348,
+     "2024": 70.044373,
+     "2025": 9654.992855
+    },
+    "order": 14,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "cf_023",
+    "label": "정부보조금의 수령",
+    "account_id": "ifrs-full_ProceedsFromGovernmentGrantsClassifiedAsInvestingActivities",
+    "canonical": null,
+    "category": null,
+    "parent": "cfi",
+    "kind": "monetary",
+    "values": {
+     "2023": 1170.071958,
+     "2024": 0.0,
+     "2025": 0.0
+    },
+    "order": 15,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "cf_024",
+    "label": "유형자산의 처분",
+    "account_id": "ifrs-full_ProceedsFromSalesOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities",
+    "canonical": null,
+    "category": null,
+    "parent": "cfi",
+    "kind": "monetary",
+    "values": {
+     "2023": 0.0,
+     "2024": 12.192979,
+     "2025": 5.304251
+    },
+    "order": 16,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "cf_025",
+    "label": "투자활동으로 인한 현금유출액",
+    "account_id": "ifrs-full_OutflowsOfCashFromInvestingActivities",
+    "canonical": null,
+    "category": null,
+    "parent": "cfi",
+    "kind": "monetary",
+    "values": {
+     "2023": 117762.890943,
+     "2024": 84210.476196,
+     "2025": 112996.239357
+    },
+    "order": 17,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "cf_026",
+    "label": "대여금의 증가",
+    "account_id": "dart_IncreaseInLoans",
+    "canonical": null,
+    "category": null,
+    "parent": "cfi",
+    "kind": "monetary",
+    "values": {
+     "2023": 1017.440258,
+     "2024": 929.0,
+     "2025": 1485.993
+    },
+    "order": 18,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "cf_027",
+    "label": "단기금융상품의 취득",
+    "account_id": "dart_PurchaseOfShortTermFinancialInstruments",
+    "canonical": null,
+    "category": null,
+    "parent": "cfi",
+    "kind": "monetary",
+    "values": {
+     "2023": 1400.0,
+     "2024": 9007.137559,
+     "2025": 0.0
+    },
+    "order": 19,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "cf_028",
+    "label": "장기투자증권의 취득",
+    "account_id": "-표준계정코드 미사용-",
+    "canonical": null,
+    "category": null,
+    "parent": "cfi",
+    "kind": "monetary",
+    "values": {
+     "2023": 0.0,
+     "2024": 1499.18,
+     "2025": 0.0
+    },
+    "order": 20,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "cf_029",
+    "label": "기타 투자활동으로 인한 현금유출",
+    "account_id": "-표준계정코드 미사용-",
+    "canonical": null,
+    "category": null,
+    "parent": "cfi",
+    "kind": "monetary",
+    "values": {
+     "2023": 141.56124,
+     "2024": 1062.059509,
+     "2025": 398.43149
+    },
+    "order": 21,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "cf_030",
+    "label": "무형자산의 취득",
+    "account_id": "ifrs-full_PurchaseOfIntangibleAssetsClassifiedAsInvestingActivities",
+    "canonical": "capex_intangibles",
+    "category": null,
+    "parent": "cfi",
+    "kind": "monetary",
+    "values": {
+     "2023": 1266.04,
+     "2024": 3443.275945,
+     "2025": 71733.232761
+    },
+    "order": 22,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "cf_031",
+    "label": "관계기업지분 취득",
+    "account_id": "ifrs-full_PurchaseOfInterestsInAssociates",
+    "canonical": null,
+    "category": null,
+    "parent": "cfi",
+    "kind": "monetary",
+    "values": {
+     "2023": 0.0,
+     "2024": 15.115,
+     "2025": 5109.952
+    },
+    "order": 23,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "cf_032",
+    "label": "유형자산의 취득",
+    "account_id": "ifrs-full_PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities",
+    "canonical": "capex_ppe",
+    "category": null,
+    "parent": "cfi",
+    "kind": "monetary",
+    "values": {
+     "2023": 113937.849445,
+     "2024": 68254.708183,
+     "2025": 34268.630106
+    },
+    "order": 24,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "cf_002",
+    "label": "재무활동현금흐름",
+    "account_id": "ifrs-full_CashFlowsFromUsedInFinancingActivities",
+    "canonical": "cff",
+    "category": null,
+    "parent": null,
+    "kind": "monetary",
+    "values": {
+     "2023": 105279.591716,
+     "2024": 69056.305566,
+     "2025": 86275.943537
+    },
+    "order": 25,
+    "indent": 0,
+    "derived": false
+   },
+   {
+    "line_id": "cf_003",
+    "label": "재무활동으로 인한 현금유입액",
+    "account_id": "-표준계정코드 미사용-",
+    "canonical": null,
+    "category": null,
+    "parent": "cff",
+    "kind": "monetary",
+    "values": {
+     "2023": 309314.68376,
+     "2024": 237361.157092,
+     "2025": 284007.757855
+    },
+    "order": 26,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "cf_004",
+    "label": "사채의 발행",
+    "account_id": "dart_ProceedsFromBonds",
+    "canonical": "proceeds_from_bonds",
+    "category": null,
+    "parent": "cff",
+    "kind": "monetary",
+    "values": {
+     "2023": 79671.26,
+     "2024": 157361.157092,
+     "2025": 158234.342335
+    },
+    "order": 27,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "cf_005",
+    "label": "장기차입금의 차입",
+    "account_id": "dart_ProceedsFromLongTermBorrowings",
+    "canonical": null,
+    "category": null,
+    "parent": "cff",
+    "kind": "monetary",
+    "values": {
+     "2023": 40000.0,
+     "2024": 0.0,
+     "2025": 20000.0
+    },
+    "order": 28,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "cf_006",
+    "label": "단기차입금의 차입",
+    "account_id": "dart_ProceedsFromShortTermBorrowings",
+    "canonical": null,
+    "category": null,
+    "parent": "cff",
+    "kind": "monetary",
+    "values": {
+     "2023": 120000.0,
+     "2024": 80000.0,
+     "2025": 26000.0
+    },
+    "order": 29,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "cf_007",
+    "label": "장기유동화채무의 발행",
+    "account_id": "-표준계정코드 미사용-",
+    "canonical": null,
+    "category": null,
+    "parent": "cff",
+    "kind": "monetary",
+    "values": {
+     "2023": 69643.42376,
+     "2024": 0.0,
+     "2025": 79615.85
+    },
+    "order": 30,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "cf_008",
+    "label": "기타재무활동으로 인한 현금유입",
+    "account_id": "ifrs-full_OtherInflowsOutflowsOfCashClassifiedAsFinancingActivities",
+    "canonical": null,
+    "category": null,
+    "parent": "cff",
+    "kind": "monetary",
+    "values": {
+     "2023": 0.0,
+     "2024": 0.0,
+     "2025": 157.56552
+    },
+    "order": 31,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "cf_009",
+    "label": "재무활동으로 인한 현금유출액",
+    "account_id": "-표준계정코드 미사용-",
+    "canonical": null,
+    "category": null,
+    "parent": "cff",
+    "kind": "monetary",
+    "values": {
+     "2023": 204035.092044,
+     "2024": 168304.851526,
+     "2025": 197731.814318
+    },
+    "order": 32,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "cf_010",
+    "label": "리스부채의 상환",
+    "account_id": "dart_PaymentsOfFinanceLeaseLiabilitiesClassifiedAsFinancingActivities",
+    "canonical": null,
+    "category": null,
+    "parent": "cff",
+    "kind": "monetary",
+    "values": {
+     "2023": 2535.092044,
+     "2024": 3004.851526,
+     "2025": 3531.814318
+    },
+    "order": 33,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "cf_011",
+    "label": "유동성사채의 상환",
+    "account_id": "dart_RepaymentsOfBonds",
+    "canonical": null,
+    "category": null,
+    "parent": "cff",
+    "kind": "monetary",
+    "values": {
+     "2023": 77500.0,
+     "2024": 106500.0,
+     "2025": 81000.0
+    },
+    "order": 34,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "cf_012",
+    "label": "장기차입금의 상환",
+    "account_id": "dart_RepaymentsOfLongTermBorrowings",
+    "canonical": null,
+    "category": null,
+    "parent": "cff",
+    "kind": "monetary",
+    "values": {
+     "2023": 0.0,
+     "2024": 2000.0,
+     "2025": 0.0
+    },
+    "order": 35,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "cf_013",
+    "label": "단기차입금의 상환",
+    "account_id": "dart_RepaymentsOfShortTermBorrowings",
+    "canonical": null,
+    "category": null,
+    "parent": "cff",
+    "kind": "monetary",
+    "values": {
+     "2023": 124000.0,
+     "2024": 40000.0,
+     "2025": 50000.0
+    },
+    "order": 36,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "cf_014",
+    "label": "유동성장기유동화채무의 상환",
+    "account_id": "-표준계정코드 미사용-",
+    "canonical": null,
+    "category": null,
+    "parent": "cff",
+    "kind": "monetary",
+    "values": {
+     "2023": 0.0,
+     "2024": 16800.0,
+     "2025": 42000.0
+    },
+    "order": 37,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "cf_015",
+    "label": "유동성장기차입금의 상환",
+    "account_id": "-표준계정코드 미사용-",
+    "canonical": null,
+    "category": null,
+    "parent": "cff",
+    "kind": "monetary",
+    "values": {
+     "2023": 0.0,
+     "2024": 0.0,
+     "2025": 10000.0
+    },
+    "order": 38,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "cf_016",
+    "label": "장기유동화채무의 상환",
+    "account_id": "-표준계정코드 미사용-",
+    "canonical": null,
+    "category": null,
+    "parent": "cff",
+    "kind": "monetary",
+    "values": {
+     "2023": 0.0,
+     "2024": 0.0,
+     "2025": 11200.0
+    },
+    "order": 39,
+    "indent": 1,
+    "derived": false
+   },
+   {
+    "line_id": "cf_042",
+    "label": "현금및현금성자산에 대한 환율변동효과",
+    "account_id": "ifrs-full_EffectOfExchangeRateChangesOnCashAndCashEquivalents",
+    "canonical": "fx_effect_on_cash",
+    "category": null,
+    "parent": null,
+    "kind": "monetary",
+    "values": {
+     "2023": 973.304696,
+     "2024": 4.176318,
+     "2025": -36.806967
+    },
+    "order": 40,
+    "indent": 0,
+    "derived": false
+   },
+   {
+    "line_id": "cf_043",
+    "label": "현금및현금성자산의순증가(감소)",
+    "account_id": "ifrs-full_IncreaseDecreaseInCashAndCashEquivalents",
+    "canonical": "net_change_in_cash",
+    "category": null,
+    "parent": null,
+    "kind": "monetary",
+    "values": {
+     "2023": 18316.529109,
+     "2024": 87388.250784,
+     "2025": -72776.875161
+    },
+    "order": 41,
+    "indent": 0,
+    "derived": false
+   },
+   {
+    "line_id": "cf_000",
+    "label": "기초현금및현금성자산",
+    "account_id": "dart_CashAndCashEquivalentsAtBeginningOfPeriodCf",
+    "canonical": "beginning_cash",
+    "category": null,
+    "parent": null,
+    "kind": "monetary",
+    "values": {
+     "2023": 31856.872344,
+     "2024": 50173.401453,
+     "2025": 137561.652237
+    },
+    "order": 42,
+    "indent": 0,
+    "derived": false
+   },
+   {
+    "line_id": "cf_001",
+    "label": "기말현금및현금성자산",
+    "account_id": "dart_CashAndCashEquivalentsAtEndOfPeriodCf",
+    "canonical": "ending_cash",
+    "category": null,
+    "parent": null,
+    "kind": "monetary",
+    "values": {
+     "2023": 50173.401453,
+     "2024": 137561.652237,
+     "2025": 64784.777076
+    },
+    "order": 43,
+    "indent": 0,
+    "derived": false
+   }
+  ]
+ },
+ "per_share": {
+  "eps": {
+   "2023": -104.0,
+   "2024": -128.0,
+   "2025": -1623.0
+  },
+  "dps_common": {
+   "2023": 0.0,
+   "2024": 0.0,
+   "2025": 0.0
+  }
+ },
+ "shares": {
+  "common_issued": 65493726.0,
+  "common_treasury": 7959.0,
+  "preferred_issued": 16350500.0,
+  "preferred_treasury": 1517.0,
+  "as_of": "2025-12-31"
+ },
+ "notes": {
+  "borrowings": [
+   {
+    "label": "유동성사채",
+    "amount": 147945.593585,
+    "line_id": "bs_030",
+    "category": "debt:bonds"
+   },
+   {
+    "label": "유동성장기차입금",
+    "amount": 23333.36,
+    "line_id": "bs_032",
+    "category": "debt:borrowings"
+   },
+   {
+    "label": "유동 리스부채",
+    "amount": 1737.544754,
+    "line_id": "bs_034",
+    "category": "debt:lease"
+   },
+   {
+    "label": "단기차입금",
+    "amount": 76000.0,
+    "line_id": "bs_037",
+    "category": "debt:borrowings"
+   },
+   {
+    "label": "비유동 리스부채",
+    "amount": 4791.068453,
+    "line_id": "bs_045",
+    "category": "debt:lease"
+   },
+   {
+    "label": "사채",
+    "amount": 157341.510224,
+    "line_id": "bs_046",
+    "category": "debt:bonds"
+   },
+   {
+    "label": "장기차입금",
+    "amount": 56666.64,
+    "line_id": "bs_047",
+    "category": "debt:borrowings"
+   }
+  ],
+  "non_operating_assets": [
+   {
+    "label": "장기투자증권",
+    "amount": 7726.911979,
+    "line_id": "bs_012",
+    "category": "nonop:lt_investments"
+   },
+   {
+    "label": "관계기업투자",
+    "amount": 8822.895135,
+    "line_id": "bs_015",
+    "category": "nonop:equity_method"
+   }
+  ]
+ },
+ "cb": null
+}
