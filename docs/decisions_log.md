@@ -78,6 +78,25 @@ Format per entry: date, phase, options considered, decision, reason, affected do
 - Affects: P3 `sizing.py`, research plan §6.8
 - Research-plan deviation: yes (addition to §6.8)
 
+## D1 (final) — Evaluation dates
+- Date: 2026-10-05
+- Phase: P0
+- Decision: `T_post = 2026-04-01`, `T_pre = 2023-04-03` (optional replication only).
+- Reason: both primary-model candidates (Llama 4 Scout, Gemma 3 27B) have an officially documented August 2024 cutoff, so the dates hold whichever is chosen; FY2025 statements and KRX data are available for these dates (`docs/data_access_memo.md`, `docs/model_selection_memo.md`).
+- Condition: if the primary model ends up being a model with a different cutoff, revisit.
+- Affects: `config/sample.yaml`, P2, P8
+
+## D0.3–D0.6 — Data sources
+- Date: 2026-10-05
+- Phase: P0
+- Decision:
+  - D0.3 prices: KRX Open API close (official, unadjusted, point-in-time); split adjustment for E7 from `LIST_SHRS` and capital-change filings; yfinance `Close` only as fallback (yfinance `Adj Close` is dividend-adjusted and not used).
+  - D0.4 listing and market cap: KRX Open API daily trading services (`stk_bydd_trd`, `ksq_bydd_trd`). pykrx is not used (requires a KRX login).
+  - D0.5 industry: DART `induty_code` (KSIC); financial exclusion by 2-digit divisions 64–66.
+  - D0.6 halt / admin issue: not trading (absent or zero volume) on the evaluation date = halted; admin issue from exchange disclosures in the prior 12 months.
+- Reason: probe results (`docs/data_access_memo.md`).
+- Open item: the KOSDAQ daily trading service (`ksq_bydd_trd`) is not yet approved for the project's KRX key.
+
 ---
 
 ## Research-plan revision
@@ -89,3 +108,6 @@ Format per entry: date, phase, options considered, decision, reason, affected do
 | ID | Decision | Status |
 |---|---|---|
 | D2, D3, D4, D6, D7 | Roadmap decisions (see `implementation_plan.md` R§16) | Resolved in their phases |
+| D0.1 | Primary model | **Set by the user 2026-10-05: Gemini 3.7 Flash** (working choice, "for now"). Probe 5/5 schema-valid |
+| D1-conflict | Gemini 3.7 Flash cutoff (March 2026) vs `T_post = 2026-04-01` | Open. Options: (a) keep both, drop the time-based identification and E7 to exploratory; (b) Gemini as comparison model, an open-weight model with an August 2024 cutoff as primary; (c) move `T_post` to the 2026 half-year report (big design change) |
+| D0.2 | Comparison model | Not needed until P9 |

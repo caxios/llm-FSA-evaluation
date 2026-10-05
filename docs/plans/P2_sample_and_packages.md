@@ -9,6 +9,13 @@
 | Depends on | P1 raw data |
 | Unlocks | P3, P4 (schema only, after Step 2.1), P7 |
 
+> **P0 findings (2026-10-05)** — see `docs/data_access_memo.md`:
+> - Some firms report only a single statement of comprehensive income (`sj_div = CIS`, no `IS`); take income-statement lines from `CIS` when `IS` is absent.
+> - DART `ord` is **not** the display order of the filing (e.g., `자산총계` comes first). The renderer must restore the statement hierarchy (current/non-current groupings, subtotals after their components).
+> - `-표준계정코드 미사용-` is common in CF (~20–25% of rows), rare in BS/IS; label synonyms matter mostly for CF. Convertible bonds may be `dart_CurrentPortionOfConvertibleBonds` or an unmapped `전환사채` line.
+> - `ifrs-full_ProfitLossAttributableToOwnersOfParent` exists in CFS only.
+> - `T_post = 2026-04-01`: exclude firms whose FY2025 annual report was not filed by then (late filers exist).
+
 ## 1. Objective
 
 Turn raw DART/KRX data into (a) the 150-firm sample, (b) one standardized, accounting-consistent **input package** per firm, (c) a deterministic renderer that produces the prompt text, and (d) ground-truth tables for CB, memory quiz, and stale-anchor experiments.

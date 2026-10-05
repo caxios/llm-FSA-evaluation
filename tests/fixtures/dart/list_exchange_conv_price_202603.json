@@ -1,0 +1,38 @@
+{
+ "status": "000",
+ "list": [
+  {
+   "corp_code": "01423837",
+   "corp_name": "모아데이타",
+   "stock_code": "288980",
+   "corp_cls": "K",
+   "report_nm": "전환가액의조정              ",
+   "rcept_no": "20260330902395",
+   "flr_nm": "모아데이타",
+   "rcept_dt": "20260330",
+   "rm": "코"
+  },
+  {
+   "corp_code": "00813389",
+   "corp_name": "베셀",
+   "stock_code": "177350",
+   "corp_cls": "K",
+   "report_nm": "전환가액의조정              (제10회차)",
+   "rcept_no": "20260330902339",
+   "flr_nm": "베셀",
+   "rcept_dt": "20260330",
+   "rm": "코"
+  },
+  {
+   "corp_code": "01359815",
+   "corp_name": "한울반도체",
+   "stock_code": "320000",
+   "corp_cls": "K",
+   "report_nm": "전환가액의조정              (제3회차, 제4회차)",
+   "rcept_no": "20260330901659",
+   "flr_nm": "한울반도체",
+   "rcept_dt": "20260330",
+   "rm": "코"
+  }
+ ]
+}

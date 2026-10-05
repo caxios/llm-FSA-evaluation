@@ -1,0 +1,38 @@
+# LLM configuration. Filled in P0 Step 0.6 after the model probes.
+# Every entry needs a verified training cutoff with its official source URL.
+#
+# Template:
+#   primary:
+#     provider: openai_compatible        # openai_compatible | anthropic | openai | google
+#     model_id: "<provider model id>"
+#     base_url: "<endpoint>"             # for openai_compatible
+#     api_key_env: PRIMARY_API_KEY
+#     training_cutoff: 2024-08-01
+#     cutoff_source: "https://..."
+#     reasoning: false
+#     temperature: 0.3
+#     max_output_tokens: 4096
+#     max_concurrency: 4
+#     price_in_per_mtok: 0.0             # USD per 1M input tokens
+#     price_out_per_mtok: 0.0
+#     context_window: 128000
+#     structured_output: false
+models:
+  # D0.1 (2026-10-05, user decision): Gemini 3.7 Flash as the working primary model.
+  # Probe: 5/5 schema-valid (docs/model_selection_memo.md).
+  primary:
+    provider: openai_compatible
+    model_id: gemini-3.7-flash          # API version string: 3.7-flash-08-2026
+    base_url: https://generativelanguage.googleapis.com/v1beta/openai
+    api_key_env: GOOGLE_API_KEY
+    # Model card: "March 2026", uneven across domains (some limited to January 2025).
+    training_cutoff: 2026-03-01
+    cutoff_source: https://storage.googleapis.com/deepmind-media/Model-Cards/Gemini-3-7-Flash-Model-Card.pdf
+    reasoning: true                     # internal thinking tokens are billed as output
+    temperature: 0.3
+    max_output_tokens: 8192             # thinking tokens count against this budget
+    max_concurrency: 4
+    price_in_per_mtok: 0.75             # third-party price listings, Oct 2026; verify on ai.google.dev
+    price_out_per_mtok: 3.75
+    context_window: 1048576
+    structured_output: false

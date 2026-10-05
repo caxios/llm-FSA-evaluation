@@ -1,0 +1,72 @@
+[
+ {
+  "rep": 0,
+  "latency": 8.167574000079185,
+  "usage": {
+   "completion_tokens": 810,
+   "prompt_tokens": 5087,
+   "total_tokens": 7222
+  },
+  "model_reported": "gemini-3.7-flash",
+  "json_ok": true,
+  "schema_ok": true,
+  "value_per_share": 110585.0,
+  "intermediates_populated": true
+ },
+ {
+  "rep": 1,
+  "latency": 10.510538900038227,
+  "usage": {
+   "completion_tokens": 857,
+   "prompt_tokens": 5087,
+   "total_tokens": 8245
+  },
+  "model_reported": "gemini-3.7-flash",
+  "json_ok": true,
+  "schema_ok": true,
+  "value_per_share": 114468.0,
+  "intermediates_populated": true
+ },
+ {
+  "rep": 2,
+  "latency": 13.225927599938586,
+  "usage": {
+   "completion_tokens": 818,
+   "prompt_tokens": 5087,
+   "total_tokens": 8819
+  },
+  "model_reported": "gemini-3.7-flash",
+  "json_ok": true,
+  "schema_ok": true,
+  "value_per_share": 97613.0,
+  "intermediates_populated": true
+ },
+ {
+  "rep": 3,
+  "latency": 9.650959599995986,
+  "usage": {
+   "completion_tokens": 845,
+   "prompt_tokens": 5087,
+   "total_tokens": 7978
+  },
+  "model_reported": "gemini-3.7-flash",
+  "json_ok": true,
+  "schema_ok": true,
+  "value_per_share": 113894.0,
+  "intermediates_populated": true
+ },
+ {
+  "rep": 4,
+  "latency": 11.498530799988657,
+  "usage": {
+   "completion_tokens": 840,
+   "prompt_tokens": 5087,
+   "total_tokens": 8643
+  },
+  "model_reported": "gemini-3.7-flash",
+  "json_ok": true,
+  "schema_ok": true,
+  "value_per_share": 124433.0,
+  "intermediates_populated": true
+ }
+]

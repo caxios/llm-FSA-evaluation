@@ -1,0 +1,3 @@
+# LLM spending limits (USD). Not set yet; the runner prints cost estimates on --dry-run.
+total_usd: null
+reserved_extensions_usd: null

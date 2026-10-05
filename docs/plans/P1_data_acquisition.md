@@ -9,6 +9,14 @@
 | Depends on | P0 (keys, data-access memo, fixtures, `t_post`/`t_pre`) |
 | Unlocks | P2 |
 
+> **P0 findings (2026-10-05)** — see `docs/data_access_memo.md`. They override the design below where they differ:
+> - API keys are read from `.env` as `OPENDARTAPI_KEY` and `KRX_OPENAPI_KEY`.
+> - **pykrx is dropped** (needs a KRX login). `KrxClient` uses only the KRX Open API: `GET https://data-dbg.krx.co.kr/svc/apis/sto/{stk|ksq}_bydd_trd?basDd=YYYYMMDD`, header `AUTH_KEY`; response `OutBlock_1` rows with `ISU_CD, ISU_NM, MKT_NM, TDD_CLSPRC, ACC_TRDVOL, MKTCAP, LIST_SHRS`. The KOSDAQ service needs approval first.
+> - Sector comes from DART `induty_code`, not KRX. Halt/admin flags follow D0.6.
+> - `list.json`: ≤ 3-month windows without `corp_code`, `page_count` ≤ 100; CB titles include `[기재정정]`/`[첨부정정]` prefixes. Refixing (`전환가액의조정`) is searched per `corp_code`.
+> - `cb_parser`: DART XML cells use `TE`/`TU` tags in addition to `TD`/`TH`; two-level header; unit caption `(단위 : 원, 주)`; final row `합 계`.
+> - `cvbdIsDecsn.json` provides the refixing floor (`act_mktprcfl_cvprc_lwtrsprc`) directly; dates are Korean strings.
+
 ## 1. Objective
 
 Build idempotent, rate-limited clients for OpenDART, KRX, and prices. Use them to fetch the raw data for the full candidate universe into `data/raw/`, reproducibly via one script.
