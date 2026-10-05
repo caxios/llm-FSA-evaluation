@@ -1,0 +1,15 @@
+# Identifiers confirmed by a person after the LLM residual check (P4 §5.5) or the manual
+# audit (§6 step 8). Merged into the per-firm identifier dictionaries by
+# scripts/build_conditions.py. Keys per firm: names, investees, brands, group_names, segments.
+#
+# Example:
+#   L001:
+#     brands: [갤럭시]
+#   S012:
+#     names: [옛상호]
+#
+# `ignore` lists tokens the reviewer judged generic (not identifiers); the LLM check report
+# stops listing them.
+firms: {}
+ignore:
+  - 국내   # round 1: from the industry label "국내 … 기업" (generic)

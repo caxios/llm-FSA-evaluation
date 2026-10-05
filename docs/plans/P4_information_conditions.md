@@ -4,10 +4,16 @@
 |---|---|
 | Roadmap | R§6 |
 | Week | 5 |
-| Status | Ready (develop on fixture packages) |
+| Status | Implemented 2026-10-05 (manual audit and fake-name review by a person pending) |
 | Version | v0.1 (2026-10-05) |
 | Depends on | P2 Step 2.1 (schema), P1 (`corpCode` list, company info, investee names) |
 | Unlocks | P7 |
+
+> **Implementation notes (2026-10-05)** — see `docs/decisions_log.md` (P4 decisions):
+> - Code: `src/conditions/{identifiers,redactor,build,fake_names,industry,pipeline}.py`; config `fake_name_parts.yaml`, `redaction_overrides.yaml` (reviewer-confirmed identifiers and ignored tokens), `industry_labels.yaml` (+ KSIC sections, `min_peers`), `models.yaml` (`comparison` entry). Scripts: `build_conditions.py` (identifiers, fake names, automated leak check → `docs/redaction_report.md`), `redaction_llm_check.py` (→ `docs/redaction_llm_review.md`), `redaction_audit_sample.py` (→ `docs/redaction_audit.md`).
+> - Entry point for P5: `src.conditions.pipeline.conditioned(firm_id, condition)` returns a `ConditionedPackage` whose `render()` is the prompt.
+> - `FirmIdentifiers` adds `segments`. Matching: one regex pass, longest term first; terms of ≤ 2 characters and Latin-letter terms match only as whole tokens; Korean terms of ≥ 3 characters also match with spaces between characters. Placeholder values ("-") are ignored.
+> - Results on the 150 firms: no statement or notes label contains an identifier (0 redactions); automated leak check 0; LLM residual check round 1 (gemini-3.7-flash, 300 prompts, $1.26) found no identifier (only "국내" from the industry label, ignored) — converged. 13 firms in divisions with fewer than 10 universe peers use the KSIC section label. Fake names: 150, unique, max similarity 0.57.
 
 ## 1. Objective
 
@@ -184,10 +190,10 @@ Every KSIC division present in the sample gets a reviewed label. Labels describe
 
 ## 8. Exit criteria & verification
 
-- [ ] Automated check across all 150 firms: no `names`/`ticker`/`investees` token appears in A/B/D renders.
-- [ ] LLM residual check converged (last round found no new confirmed tokens).
-- [ ] Manual audit of 15 firms: zero direct identifiers remaining.
-- [ ] `fake_names.parquet` covers all 150 firms; max similarity < threshold.
+- [x] Automated check across all 150 firms: no `names`/`ticker`/`investees` token appears in A/B/D renders.
+- [x] LLM residual check converged (last round found no new confirmed tokens).
+- [ ] Manual audit of 15 firms: zero direct identifiers remaining (`docs/redaction_audit.md`).
+- [x] `fake_names.parquet` covers all 150 firms; max similarity < threshold (list for human review in `docs/redaction_report.md`).
 
 ## 9. Risks & fallbacks
 

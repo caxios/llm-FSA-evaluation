@@ -544,7 +544,7 @@ Phase-local decisions (`Dn.k`) are listed in each phase plan under `docs/plans/`
 - [x] P1 Raw data fetched and reproducible (KOSDAQ prices provisional until KRX approval)
 - [x] P2 150 packages + ground truth (small-cap selection provisional; manual checks pending)
 - [x] P3 Perturbation engine with full identity sweep passing (human read of V2/V3 texts pending)
-- [ ] P4 Redaction audit complete, fake names assigned
+- [x] P4 Redaction audit complete, fake names assigned (manual audit and fake-name review pending)
 - [ ] P5 Plain + tool agents, cache, validator, runner working end to end
 - [ ] P6 Metrics validated on synthetic agents
 - [ ] P7 Pilot report, gates evaluated, preregistration tagged

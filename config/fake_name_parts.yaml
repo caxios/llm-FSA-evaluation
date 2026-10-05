@@ -1,0 +1,39 @@
+# Fake company-name parts (P4 §5.6). Name = prefix + suffix, or prefix + core + suffix
+# (cores are used only before suffixes listed in `core_ok`).
+# No well-known business-group prefixes (삼성, 현대, LG, SK, 롯데, 한화, GS, CJ, 포스코, 두산,
+# 한진, 효성, LS, 코오롱, 신세계, ...). Candidates are also rejected when they are close to any
+# listed company name (src/conditions/fake_names.py).
+prefixes: [한빛, 세진, 우림, 다온, 가람, 새솔, 은하, 해람, 누리, 미르, 온새, 라온, 보람,
+           청람, 하늘빛, 나래, 다솜, 아름, 이음, 소담, 해솔, 단비, 별빛, 늘봄, 새빛, 한울,
+           푸른솔, 금빛, 은솔, 도담, 마루, 여울, 초록, 진솔, 서린, 윤슬, 가온, 너울, 단아, 한결]
+cores: [진, 성, 원]
+core_ok: [산업, 정밀, 공업, 전자, 제약, 건설, 상사, 물산, 식품, 기업]
+suffixes:
+  manufacturing: [정밀, 산업, 테크, 소재, 공업, 기공, 머티리얼즈, 엔지니어링, 케미칼, 메탈]
+  electronics: [전자, 일렉트로닉스, 반도체, 디스플레이, 테크, 시스템즈, 옵틱스]
+  pharma: [제약, 바이오, 메디칼, 파마, 헬스케어, 생명과학, 바이오텍]
+  precision: [정밀, 메디칼, 옵틱스, 테크, 시스템즈, 인스트루먼트]
+  it: [시스템, 소프트, 네트웍스, 정보통신, 데이터, 인포텍, 클라우드]
+  media: [미디어, 엔터테인먼트, 콘텐츠, 스튜디오, 출판, 픽처스]
+  construction: [건설, 종합건설, 개발, 토건]
+  distribution: [상사, 유통, 물산, 트레이딩, 리테일, 인터내셔널]
+  transport: [물류, 해운, 로지스, 운수, 익스프레스]
+  energy: [에너지, 파워, 가스, 전력]
+  food: [식품, 푸드, 제과, 농산]
+  service: [서비스, 컨설팅, 엔지니어링, 랩스, 파트너스]
+  general: [산업, 홀딩스, 코퍼레이션, 인더스트리, 기업]
+# industry label keyword -> suffix set (first match wins)
+industry_map:
+  - [전자부품|컴퓨터|통신장비, electronics]
+  - [의료·정밀·광학기기, precision]
+  - [의약품, pharma]
+  - [식료품|음료|담배, food]
+  - [운송장비, manufacturing]
+  - [프로그래밍|정보 서비스|통신 기업|정보통신|출판, it]
+  - [영상|오디오|예술|스포츠|여가, media]
+  - [건설|공사|부동산|건축기술, construction]
+  - [도매|소매|도소매, distribution]
+  - [운송|운수|창고, transport]
+  - [전기·가스|증기, energy]
+  - [제조, manufacturing]
+  - [서비스|연구개발, service]

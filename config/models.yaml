@@ -36,3 +36,21 @@ models:
     price_out_per_mtok: 0.40
     context_window: 1048576
     structured_output: false
+  # D0.2 candidate (final choice in P9). Used now for the P4 redaction residual check
+  # (D4.4: the primary model must not see redacted packages outside the experiment).
+  comparison:
+    provider: openai_compatible
+    model_id: gemini-3.7-flash          # API version string: 3.7-flash-08-2026
+    base_url: https://generativelanguage.googleapis.com/v1beta/openai
+    api_key_env: GOOGLE_API_KEY
+    # Model card: "March 2026", uneven across domains (some limited to January 2025).
+    training_cutoff: 2026-03-01
+    cutoff_source: https://storage.googleapis.com/deepmind-media/Model-Cards/Gemini-3-7-Flash-Model-Card.pdf
+    reasoning: true                     # internal thinking tokens are billed as output
+    temperature: 0.3
+    max_output_tokens: 8192             # thinking tokens count against this budget
+    max_concurrency: 4
+    price_in_per_mtok: 0.75             # third-party price listings, Oct 2026; verify on ai.google.dev
+    price_out_per_mtok: 3.75
+    context_window: 1048576
+    structured_output: false

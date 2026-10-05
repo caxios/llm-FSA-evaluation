@@ -167,6 +167,25 @@ Format per entry: date, phase, options considered, decision, reason, affected do
 ### P2 fix found by the P3 sweep
 - 10 firms list equity components (자본잉여금, 기타자본, 기타포괄손익누계액) before the equity total in DART `ord`; the builder filed them under non-current assets, which put them in the wrong place in the rendered statements. The builder now reassigns equity components (by canonical, account ID or label) to equity; the 10 packages were rebuilt. Sample and ground truth unchanged.
 
+## P4 decisions (2026-10-05)
+
+### D4.1 — Company block in condition A
+- Keep the two-line block with "(비공개)" values in every condition (as implemented in P2's renderer).
+
+### D4.2 — Industry label granularity (refined)
+- KSIC division label, except when the division has fewer than 10 firms in the universe: then the KSIC section label (e.g., tobacco → "국내 제조 기업", air transport → "국내 운수·창고 기업"). A division label shared by a handful of listed firms nearly identifies the firm. Affects 13 sample firms; B, D and C use the same label. The label is applied by `make_condition`, overriding the P2 package meta.
+
+### D4.3 — Fake names
+- Rejected on an exact match to any of the 119,546 DART-registered names or normalized Levenshtein similarity ≥ 0.6 to any listed name (legal forms and spaces removed). Names are prefix + industry-specific suffix (sometimes with a one-syllable core); no business-group prefixes. Seeded with the sample seed; `fake_names.parquet` is kept once written (regenerate only with `--regenerate-fake-names`). Max similarity in the sample: 0.57.
+
+### D4.4 — Model for the LLM residual check
+- `gemini-3.7-flash`, registered as the `comparison` model in `config/models.yaml` (the final comparison model is still decided in P9). The primary model never sees redacted packages outside the experiment.
+
+### Redaction scope and outcome
+- Redacted fields in A/B/D: all statement line labels, notes labels, and the CB text (when present). Business descriptions are never in the prompt.
+- On the 150 sample packages no label contains a name, investee, ticker or CEO, so A/B/D differ from C only in the company block. The redactor matters for future inputs (E10, robustness runs) and is tested on planted labels.
+- The LLM check lists only tokens literally present in the prompt; firm names the model infers from the numbers are not redaction failures (E5 measures them).
+
 ---
 
 ## Research-plan revision

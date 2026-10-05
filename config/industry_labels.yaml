@@ -76,3 +76,26 @@ divisions:
   "94": 국내 협회·단체
   "95": 국내 수리 서비스 기업
   "96": 국내 기타 개인 서비스 기업
+
+# KSIC sections (divisions -> section). Used when a division has fewer than
+# `min_peers` firms in the universe: a label that fits only a handful of listed firms
+# (e.g. tobacco, air transport) nearly identifies the firm (P4, D4.2).
+min_peers: 10
+sections:
+  A: {range: ["01", "03"], label: 국내 농림어업 기업}
+  B: {range: ["05", "08"], label: 국내 광업 기업}
+  C: {range: ["10", "34"], label: 국내 제조 기업}
+  D: {range: ["35", "35"], label: 국내 전기·가스·증기 공급 기업}
+  E: {range: ["36", "39"], label: 국내 수도·하수·환경 서비스 기업}
+  F: {range: ["41", "42"], label: 국내 건설 기업}
+  G: {range: ["45", "47"], label: 국내 도소매 유통 기업}
+  H: {range: ["49", "52"], label: 국내 운수·창고 기업}
+  I: {range: ["55", "56"], label: 국내 숙박·음식점 기업}
+  J: {range: ["58", "63"], label: 국내 정보통신 기업}
+  L: {range: ["68", "68"], label: 국내 부동산 기업}
+  M: {range: ["70", "73"], label: 국내 전문·과학·기술 서비스 기업}
+  N: {range: ["74", "76"], label: 국내 사업지원 서비스 기업}
+  P: {range: ["85", "85"], label: 국내 교육 서비스 기업}
+  Q: {range: ["86", "87"], label: 국내 보건·사회복지 서비스 기업}
+  R: {range: ["90", "91"], label: 국내 예술·스포츠·여가 서비스 기업}
+  S: {range: ["94", "96"], label: 국내 기타 개인 서비스 기업}
