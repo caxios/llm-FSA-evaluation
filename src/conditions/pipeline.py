@@ -28,9 +28,13 @@ def load_sample() -> pd.DataFrame:
     return pd.read_parquet(PROCESSED / "sample.parquet")
 
 
-def load_package(firm_id: str) -> InputPackage:
-    return InputPackage.from_json((PROCESSED / "packages" / f"{firm_id}.json").read_text(
-        encoding="utf-8"))
+PACKAGES_DIR = PROCESSED / "packages"
+DEV_DIR = PROCESSED / "dev"                 # P7 dev set (prompt iteration, outside the sample)
+
+
+def load_package(firm_id: str, packages_dir: Path | None = None) -> InputPackage:
+    path = (packages_dir or PACKAGES_DIR) / f"{firm_id}.json"
+    return InputPackage.from_json(path.read_text(encoding="utf-8"))
 
 
 @lru_cache(maxsize=1)

@@ -122,7 +122,7 @@ def build_firm_table(runs: pd.DataFrame, *, sample: pd.DataFrame | None = None,
                          *AGENT_KEYS])["valid"].mean()
     low = (cells < LOW_VALIDITY).groupby(level=KEY).sum().rename("n_low_validity_cells")
     anomaly = val[val["valid"].eq(True)].groupby(KEY)["anomaly_flag"].apply(
-        lambda s: float(s.fillna(False).astype(bool).mean())).rename("anomaly_rate")
+        lambda s: float(s.astype("boolean").fillna(False).mean())).rename("anomaly_rate")
     table = _merge(table, pd.concat([low, anomaly], axis=1).reset_index())
 
     if sample is not None:

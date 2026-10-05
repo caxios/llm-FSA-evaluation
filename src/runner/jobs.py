@@ -14,6 +14,7 @@ from dataclasses import dataclass, field
 from datetime import date
 from typing import Protocol
 
+import pandas as pd
 from pydantic import BaseModel
 
 from src.agents.base import AgentStructure, RunRequest, SchemaName
@@ -61,18 +62,26 @@ class PackageStore(Protocol):
 
 
 class SampleStore:
-    """The 150 sample packages with their P4 identifiers, fake names and labels."""
+    """The 150 sample packages with their P4 identifiers, fake names and labels.
 
-    def __init__(self):
+    `dev=True` serves the P7 dev set instead (data/processed/dev: sample.parquet and
+    packages/), used only for prompt iteration."""
+
+    def __init__(self, dev: bool = False):
         from src.conditions import pipeline as pl
 
         self.pl = pl
-        self.sample = pl.load_sample().set_index("firm_id")
+        if dev:
+            self.packages_dir = pl.DEV_DIR / "packages"
+            self.sample = pd.read_parquet(pl.DEV_DIR / "sample.parquet").set_index("firm_id")
+        else:
+            self.packages_dir = pl.PACKAGES_DIR
+            self.sample = pl.load_sample().set_index("firm_id")
         self._pkgs: dict[str, InputPackage] = {}
 
     def package(self, firm_id: str) -> InputPackage:
         if firm_id not in self._pkgs:
-            self._pkgs[firm_id] = self.pl.load_package(firm_id)
+            self._pkgs[firm_id] = self.pl.load_package(firm_id, self.packages_dir)
         return self._pkgs[firm_id]
 
     def group(self, firm_id: str) -> str:

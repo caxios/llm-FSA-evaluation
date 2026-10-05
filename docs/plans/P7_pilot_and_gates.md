@@ -4,10 +4,15 @@
 |---|---|
 | Roadmap | R§9 |
 | Weeks | 6–8 |
-| Status | Draft (parameters filled from P1–P6) |
+| Status | In progress: KOSDAQ-independent part run 2026-10-05; G2 and G4 failed — design decision pending |
 | Version | v0.1 (2026-10-05) |
 | Depends on | P1–P6 exit criteria, especially the P6 synthetic-validation gate |
 | Unlocks | P8, P9, P10 |
+
+> **Progress notes (2026-10-05)** — `docs/pilot_report.md` (generated + interpretation):
+> - Built: `config/pilot.yaml`, `scripts/build_dev_set.py` (dev set X001–X005: KOSPI ranks 51–52 and 101, two deep out-of-the-money KOSDAQ CB issuers that cannot enter the S group), `scripts/pilot.py` (stages dev, e0, e2, e6, size, e3, report), `src/analysis/pilot_report.py` (+ test). `SampleStore(dev=True)` serves the dev set.
+> - Dev set (prompt v1): 100% compliance, no unit slips → v1 kept at Step 1.
+> - Pilot L (1,230 calls): G1 PASS 99.8%; G2 FAIL (median ε 81%, error in discounting); G4 FAIL 0/10; unit slips in 24% of E0 runs for the largest firms; G3 not interpretable. E3 not run (no feasible size). Pilot S / E8 / G5 / preregistration wait for KRX KOSDAQ.
 
 ## 1. Objective
 

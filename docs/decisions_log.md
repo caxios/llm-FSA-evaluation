@@ -223,6 +223,11 @@ Format per entry: date, phase, options considered, decision, reason, affected do
 - Noise multiplies every amount the oracle reads (flows, cash, debt, non-operating assets, CB face), so the per-share value moves by exactly exp(z) and the outputs stay self-consistent.
 - The validation follows the design order E0 → sizing (`decide_size`) → E3. With a fixed 5%-of-book-equity size, noise swamped the cash response (oracle R = 0.21 on fixtures).
 
+## P7 (in progress, 2026-10-05)
+
+- Step 1: prompt v1 kept (dev-set compliance 100%, no unit slips).
+- Pilot L results: G1 pass; G2 fail (discounting arithmetic); G4 fail (noise and unit slips for the largest firms). Design review pending: prompt v1.1 with unit rules + structure T recommended (`docs/pilot_report.md`). D6, D7.1–D7.3, D7.5 not decided yet.
+
 ---
 
 ## Research-plan revision

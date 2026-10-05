@@ -1,0 +1,24 @@
+# P7 pilot scope (docs/plans/P7_pilot_and_gates.md §5).
+# Status 2026-10-05: the KOSDAQ-dependent part (pilot S, E8, gate G5, preregistration freeze)
+# waits for the KRX KOSDAQ approval; dev-set prompt iteration and pilot L run now.
+prompt_version: v1            # set after dev-set iteration (P7 Step 1)
+model: primary
+agent: P
+
+dev:                          # outside the sample; prompt iteration only (build_dev_set.py)
+  firms: [X001, X002, X003, X004, X005]
+  reps: 3
+
+pilot_L:                      # every 5th large cap by market-cap rank
+  firms: [L001, L006, L011, L016, L021, L026, L031, L036, L041, L046]
+pilot_S:                      # pending KRX KOSDAQ approval (S selection is provisional)
+  firms: []
+
+scope:
+  e0_reps: 20                 # sigma stability
+  e2_conditions: [C, A]
+  e2_reps: 10
+  e3_reps: 10
+  e3_tiers: [0.02, 0.05, 0.10]
+  e6_reps: 3
+  e8_variants: [cb_v0, cb_v1, cb_v2, cb_v3]
