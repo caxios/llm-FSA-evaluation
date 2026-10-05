@@ -18,7 +18,7 @@ import pandas as pd
 from pydantic import BaseModel
 
 from src.agents.base import AgentStructure, RunRequest, SchemaName
-from src.agents.prompts.registry import SYSTEM_FOR_VERSION, get_prompt
+from src.agents.prompts.registry import SYSTEM_FOR_VERSION, TOOL_FOR_VERSION, get_prompt
 from src.conditions.build import ConditionedPackage
 from src.data.package_schema import InputPackage
 from src.perturb import PerturbationError, PerturbMeta, perturb, without_cb
@@ -113,7 +113,7 @@ class ExpandStats:
 
 def system_prompt(agent_structure: str, prompt_version: str) -> tuple[str, str]:
     if agent_structure == "T":
-        return get_prompt("tool_system_v1")
+        return get_prompt(TOOL_FOR_VERSION[prompt_version])
     return get_prompt(SYSTEM_FOR_VERSION[prompt_version])
 
 

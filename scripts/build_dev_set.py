@@ -6,7 +6,11 @@
                      price: they cannot enter the S group (in-the-money CB required) even
                      when KRX KOSDAQ prices replace the provisional yfinance closes
 
-Writes data/processed/dev/{sample.parquet, packages/X00n.json} and identifier files.
+  X011, X012  X001 and X002 with every amount scaled so revenue is about KRW 300 trillion
+              (the magnitude of the largest sample firms, where the pilot showed unit slips);
+              run in condition A only, since the real name would not match the numbers
+
+Writes data/processed/dev/{sample.parquet, packages/X0nn.json} and identifier files.
 Uses cached OpenDART data only.
 """
 
@@ -24,7 +28,10 @@ from src.config import load_config  # noqa: E402
 from src.data.cb_truth import build_cb_block, current_instruments  # noqa: E402
 from src.data.dart_client import DartClient  # noqa: E402
 from src.data.p2_inputs import P1Data, iter_builds  # noqa: E402
+from src.perturb import perturb  # noqa: E402
 
+SCALED = [("X011", "X001"), ("X012", "X002")]
+TARGET_REVENUE_MN = 3e8
 DEV = [("X001", "L", "00583424"), ("X002", "L", "00105961"), ("X003", "M", "00125521"),
        ("X004", "S", "01147487"), ("X005", "S", "00288343")]
 
@@ -66,6 +73,18 @@ def main() -> int:
         pl.save_identifiers(pl.identifiers_for(row))
         rows.append(row)
         print(f"{fid} {grp} {c['corp_name']} cb={pkg.cb is not None}")
+    by_fid = {r["firm_id"]: r for r in rows}
+    for new, base_id in SCALED:
+        base = pl.load_package(base_id, pkg_dir)
+        rev = base.is_.value("revenue", base.latest_year)
+        k = float(f"{TARGET_REVENUE_MN / rev:.0e}")
+        pkg, _ = perturb(base, "scale", k=k)
+        pkg.meta.firm_id = new
+        (pkg_dir / f"{new}.json").write_text(pkg.to_json(), encoding="utf-8")
+        ids = pl.load_identifiers(base_id).model_copy(update={"firm_id": new})
+        pl.save_identifiers(ids)
+        rows.append({**by_fid[base_id], "firm_id": new, "scale_k": k})
+        print(f"{new} = {base_id} x {k:g} (revenue {rev * k:,.0f} mn)")
     pd.DataFrame(rows).sort_values("firm_id").to_parquet(pl.DEV_DIR / "sample.parquet",
                                                          index=False)
     return 0

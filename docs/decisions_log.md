@@ -226,7 +226,9 @@ Format per entry: date, phase, options considered, decision, reason, affected do
 ## P7 (in progress, 2026-10-05)
 
 - Step 1: prompt v1 kept (dev-set compliance 100%, no unit slips).
-- Pilot L results: G1 pass; G2 fail (discounting arithmetic); G4 fail (noise and unit slips for the largest firms). Design review pending: prompt v1.1 with unit rules + structure T recommended (`docs/pilot_report.md`). D6, D7.1–D7.3, D7.5 not decided yet.
+- Pilot L round 1 (P, v1): G1 pass; G2 fail (discounting arithmetic); G4 fail (noise and unit slips for the largest firms).
+- 2026-10-06, user decision: fix both problems. **Prompt v1.1** (unit rules; logged as a post-step-1 prompt change per plan §9, verified on scaled-up dev packages) and **D6: structure T as the primary agent** (P kept for H4).
+- Pilot L round 2 (T, v1.1): G1, G2 pass; unit slips 0%; G4 still fails — missing D&A in 131/150 packages lets the model invent D&A, and the §6.8 parameters (s* = 0.1, 10% cap) require CV ≤ 3.2% at n = 20. Pending decisions: D&A convention or data, s*/cap, D7.5.
 
 ---
 

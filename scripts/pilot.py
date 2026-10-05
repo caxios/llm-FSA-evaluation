@@ -44,7 +44,8 @@ REPORT = PROJECT_ROOT / "docs" / "pilot_report.md"
 
 def run(specs: list[JobSpec], store, dry: bool, table: str):
     cfg = load_config()
-    agent, _, _ = make_agent(PILOT["agent"], PILOT["model"], cfg)
+    agent, _, _ = make_agent(specs[0].agent_structure if specs else PILOT["agent"],
+                             PILOT["model"], cfg)
     mcfg = cfg.require_model(PILOT["model"])
     s = Runner(agent, CallCache(), max_workers=mcfg.max_concurrency).run(
         specs, store, dry_run=dry, cfg=mcfg)
@@ -59,16 +60,19 @@ def run(specs: list[JobSpec], store, dry: bool, table: str):
     return s
 
 
-def common(prompt: str) -> dict:
-    return {"agent_structure": PILOT["agent"], "model_key": PILOT["model"],
+def common(prompt: str, agent: str | None = None) -> dict:
+    return {"agent_structure": agent or PILOT["agent"], "model_key": PILOT["model"],
             "prompt_version": prompt, "tag": "pilot"}
 
 
 def stage_dev(args) -> None:
     cfg, store = load_config(), SampleStore(dev=True)
     firms, reps = PILOT["dev"]["firms"], PILOT["dev"]["reps"]
-    c = common(args.prompt) | {"tag": f"dev-{args.prompt}"}
+    c = common(args.prompt, args.agent) | {"tag": f"dev-{args.prompt}"}
     specs = b.e0_e2(cfg, store, firms, reps=reps, conditions=["C"], **c)
+    scaled = PILOT["dev"].get("scaled", [])
+    if scaled:
+        specs += b.e0_e2(cfg, store, scaled, reps=reps, conditions=["A"], **c)
     e8 = b.e8(cfg, store, firms, reps=reps, **c)
     for s in e8:
         s.perturbations = [("cb_v0", {})]
@@ -77,8 +81,9 @@ def stage_dev(args) -> None:
     run(specs + e8, store, args.dry_run, "DEV")
     if not args.dry_run:
         runs = pd.read_parquet(RUNS_DIR / "DEV.parquet")
-        runs = runs[runs["prompt_version"] == args.prompt]
-        pkgs = {f: store.package(f) for f in firms}
+        runs = runs[(runs["prompt_version"] == args.prompt)
+                    & (runs["agent_structure"] == (args.agent or PILOT["agent"]))]
+        pkgs = {f: store.package(f) for f in firms + scaled}
         res = evaluate(runs, cfg, packages=pkgs, n_boot=200)
         print(f"  compliance {runs['valid'].mean():.1%}; "
               f"unit slips {res.numbers.get('unit_slip_share', float('nan')):.1%}; "
@@ -92,20 +97,20 @@ def stage_dev(args) -> None:
 def stage_e0(args) -> None:
     cfg, store = load_config(), SampleStore()
     run(b.e0(cfg, store, PILOT["pilot_L"]["firms"], reps=PILOT["scope"]["e0_reps"],
-             **common(PILOT["prompt_version"])), store, args.dry_run, "E0")
+             **common(args.prompt, args.agent)), store, args.dry_run, "E0")
 
 
 def stage_e2(args) -> None:
     cfg, store = load_config(), SampleStore()
     run(b.e0_e2(cfg, store, PILOT["pilot_L"]["firms"], reps=PILOT["scope"]["e2_reps"],
-                conditions=PILOT["scope"]["e2_conditions"], **common(PILOT["prompt_version"])),
+                conditions=PILOT["scope"]["e2_conditions"], **common(args.prompt, args.agent)),
         store, args.dry_run, "E2")
 
 
 def stage_e6(args) -> None:
     cfg, store = load_config(), SampleStore()
     run(b.e6(cfg, store, PILOT["pilot_L"]["firms"], reps=PILOT["scope"]["e6_reps"],
-             **common(PILOT["prompt_version"])), store, args.dry_run, "E6")
+             **common(args.prompt, args.agent)), store, args.dry_run, "E6")
 
 
 def stage_size(args) -> None:
@@ -114,7 +119,8 @@ def stage_size(args) -> None:
     cfg, store = load_config(), SampleStore()
     e0 = pd.read_parquet(RUNS_DIR / "E0.parquet")
     e0 = e0[e0["firm_id"].isin(PILOT["pilot_L"]["firms"])
-            & (e0["prompt_version"] == PILOT["prompt_version"])]
+            & (e0["prompt_version"] == args.prompt)
+            & (e0["agent_structure"] == (args.agent or PILOT["agent"]))]
     out = []
     for r in baseline(e0).query("condition == 'C'").itertuples():
         pkg = store.package(r.firm_id)
@@ -149,7 +155,7 @@ def stage_e3(args) -> None:
         if p:
             perts[fid], reps[fid] = p, PILOT["scope"]["e3_reps"]
     spec = JobSpec(experiment="E3", firm_ids=sorted(perts), conditions=["C"],
-                   perturbations=perts, reps=reps, **common(PILOT["prompt_version"]))
+                   perturbations=perts, reps=reps, **common(args.prompt, args.agent))
     run([spec], store, args.dry_run, "E3")
 
 
@@ -159,13 +165,16 @@ def stage_report(args) -> None:
     tables = [pd.read_parquet(RUNS_DIR / f"{e}.parquet").dropna(axis=1, how="all")
               for e in ("E0", "E2", "E3", "E6") if (RUNS_DIR / f"{e}.parquet").exists()]
     runs = pd.concat(tables, ignore_index=True)
+    agent = args.agent or PILOT["agent"]
     runs = runs[runs["firm_id"].isin(firms) & (runs["tag"] == "pilot")
-                & (runs["prompt_version"] == PILOT["prompt_version"])]
+                & (runs["prompt_version"] == args.prompt)
+                & ((runs["agent_structure"] == agent) | (runs["schema_name"] == "quiz"))]
     runs = runs.drop_duplicates("job_id")
     sizes = load_sizes()
     res = evaluate(runs, cfg, sizes=sizes, packages={f: store.package(f) for f in firms})
     cost = cost_estimate(runs, cfg.require_model(PILOT["model"]))
-    text = render(res, "Pilot Report (P7) — KOSDAQ-independent part", cost=cost,
+    text = render(res, f"Pilot Report (P7) — KOSDAQ-independent part "
+                       f"(agent {agent}, prompt {args.prompt})", cost=cost,
                   sizes=size_table(sizes) if sizes else None)
     REPORT.write_text(text, encoding="utf-8")
     print(text[:3000])
@@ -180,6 +189,7 @@ def main() -> int:
                                  formatter_class=argparse.RawTextHelpFormatter)
     ap.add_argument("stage", choices=list(STAGES))
     ap.add_argument("--prompt", default=PILOT["prompt_version"])
+    ap.add_argument("--agent", default=None, help="P or T (default from config/pilot.yaml)")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
     STAGES[args.stage](args)

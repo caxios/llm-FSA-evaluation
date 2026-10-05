@@ -136,10 +136,12 @@ def evaluate(runs: pd.DataFrame, cfg: Config, sizes: list[SizeDecision] | None =
     res.gates.append(Gate("G1 Schema", "valid / all runs", g1, ">= 95%", g1 >= 0.95,
                           f"{int(runs['valid'].sum())}/{len(runs)} runs"))
 
-    # G2 calculation reliability (structure P)
-    eps = run_epsilons(val[val["agent_structure"] == "P"])
+    # G2 calculation reliability (on the structure evaluated; zero by construction for T)
+    structures = ",".join(sorted(val["agent_structure"].dropna().unique()))
+    eps = run_epsilons(val)
     share = float((eps["eps"] > 0.05).mean()) if len(eps) else np.nan
-    res.gates.append(Gate("G2 Calculation", "share of valid P runs with eps > 5%", share,
+    res.gates.append(Gate("G2 Calculation", f"share of valid {structures} runs with eps > 5%",
+                          share,
                           "< 30%", bool(share < 0.30) if len(eps) else None,
                           f"median eps {eps['eps'].median():.3%}" if len(eps) else ""))
     res.tables["epsilon"] = eps
