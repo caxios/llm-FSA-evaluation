@@ -9,6 +9,7 @@ retried with exponential backoff up to 6 attempts, hard errors are raised. Tests
 
 from __future__ import annotations
 
+import os
 import re
 import threading
 import time
@@ -87,12 +88,19 @@ class RateLimiter:
             time.sleep(max(delay, 0.05))
 
 
+def max_concurrency(cfg: ModelConfig) -> int:
+    """Per-model concurrency; LLM_MAX_CONCURRENCY overrides the config (operational only,
+    outputs do not depend on it)."""
+    env = os.environ.get("LLM_MAX_CONCURRENCY")
+    return int(env) if env else cfg.max_concurrency
+
+
 class OpenAICompatibleClient:
     def __init__(self, cfg: ModelConfig, rpm: int | None = 600, timeout: float = 300.0,
                  session: requests.Session | None = None):
         self.cfg = cfg
         self.key = require_env(cfg.api_key_env)
-        self.sem = threading.BoundedSemaphore(cfg.max_concurrency)
+        self.sem = threading.BoundedSemaphore(max_concurrency(cfg))
         self.limiter = RateLimiter(rpm)
         self.timeout = timeout
         self.session = session or requests.Session()

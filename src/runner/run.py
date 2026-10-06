@@ -26,6 +26,7 @@ from pathlib import Path
 import pandas as pd
 
 from src.agents.base import Agent, RunRecord, RunRequest, cache_key
+from src.agents.llm_client import max_concurrency
 from src.config import Config, load_config
 from src.data.package_schema import InputPackage
 from src.runner.cache import CallCache
@@ -256,7 +257,7 @@ def main(argv: list[str] | None = None, store: PackageStore | None = None,
                                   or (n == "scale" and p["k"] in keep)]
     cache = cache if cache is not None else CallCache()
     mcfg = cfg.models.get(model_key)
-    workers = args.workers or (mcfg.max_concurrency if mcfg else 8)
+    workers = args.workers or (max_concurrency(mcfg) if mcfg else 8)
     runner = Runner(agent, cache, max_workers=workers)
     summary = runner.run(specs, store, dry_run=args.dry_run, limit=args.limit, cfg=mcfg)
     total = summary.cached + summary.executed + summary.pending
