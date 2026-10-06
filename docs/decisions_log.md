@@ -241,6 +241,44 @@ Format per entry: date, phase, options considered, decision, reason, affected do
 
 ---
 
+## P8 operations (2026-10-06)
+
+- `LLM_MAX_CONCURRENCY` environment override (operational only; outputs do not depend on it). The main run uses 12.
+- Runner robustness fixes made during the run (not in frozen paths; no effect on outputs):
+  - a call that still fails after its retries is skipped and left for the next run, instead of aborting the whole batch and losing the other completed calls;
+  - every `requests` error and truncated response bodies count as transient;
+  - the retry budget per call is about 15 minutes;
+  - records are kept slim in memory.
+- Interruptions: a network outage, a laptop sleep, and Claude Code ending the background shell under memory pressure. The cache made every restart resume without repeating calls.
+
+## P9 decisions (2026-10-06)
+
+- **User decision: run every extension, none reduced:** structure P, structure R, comparison model, instruction effect and E10. The P9 spend comes on top of the P8 budget in `config/main_run.yaml`, which is hashed in the preregistration and left unchanged. Estimates: comparison model about $30, the others about $10.
+- **D9.1 (revised) — RAG embeddings:** Gemini `gemini-embedding-001` through the API instead of a local BGE-M3-class model. The 8 GB machine cannot hold a local model next to the runner. Vectors are cached by text hash (`results/cache/embeddings.sqlite`).
+- **D9.2 (as implemented) — chunks:**
+  - one chunk per top-level block and per table;
+  - tables longer than 25 rows are split into windows that repeat the title and header;
+  - 5 queries × top 4 chunks, plus the company block;
+  - the model computes, as in structure P.
+  - On these short packages R retrieves most chunks; this is the plan's own risk note, and R matters mainly for E8.
+- **Subsets** (`config/extensions.yaml`): a seeded stratified draw (seed 20261028) of 10 L, 10 M and 10 S firms for E2, plus 20 S firms for E8 (the 10 plus 10 more). Drawn before any P8 result was inspected. Structure T on these firms comes from the main run.
+- **Instruction effect under structure P:** the frozen rule-6 variant exists only for the plain prompt (`valuation_system_v1_2_instr`). The comparison is P v1.2_instr vs P v1.2 on the same firms. A T variant would need a new prompt, which the preregistration forbids.
+- **Comparison model:** `gemini-3.7-flash` with structure T, conditions C and D (P9 §5.3). Its cutoff (March 2026) is close to `T_post`, so it is a robustness check, not a time-based identification.
+- **E10:**
+  - Filler: the firm's own FY2025 annual-report sections V, VI, VIII and VII. Lines mentioning convertible bonds, bonds, warrants, conversion prices or dilution are removed.
+  - Length: cut to 13,000 characters for every firm (the shortest of the 20 firms has 13,173).
+  - Positions: front puts the CB block right after the company block; middle puts it inside the filler at its midpoint. The total text is the same in both.
+
+## P10 implementation (2026-10-06)
+
+- Firm tables are built per variant (tag, structure, model, prompt version), because the metric functions key firms by (structure, model) only. The combined table goes to `results/firm_level.parquet`.
+- H1 and H3 use the DerSimonian–Laird random-effects weighted mean (SE of R_dil from its bootstrap CI width ÷ 3.92). H2a uses a one-sided Wilcoxon test. H2b uses WLS with HC3 standard errors and weights 1/se(E_i)²; industry FE use KSIC divisions with ≥ 5 firms, and the rest is pooled as "other". Holm correction is applied across the four primary tests.
+- "Not supported" bounds (§5.5 example extended):
+  - H1 and H3: the CI lower bound is above 0.9.
+  - H2a: the CI upper bound is below 0.02.
+  - H2b: the CI upper bound is below 0.
+- R7 (complex CBs) cannot run: `cb_complex` is unknown for every firm (D2.8).
+
 ## Research-plan revision
 
 - 2026-10-05: `llm_valuation_research_plan.md` revised to v0.2, reflecting D1, D2.2, D3.3, D3.5, D5.2, D7.4, D8/D2.5. `implementation_plan.md` revised to v0.2.

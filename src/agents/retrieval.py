@@ -100,7 +100,11 @@ class Embedder:
         if r.status_code == 429 or r.status_code >= 500:
             raise requests.RequestException(f"HTTP {r.status_code}")
         r.raise_for_status()
-        data = sorted(r.json()["data"], key=lambda d: d["index"])
+        data = r.json()["data"]   # Gemini's endpoint omits "index"; order follows the input
+        if all("index" in d for d in data):
+            data = sorted(data, key=lambda d: d["index"])
+        if len(data) != len(texts):
+            raise requests.RequestException(f"{len(data)} embeddings for {len(texts)} texts")
         return [np.asarray(d["embedding"], dtype=np.float32) for d in data]
 
     def embed(self, texts: list[str]) -> np.ndarray:
