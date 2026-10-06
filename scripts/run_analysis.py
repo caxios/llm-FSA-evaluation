@@ -66,6 +66,7 @@ def firm_tables(runs: pd.DataFrame, sample: pd.DataFrame, reuse: bool, n_boot: i
         t0 = time.time()
         t = build_firm_table(r, sample=sample, quiz_truth=quiz, identifiers=ids,
                              anchors=anchors, n_boot=n_boot if name == "main" else 200)
+        t = supplement_dilution(t, r, sample)
         t.insert(0, "variant", name)
         t.to_parquet(path, index=False)
         out[name] = t
@@ -74,6 +75,31 @@ def firm_tables(runs: pd.DataFrame, sample: pd.DataFrame, reuse: bool, n_boot: i
         pd.concat(out.values(), ignore_index=True).to_parquet(OUT / "firm_level.parquet",
                                                               index=False)
     return out
+
+
+def supplement_dilution(t: pd.DataFrame, runs: pd.DataFrame, sample: pd.DataFrame
+                        ) -> pd.DataFrame:
+    """Add E8-only firms. `build_firm_table` keeps firms with an E0 cell only, so in the
+    extensions the 10 E8 firms outside the E2 subset would be dropped (frozen metric code;
+    the supplement uses the same metric functions)."""
+    from src.metrics.dilution import firm_dilution
+    from src.metrics.failure_modes import classify_runs, stage_shares
+
+    val = runs[runs["schema_name"].fillna("valuation") == "valuation"]
+    missing = set(val.loc[val["experiment"] == "E8", "firm_id"]) - set(t["firm_id"])
+    if not missing:
+        return t
+    sub = val[val["firm_id"].isin(missing)]
+    dil = firm_dilution(sub, 200)
+    if dil.empty:
+        return t
+    basic = dict(zip(dil["firm_id"], dil["N_v1"], strict=False))
+    dil = dil.merge(stage_shares(classify_runs(sub, basic)), how="left")
+    dil = sample[["firm_id", "group", "ksic2", "market_cap", "newsworthiness",
+                  "cb_complex"]].merge(dil, on="firm_id", how="right")
+    if "variant" in t:
+        dil.insert(0, "variant", t["variant"].iloc[0])
+    return pd.concat([t, dil], ignore_index=True)
 
 
 def main() -> int:

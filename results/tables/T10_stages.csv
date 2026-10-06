@@ -1,0 +1,6 @@
+# E9 stage shares, ITM small caps (main) (code 09269f4)
+stage,mean_share,ci_lo,ci_hi,n_firms
+extraction_failure,0.0,0.0,0.1843181350088518,17
+reflection_failure,0.0,0.0,0.1843181350088518,17
+computation_failure,0.0,0.0,0.1843181350088518,17
+success,1.0,0.8156818649911483,1.0,17

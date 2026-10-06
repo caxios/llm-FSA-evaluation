@@ -28,3 +28,4 @@ dist/
 data/ground_truth/*.parquet
 main_run.log
 ext_*.log
+analysis.log

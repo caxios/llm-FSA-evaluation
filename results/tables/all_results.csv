@@ -1,0 +1,47 @@
+# Every test and estimate (code 09269f4)
+id,kind,statistic,estimate,ci_lo,ci_hi,p,p_holm,n,direction,note
+H1,primary,DL weighted mean beta_C (L),0.9931827973395524,0.9509333928760162,1.0354322018030886,0.3759032982879113,1.0,50,< 1,tau2 = 0.0090
+H1-unweighted,robustness,"mean beta_C (L), t test",0.9477684650251628,0.7654064653873166,1.130130464663009,0.28376790660220835,,50,< 1,
+H1-wilcoxon,robustness,"median beta_C (L), Wilcoxon",0.9811894607159863,,,0.560832846112552,,50,< 1,
+H1b,exploratory,"b_S (small - large slope), firm-clustered",0.28655190580152196,-0.0010111706885342353,0.5741149822915781,0.025405527561953276,,146,> 0,b (large) = 1.012; runs 6764
+nonlinearity,exploratory,share of firms with p(quad) < 0.05,0.24305555555555555,,,,,144,,mean beta_quad 0.530
+H1c,exploratory,median eps_median L - S (structure P),-0.1477915257085467,,,0.8462552716906593,,20,> 0,"median L 0.632, S 0.779"
+H2a,primary,median E_i (all),0.020062457108172227,-0.11401675171196006,0.13005647463265066,0.42756589587565397,1.0,145,> 0,mean 0.0080
+H2a-L,exploratory,median E_i (L),0.014490927916902596,-0.1652884476272385,0.2899347683244433,0.28931460687813804,,50,> 0,mean 0.0623
+H2a-M,exploratory,median E_i (M),0.10860765998944055,-0.1731185383607546,0.15960130521443514,0.279552311596758,,50,> 0,mean -0.0068
+H2a-S,exploratory,median E_i (S),-0.12663003722368016,-0.28859701609945193,0.21680380378736017,0.6563527111750886,,45,> 0,mean -0.0359
+H2b,primary,"gamma_1 (M_i), WLS, HC3",0.17768433473714984,-0.7884266692437955,1.1437953387180952,0.35924503337773145,1.0,145,> 0,"R2 0.109; industry dummies 11; VIF(M_i) 1.17, VIF(ln_cap) 1.19"
+H2b-OLS,robustness,"gamma_1 (M_i), OLS, HC3",-0.27616669044238834,-2.551224811410218,1.9988914305254413,0.594029261172971,,145,> 0,R2 0.082; industry dummies 11
+H2c,exploratory,b2 (log P_old) in log V_C ~ log V_A + log P_old,0.24467252772166953,0.06915532304708774,0.42018973239625135,0.003145100316114919,,114,> 0,b1 = 0.845
+H2d,exploratory,median beta_A - beta_B,0.006426381083965982,-0.07748549267884745,0.1633117994942716,0.24701451659118528,,145,> 0,
+H3,primary,"DL weighted mean R_dil (V0 vs V1), ITM small caps",0.744172330649371,-0.13790305604315178,1.6262477173418939,0.28486223091610935,1.0,15,< 1,tau2 = 0.8726
+H3-unweighted,robustness,"mean R_dil, t test",-3.458799547079643,-7.900920879466162,0.9833217853068765,0.0246278863287755,,15,< 1,
+H3-wilcoxon,robustness,"median R_dil, Wilcoxon",-1.013603456075595,,,0.060272216796875,,15,< 1,
+H3c,exploratory,mean dose-response slope,-0.2550622032293306,-2.1582519543478247,1.6481275478891633,0.09060059829833643,,17,< 1,median intercept -52.6 KRW
+specificity,exploratory,share of firm x placebo cells equivalent,0.27,0.1926958414957634,0.36432116767944994,,,100,,mean shift/sigma -0.263 (two-sided p 0.217)
+H3b,exploratory,mean reflection share - extraction share,0.0,,,,,17,> 0,"firms reflection > extraction 0, < 0"
+H4-beta-P,exploratory,median paired |1-beta_C|: P - T,0.05996134120999397,,,0.1733422838151455,,29,> 0,
+H4-Rdil-P,exploratory,median paired |1-R_dil|: P - T,-1.6369140341576172,,,,,1,> 0,
+H4-eps-P,exploratory,median epsilon (P; T = 0),0.7608914513072554,,,,,30,,
+H4-beta-R,exploratory,median paired |1-beta_C|: R - T,0.030420681209836764,,,0.1326039619743824,,29,> 0,
+H4-Rdil-R,exploratory,median paired |1-R_dil|: R - T,,,,,,0,> 0,
+H4-eps-R,exploratory,median epsilon (R; T = 0),0.7755258768088189,,,,,30,,
+R1-id_rate_D-H2a,robustness,median E_i (all),0.014368971834959554,-0.11875458504754693,0.12647573090194023,0.46741620541221396,,144,> 0,excluding 1 firms with id_rate_D >= 0.5; mean 0.0039
+R1-id_rate_D-H2b,robustness,"gamma_1 (M_i), WLS, HC3",0.1799882791353261,-0.782284273510194,1.1422608317808463,0.3569556381517233,,144,> 0,"excluding 1 firms with id_rate_D >= 0.5; R2 0.105; industry dummies 11; VIF(M_i) 1.17, VIF(ln_cap) 1.18"
+R1-id_rate_A-H2a,robustness,median E_i (all),0.020062457108172227,-0.11722557583239106,0.13022948023152092,0.45108268107668487,,143,> 0,excluding 2 firms with id_rate_A >= 0.5; mean 0.0065
+R1-id_rate_A-H2b,robustness,"gamma_1 (M_i), WLS, HC3",0.17577552069633745,-0.801637970686534,1.153189012079209,0.3622386537954463,,143,> 0,"excluding 2 firms with id_rate_A >= 0.5; R2 0.109; industry dummies 11; VIF(M_i) 1.17, VIF(ln_cap) 1.18"
+R2,robustness,"Spearman rho(tier, R)",-0.04583295983780432,,,0.6376297976039028,,108,,median R by tier: cash 2% 1.10; cash 5% 1.24; cash 10% 1.03; non_operating 2% 0.14; non_operating 5% 1.17; non_operating 10% 0.50
+R3,robustness,mean beta_C (L) with half the reps (100 draws),0.8545492536966764,0.5967145802749257,1.042546116583588,,,100,,
+R4-H1,robustness,DL weighted mean beta_C (L),0.9956985783004065,0.9557229436531016,1.0356742129477114,0.4164833822774033,,48,< 1,anomaly-flagged runs excluded (44.6% of runs); tau2 = 0.0068
+R4-H2a,robustness,median E_i (all),0.029384927578860465,-0.2421578296023546,0.1476860780158143,0.2937527042407113,,102,> 0,anomaly-flagged runs excluded (44.6% of runs); mean -0.0472
+R4-H3,robustness,"DL weighted mean R_dil (V0 vs V1), ITM small caps",1.1698866161914871,0.6915939870876872,1.648179245295287,0.7568419478565442,,8,< 1,anomaly-flagged runs excluded (44.6% of runs); tau2 = 0.1853
+R5-beta_C-comparison,robustness,"median beta_C (comparison, 30 firms)",0.9791815500571931,,,0.02884396445006132,,30,< 1,
+R5-E-comparison,robustness,"median E_i (comparison, 30 firms)",0.0328852856053089,,,0.13962087780237198,,27,> 0,
+R5-beta_C-primary,robustness,"median beta_C (primary, 30 firms)",1.0049677831266002,,,0.6271726628765464,,30,< 1,
+R5-E-primary,robustness,"median E_i (primary, 30 firms)",0.0719198722491754,,,0.32041270192712545,,30,> 0,
+R6,robustness,median paired beta_C: with rule 6 - without (P),-0.27614727079365203,,,0.035724371671676636,,26,,mean -0.8177
+R7,robustness,H3 without complex CBs,,,,,,0,,"not run: cb_complex is unknown for every firm (no structured field for call options or net settlement, D2.8)"
+R8-H1,robustness,DL weighted mean beta_C (L),0.9931827973395524,0.9509333928760162,1.0354322018030886,0.3759032982879113,,50,< 1,cells below 70% validity excluded; tau2 = 0.0090
+R8-H2a,robustness,median E_i (all),0.020062457108172227,-0.11335289694640555,0.1308328335468067,0.42292456889222985,,145,> 0,cells below 70% validity excluded; mean 0.0087
+R8-H3,robustness,"DL weighted mean R_dil (V0 vs V1), ITM small caps",0.7152719746102113,-0.1502050510012578,1.5807490002216804,0.25952565128685035,,15,< 1,cells below 70% validity excluded; tau2 = 0.8803
+R9-H1,robustness,"mean median-based beta_C (L), t test",1.009203850759671,0.910128664520301,1.108279036999041,0.5736607127683676,,50,< 1,

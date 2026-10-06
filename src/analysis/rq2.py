@@ -13,6 +13,15 @@ from src.analysis.common import Result, mean_ci, wilcoxon_one_sided
 COMPONENTS = ("industry_eff", "name_eff", "memory_eff", "total_atten")
 
 
+def median_ci(x: np.ndarray, n_boot: int = 4000, seed: int = 0) -> tuple[float, float]:
+    """Percentile bootstrap 95% CI of the median over firms."""
+    x = x[np.isfinite(x)]
+    if len(x) < 3:
+        return np.nan, np.nan
+    m = np.median(x[np.random.default_rng(seed).integers(0, len(x), (n_boot, len(x)))], axis=1)
+    return float(np.quantile(m, 0.025)), float(np.quantile(m, 0.975))
+
+
 def h2a(ft: pd.DataFrame) -> list[Result]:
     """E_i = beta_D - beta_C (memory_eff) > 0, one-sided Wilcoxon; all firms and by group."""
     out = []
@@ -21,8 +30,9 @@ def h2a(ft: pd.DataFrame) -> list[Result]:
         out.append(Result("H2a" if label == "all" else f"H2a-{label}",
                           "primary" if label == "all" else "exploratory",
                           f"median E_i ({label})", float(np.median(e)) if len(e) else np.nan,
-                          mean_ci(e), wilcoxon_one_sided(e, 0, "greater"), len(e), "> 0",
-                          f"mean {e.mean():.4f}" if len(e) else ""))
+                          median_ci(e), wilcoxon_one_sided(e, 0, "greater"), len(e), "> 0",
+                          f"mean {e.mean():.4f}, 95% CI {mean_ci(e)[0]:.3f}..{mean_ci(e)[1]:.3f}"
+                          if len(e) > 1 else ""))
     return out
 
 

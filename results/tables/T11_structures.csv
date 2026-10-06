@@ -1,0 +1,5 @@
+# Structures P / R / T on the extension firms (code 09269f4)
+structure,n_firms,extraction_failure,reflection_failure,computation_failure,success,median_beta_C
+T,20,0.0,0.0,0.0,1.0,1.0049677831266002
+P,10,0.0,0.0,0.9833333333333334,0.016666666666666666,0.8886862136220497
+R,0,,,,,0.7763084948268456
