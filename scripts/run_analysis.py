@@ -51,9 +51,15 @@ REFS = {"H1": "T2", "H1b": "T3", "nonlinearity": "T3", "H1c": "T4", "H2a": "T5",
 
 def firm_tables(runs: pd.DataFrame, sample: pd.DataFrame, reuse: bool, n_boot: int
                 ) -> dict[str, pd.DataFrame]:
-    quiz = pd.read_parquet(TRUTH / "quiz_truth.parquet")
-    anchors = pd.read_parquet(TRUTH / "anchor_prices.parquet")
-    ids = {f: pl.load_identifiers(f) for f in sample["firm_id"]}
+    truth: dict = {}
+
+    def load_truth() -> dict:   # only when a firm table is rebuilt (KRX-derived files)
+        if not truth:
+            truth.update(quiz=pd.read_parquet(TRUTH / "quiz_truth.parquet"),
+                         anchors=pd.read_parquet(TRUTH / "anchor_prices.parquet"),
+                         ids={f: pl.load_identifiers(f) for f in sample["firm_id"]})
+        return truth
+
     out = {}
     for name, v in VARIANTS.items():
         if name == "ext_e10":            # no E0 cell; analysed from runs (e10_result)
@@ -66,8 +72,9 @@ def firm_tables(runs: pd.DataFrame, sample: pd.DataFrame, reuse: bool, n_boot: i
         if r.empty:
             continue
         t0 = time.time()
-        t = build_firm_table(r, sample=sample, quiz_truth=quiz, identifiers=ids,
-                             anchors=anchors, n_boot=n_boot if name == "main" else 200)
+        tr = load_truth()
+        t = build_firm_table(r, sample=sample, quiz_truth=tr["quiz"], identifiers=tr["ids"],
+                             anchors=tr["anchors"], n_boot=n_boot if name == "main" else 200)
         t = supplement_dilution(t, r, sample)
         t.insert(0, "variant", name)
         t.to_parquet(path, index=False)

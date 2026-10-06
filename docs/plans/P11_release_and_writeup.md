@@ -4,7 +4,7 @@
 |---|---|
 | Roadmap | R§13 |
 | Weeks | 20–24 |
-| Status | Provisional |
+| Status | Preprint package ready (2026-10-06): `paper/`, `release/` (arXiv source, SSRN PDF, metadata, replication data), LICENSE, DATA_LICENSE, CITATION.cff, docs/reproduce.md. Not yet submitted; repository not yet public |
 | Version | v0.1 (2026-10-05) |
 | Depends on | P10 outputs |
 | Unlocks | — |

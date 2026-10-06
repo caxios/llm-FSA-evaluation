@@ -20,6 +20,8 @@ SERIES = ["#2a78d6", "#eb6834", "#1baf7a", "#eda100"]      # fixed order: slots 
 SURFACE, INK, INK2, GRID = "#fcfcfb", "#0b0b0b", "#52514e", "#e4e3df"
 GROUP_COLOR = {"L": SERIES[0], "M": SERIES[1], "S": SERIES[2]}
 GROUP_NAME = {"L": "Large", "M": "Mid", "S": "Small"}
+TITLES = True          # the paper build turns titles off (captions carry them)
+OUT_DIR = None         # override of FIGURES (paper build)
 
 
 def _style() -> None:
@@ -32,11 +34,17 @@ def _style() -> None:
         "legend.frameon": False, "lines.linewidth": 2})
 
 
+def _title(ax, text: str) -> None:
+    if TITLES:
+        ax.set_title(text)
+
+
 def _save(fig, name: str) -> list[str]:
-    FIGURES.mkdir(parents=True, exist_ok=True)
+    out = OUT_DIR or FIGURES
+    out.mkdir(parents=True, exist_ok=True)
     paths = []
     for ext in ("png", "pdf"):
-        p = FIGURES / f"{name}.{ext}"
+        p = out / f"{name}.{ext}"
         fig.savefig(p, dpi=200, bbox_inches="tight")
         paths.append(str(p))
     plt.close(fig)
@@ -59,7 +67,7 @@ def f2_beta_by_group(ft: pd.DataFrame) -> list[str]:
     ax.text(2.45, 1, "β = 1", va="center", color=INK2)
     ax.set_xticks([0, 1, 2], [GROUP_NAME[g] for g in ("L", "M", "S")])
     ax.set_ylabel("β_C (scale elasticity, real name)")
-    ax.set_title("F2. Scale elasticity by size group (bar = median)")
+    _title(ax, "F2. Scale elasticity by size group (bar = median)")
     ax.legend(loc="upper left", fontsize=8)
     return _save(fig, "F2_beta_by_group")
 
@@ -84,7 +92,7 @@ def f3_decomposition(dec: pd.DataFrame) -> list[str]:
     ax.set_xticks(np.arange(len(groups)),
                   [GROUP_NAME.get(g, "All") for g in groups])
     ax.set_ylabel("Δβ (mean, 95% CI)")
-    ax.set_title("F3. Decomposition of attenuation (β_A − β_C)")
+    _title(ax, "F3. Decomposition of attenuation (β_A − β_C)")
     ax.legend(fontsize=8, ncol=3, loc="upper center", bbox_to_anchor=(0.5, -0.12))
     return _save(fig, "F3_decomposition")
 
@@ -104,7 +112,7 @@ def f4_memory_scatter(ft: pd.DataFrame) -> list[str]:
     ax.axhline(0, color=INK2, linewidth=1)
     ax.set_xlabel("M_i (memory quiz score)")
     ax.set_ylabel("E_i = β_D − β_C")
-    ax.set_title("F4. Firm-memory effect vs memory strength")
+    _title(ax, "F4. Firm-memory effect vs memory strength")
     ax.legend(fontsize=8)
     return _save(fig, "F4_memory_scatter")
 
@@ -128,7 +136,7 @@ def f5_dose_response(dil: pd.DataFrame) -> list[str]:
         ax.plot(lim, lim, color=INK2, linestyle="--", linewidth=1, label="observed = theory")
     ax.set_xlabel("theoretical change in value per share (KRW)")
     ax.set_ylabel("observed median change (KRW)")
-    ax.set_title("F5. CB dilution: observed vs theoretical change")
+    _title(ax, "F5. CB dilution: observed vs theoretical change")
     ax.legend(fontsize=8)
     return _save(fig, "F5_dose_response")
 
@@ -146,7 +154,7 @@ def f6_stages(stages: pd.DataFrame) -> list[str]:
         left += v
     ax.set_xlim(0, 1)
     ax.set_xlabel("share of classified runs (firm mean)")
-    ax.set_title("F6. E9 failure stages by agent structure")
+    _title(ax, "F6. E9 failure stages by agent structure")
     ax.legend(fontsize=8, ncol=4, loc="upper center", bbox_to_anchor=(0.5, -0.3))
     return _save(fig, "F6_stages")
 
@@ -161,7 +169,7 @@ def f7_tiers(tiers: pd.DataFrame) -> list[str]:
     ax.axhline(1, color=INK2, linestyle="--", linewidth=1)
     ax.set_xlabel("perturbation size (% of book equity)")
     ax.set_ylabel("median R")
-    ax.set_title("F7. Response ratio by perturbation size")
+    _title(ax, "F7. Response ratio by perturbation size")
     ax.legend(fontsize=8)
     return _save(fig, "F7_tiers")
 
@@ -186,5 +194,5 @@ def f8_pooled(pool: pd.DataFrame) -> list[str]:
     ax.axvline(0, color=GRID, linewidth=1)
     ax.set_yticks(y, [names.get(i, i) for i in d["item"]])
     ax.set_xlabel("pooled response ratio R (1 = full reflection, 0 = none)")
-    ax.set_title("F8. Average response across firms (DL random effects, 95% CI)")
+    _title(ax, "F8. Average response across firms (DL random effects, 95% CI)")
     return _save(fig, "F8_pooled")

@@ -30,3 +30,12 @@ main_run.log
 ext_*.log
 analysis.log
 *.log
+release/*.zip
+release/arxiv/src/
+paper/*.aux
+paper/*.log
+paper/*.out
+paper/*.blg
+paper/*.fls
+paper/*.fdb_latexmk
+paper/build.log

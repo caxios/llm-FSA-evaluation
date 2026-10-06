@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "If you use this code or data, please cite the paper."
+title: "Do LLM Valuation Agents Read the Filing? Metamorphic Tests of Filing Fidelity on Korean Listed Firms"
+authors:
+  - family-names: Park
+    given-names: Dong Gyu
+    affiliation: Independent Researcher
+    email: parkdong1015@gmail.com
+date-released: 2026-10-06
+version: "1.0"
+license: MIT
+repository-code: "https://github.com/caxios/llm-FSA-evaluation"
+keywords:
+  - large language models
+  - equity valuation
+  - metamorphic testing
+  - look-ahead bias
+  - financial filings
+preferred-citation:
+  type: article
+  title: "Do LLM Valuation Agents Read the Filing? Metamorphic Tests of Filing Fidelity on Korean Listed Firms"
+  authors:
+    - family-names: Park
+      given-names: Dong Gyu
+  year: 2026
+  notes: "Preprint (arXiv / SSRN)"
