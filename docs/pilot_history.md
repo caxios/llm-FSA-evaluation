@@ -24,3 +24,21 @@ Why G4 still fails:
 3. Two firms (L026, L031) have non-positive baseline values in every run (D7.5).
 
 Decisions needed (design, before the preregistration): (a) a D&A convention in the tool prompt (D&A = capex, ΔNWC from history or 0) or adding D&A to the packages from the annual-report notes; (b) relaxing s* and/or the cap, or accepting E3 on fewer firms; (c) D7.5 for non-positive baselines.
+
+### Round 3 (2026-10-06): prompt v1.2 (D&A = capex) + structure T, pilot L + S
+
+10 L + 10 S firms, 3,420 calls (all valid, about $4).
+
+| Gate | Result |
+|---|---|
+| G1 | PASS |
+| G2 | PASS |
+| G3 | PASS: mean β_A − β_C = 0.18, which meets the \|mean\| ≥ 0.10 criterion; CI [−0.13, 0.57] |
+| G4 | FAIL: 0/20 at n ≤ 20, 3/20 at n ≤ 40 |
+| G5 | PASS: 50 ITM firms, E8 390/390 valid |
+
+D&A = capex compliance: 68% of E0 runs.
+
+Noise compared with round 2: large-cap CV fell for most firms (L001 190% → 33%, L011 39% → 11%). Most small caps still exceed 100%, because loss-making firms get margins of −5%, 0% or +5%, which flips the sign of the value. Re-computing with D&A = capex and ΔNWC = 0 enforced would make only 7 of 20 firms measurable. The remaining noise is therefore assumption uncertainty, not something the input rules can remove.
+
+User decision (D7.8): adopt the G4 fallback. E3 runs at the rule size only for accepted firms; tiers run for all firms.

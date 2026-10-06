@@ -9,6 +9,7 @@ results/qa/
 *.sqlite
 *.sqlite-journal
 *.sqlite-wal
+*.sqlite-shm
 logs/
 
 # Python

@@ -113,6 +113,10 @@ Bootstrap: 1,000 resamples of runs within a firm.
 - **Pilot firms:** their sizes are fixed by the pilot (`data/processed/size_decisions.parquet`, hash in §11).
 - **Other firms:** the same rule, applied to the main-run E0 cell (`scripts/size_main.py`) before E3.
 - **n:** 10 for E0/E2/E8, and n_i from the size rule for E3.
+- **G4 fallback (D7.8):** the pilot showed that few firms satisfy the rule (3 of 20, all at n = 25–30).
+  - E3 at the rule size runs only for firms the rule accepts. Excluded firms are listed with the reason.
+  - The tier runs (2/5/10% of book equity, n = 10) cover every firm with positive book equity. They are the size-dependence robustness analysis, not a substitute for the rule size.
+  - None of the primary hypotheses depends on E3.
 
 ## 8. Analysis plan
 
@@ -149,7 +153,24 @@ Robustness:
 
 ## 10. Pilot results that set these parameters
 
-See `docs/pilot_report.md`. Round 3 (T, v1.2, 10 L + 10 S firms): (filled at freeze).
+See `docs/pilot_report.md`. Round 3 used structure T and prompt v1.2 on 10 L + 10 S firms: 3,420 calls, about $4.
+
+| Gate | Result |
+|---|---|
+| G1 | PASS (100%) |
+| G2 | PASS (ε = 0) |
+| G3 | PASS: mean β_A − β_C = 0.18, which meets the \|mean\| ≥ 0.10 criterion; 90% CI [−0.13, 0.57] |
+| G4 | FAIL (0/20 at n ≤ 20; 3/20 feasible at n ≤ 40); fallback D7.8 |
+| G5 | PASS (50 ITM firms; E8 valid 390/390) |
+
+Other pilot findings:
+- Noise: CV is 7–38% for most large caps. Most small caps exceed 100%, because loss-making firms get margins of −5%, 0% or +5%, which flips the sign of the value.
+- Non-positive baselines: 4 of 20 firms (D7.5).
+- Unit slips: 1.5% of runs.
+- D&A = capex compliance: 68% of E0 runs.
+- Anomaly-flag rate: 0.54–0.87, including 0.56 on unperturbed inputs. Flags are therefore uninformative as a manipulation signal, and the robustness check that excludes flagged runs is reported with this caveat.
+- Main-run cost estimate: about $40 (budget $60, `config/main_run.yaml`).
+- The research plan's power assumptions are optimistic for small caps. H3 is tested as registered; its precision is reported as is.
 
 ## 11. Hashes
 

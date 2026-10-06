@@ -237,6 +237,7 @@ Format per entry: date, phase, options considered, decision, reason, affected do
   - P2 `small, select, packages, truth, report` were re-run. **L and M are unchanged** (same firm IDs and packages, so the pilot L runs stay comparable). **S is re-selected**: 31 of the 50 firms overlap, and the IDs are reassigned. In-the-money issuers: 173. Dilution median 28.8% (range 16.4–81.0%).
   - The P3 identity sweep was re-run: no inconsistencies. 3 firms are not applicable for V3 because every series is already at its floor.
   - P4 identifiers and fake names were regenerated. L and M fake names are identical (seeded order), 48 S names are new, and there are 0 leaks.
+- 2026-10-06, pilot round 3 (T, v1.2, 10 L + 10 S): G1, G2, G3 and G5 pass; G4 fails (0/20 at n ≤ 20). **D7.8 (user decision) — G4 fallback:** E3 at the rule size runs only for firms the rule accepts; excluded firms are documented; tiers run for all firms. **D7.5 applied as planned:** firms with an E0 median ≤ 0 are excluded from log-based measures and R. **P8 budget: $60** (estimate about $40). The preregistration is frozen as `prereg-v1`.
 
 ---
 

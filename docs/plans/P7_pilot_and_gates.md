@@ -4,7 +4,7 @@
 |---|---|
 | Roadmap | R§9 |
 | Weeks | 6–8 |
-| Status | In progress: round 2 (T + v1.1) passes G1–G3; G4 fails — design decision pending |
+| Status | Done (2026-10-06): round 3 (T + v1.2, L + S) — G1, G2, G3, G5 pass; G4 fallback D7.8; frozen as `prereg-v1` |
 | Version | v0.1 (2026-10-05) |
 | Depends on | P1–P6 exit criteria, especially the P6 synthetic-validation gate |
 | Unlocks | P8, P9, P10 |
