@@ -26,3 +26,4 @@ dist/
 
 # Ground truth is derived from DART/KRX data and reproducible from scripts
 data/ground_truth/*.parquet
+main_run.log
