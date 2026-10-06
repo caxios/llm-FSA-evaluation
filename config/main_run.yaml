@@ -1,0 +1,8 @@
+# P8 main-run settings (frozen with the preregistration, tag prereg-v1).
+model: primary
+agent: T
+prompt_version: v1.2
+tag: main
+budget_usd: null              # set when the P8 budget is confirmed (P8 §2)
+pilot_sizes: data/processed/size_decisions.parquet       # pilot firms keep their sizes
+main_sizes: data/processed/size_decisions_main.parquet   # all firms (pilot + E0-based)

@@ -4,10 +4,14 @@
 |---|---|
 | Roadmap | R§10 |
 | Weeks | 9–13 |
-| Status | Provisional (finalize with P7 outputs) |
+| Status | Tooling built (2026-10-06); main run waits for `prereg-v1` and budget confirmation |
 | Version | v0.1 (2026-10-05) |
 | Depends on | P7 (`prereg-v1` tag, final `config/experiments.yaml`, size decisions) |
 | Unlocks | P10 (and P9 cost decision) |
+
+> **Progress notes (2026-10-06)**
+> - Built: `src/runner/frozen.py` and `scripts/check_frozen.py` (diff and untracked files under the frozen paths since the tag, plus `registry.FROZEN` hash check); `src/runner/monitor.py` and `scripts/monitor.py` (§5.3 thresholds, journal line, `results/qa/main_run_qa.md`: cell completeness, low-validity cells, non-positive share, extreme values); `scripts/size_main.py` (non-pilot sizes from the main E0 cell; pilot firms keep pilot sizes); `scripts/build_firm_level.py`; `scripts/run_main.sh` (frozen check → per batch dry run → run → monitor); `scripts/prereg_hashes.py` (hash block; `--pin` fills `registry.FROZEN`); `config/main_run.yaml` (T, v1.2, tag `main`, budget). Runner CLI gains `--sizes` and `--tiers` for E3. Tests: `tests/test_frozen_monitor.py`.
+> - Not started: the main run itself (needs the P7 freeze, i.e. commit + `prereg-v1` tag, and a confirmed budget).
 
 ## 1. Objective
 

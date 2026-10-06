@@ -3,7 +3,8 @@ the metrics recover the behaviour built into them.
 
 | Agent                      | Expected                              | Pass band              |
 | Oracle (noise 5%)          | beta ~ 1 (all conditions), R ~ 1,     | mean beta [0.95, 1.05] |
-|                            | eps ~ 0, R_dil ~ 1, E9 success        | mean R [0.9, 1.1],     |
+|                            | eps ~ 0, R_dil ~ 1, E9 success        | mean R 1 +- max(0.1,   |
+|                            |                                       | 2.5 s*/sqrt(firms)),   |
 |                            |                                       | eps < 1%, >= 95% succ. |
 | Anchored                   | beta ~ 0, R ~ 0                       | |beta| < .05, |R| < .1 |
 | Mixture (w = 0.6)          | beta ~ 0.6                            | [0.55, 0.65]           |
@@ -152,7 +153,10 @@ def validate(cfg: Config, store: PackageStore, firm_ids: list[str], reps: int = 
     resp = firm_responses(o, baseline(o), n_boot, seed)
     for ptype in ("cash", "non_operating", "shares"):
         v, n = _mean(resp.loc[resp.perturbation_type == ptype, "R"])
-        _check(res, "oracle", f"mean R ({ptype})", "1", v, n, 0.9, 1.1)
+        # sizes target a per-firm SE of s*, so few firms need a wider band than +-0.1
+        half = max(0.1, 2.5 * cfg.experiments.target_se / np.sqrt(max(n, 1)))
+        _check(res, "oracle", f"mean R ({ptype})", "1", v, n, 1 - half, 1 + half,
+               f"band +-{half:.2f}" if half > 0.1 else "")
     eps = run_epsilons(o)
     v, n = _mean(eps["eps"])
     _check(res, "oracle", "mean eps", "0", v, n, 0.0, 0.01)

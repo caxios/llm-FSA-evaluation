@@ -15,6 +15,7 @@ from src.agents.synthetic import true_extraction
 from src.config import Config, ModelConfig
 from src.metrics.baseline import baseline
 from src.metrics.cells import output, params
+from src.metrics.dilution import firm_dilution
 from src.metrics.elasticity import firm_elasticity
 from src.metrics.response import firm_responses
 from src.metrics.self_consistency import run_epsilons
@@ -126,7 +127,8 @@ def _bootstrap_mean_ci(x: np.ndarray, level: float = 0.90, reps: int = 2000,
 
 
 def evaluate(runs: pd.DataFrame, cfg: Config, sizes: list[SizeDecision] | None = None,
-             packages: dict | None = None, n_boot: int = 1000) -> PilotResult:
+             packages: dict | None = None, n_boot: int = 1000,
+             cb_truth: pd.DataFrame | None = None) -> PilotResult:
     res = PilotResult()
     val = runs[runs["schema_name"].fillna("valuation") == "valuation"] \
         if "schema_name" in runs else runs
@@ -177,9 +179,20 @@ def evaluate(runs: pd.DataFrame, cfg: Config, sizes: list[SizeDecision] | None =
         res.gates.append(Gate("G4 Measurability", "firms with a feasible cash size at n <= 20",
                               None, ">= 80%", None, "needs sizing from E0"))
 
-    res.gates.append(Gate("G5 Data", "ITM small caps with CB truth; E8 validity", None,
-                          ">= 30 firms; >= 90% valid", None,
-                          "pending: S selection waits for KRX KOSDAQ prices"))
+    # G5 data: ITM small caps with CB ground truth (P2) and valid pilot E8 runs
+    e8 = runs[runs["experiment"] == "E8"]
+    if cb_truth is not None and len(e8):
+        itm = cb_truth[cb_truth["itm_at_market"].eq(True)]
+        n_itm = int(itm.loc[itm["firm_id"].str.startswith("S"), "firm_id"].nunique())
+        v8 = float(e8["valid"].mean())
+        res.gates.append(Gate("G5 Data", "ITM small caps with CB truth; E8 validity", v8,
+                              ">= 30 firms; >= 90% valid", bool(n_itm >= 30 and v8 >= 0.90),
+                              f"{n_itm} ITM firms; E8 valid {int(e8['valid'].sum())}/{len(e8)}"))
+        res.tables["dilution"] = firm_dilution(e8, n_boot)
+    else:
+        res.gates.append(Gate("G5 Data", "ITM small caps with CB truth; E8 validity", None,
+                              ">= 30 firms; >= 90% valid", None,
+                              "needs CB ground truth and pilot E8 runs"))
 
     # diagnostics
     base = baseline(val)
@@ -255,6 +268,11 @@ def render(res: PilotResult, title: str, extra: str = "", cost: pd.DataFrame | N
     if "responses" in res.tables and len(res.tables["responses"]):
         out += ["", "### Response ratios", "", md_table(res.tables["responses"], [
             "firm_id", "perturbation_type", "perturbation_params", "R", "ci_lo", "ci_hi"])]
+    if "dilution" in res.tables and len(res.tables["dilution"]):
+        d = res.tables["dilution"]
+        cols = [c for c in ["firm_id", "N_v1", "theory_V0", "R_dil_V0", "R_dil_V2", "R_dil_V3",
+                            "itm_agent"] if c in d.columns]
+        out += ["", "### CB dilution (E8)", "", md_table(d, cols)]
     if "anomaly" in res.tables:
         out += ["", "### Anomaly-flag rate by perturbation", "", md_table(res.tables["anomaly"])]
     if cost is not None:

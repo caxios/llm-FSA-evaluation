@@ -1,7 +1,7 @@
-"""P7 pilot runner (KOSDAQ-independent part: dev set and pilot L).
+"""P7 pilot runner: dev set, pilot L and pilot S.
 
   python scripts/pilot.py dev [--prompt v1] [--dry-run]   # prompt iteration on the dev set
-  python scripts/pilot.py e0|e2|e6 [--dry-run]            # pilot L modules (tag "pilot")
+  python scripts/pilot.py e0|e2|e6|e8 [--dry-run]         # pilot modules (tag "pilot")
   python scripts/pilot.py size                             # E0 -> size_decisions.parquet
   python scripts/pilot.py e3 [--dry-run]                   # cash at the rule size + tiers
   python scripts/pilot.py report                           # docs/pilot_report.md
@@ -40,6 +40,12 @@ from src.runner.run import Runner, make_agent, write_table  # noqa: E402
 PILOT = yaml.safe_load((CONFIG_DIR / "pilot.yaml").read_text(encoding="utf-8"))
 SIZES = PROJECT_ROOT / "data" / "processed" / "size_decisions.parquet"
 REPORT = PROJECT_ROOT / "docs" / "pilot_report.md"
+CB_TRUTH = PROJECT_ROOT / "data" / "ground_truth" / "cb_truth.parquet"
+HISTORY = PROJECT_ROOT / "docs" / "pilot_history.md"   # hand-written notes on earlier rounds
+
+
+def pilot_firms() -> list[str]:
+    return PILOT["pilot_L"]["firms"] + PILOT["pilot_S"]["firms"]
 
 
 def run(specs: list[JobSpec], store, dry: bool, table: str):
@@ -96,21 +102,30 @@ def stage_dev(args) -> None:
 
 def stage_e0(args) -> None:
     cfg, store = load_config(), SampleStore()
-    run(b.e0(cfg, store, PILOT["pilot_L"]["firms"], reps=PILOT["scope"]["e0_reps"],
+    run(b.e0(cfg, store, pilot_firms(), reps=PILOT["scope"]["e0_reps"],
              **common(args.prompt, args.agent)), store, args.dry_run, "E0")
 
 
 def stage_e2(args) -> None:
     cfg, store = load_config(), SampleStore()
-    run(b.e0_e2(cfg, store, PILOT["pilot_L"]["firms"], reps=PILOT["scope"]["e2_reps"],
+    run(b.e0_e2(cfg, store, pilot_firms(), reps=PILOT["scope"]["e2_reps"],
                 conditions=PILOT["scope"]["e2_conditions"], **common(args.prompt, args.agent)),
         store, args.dry_run, "E2")
 
 
 def stage_e6(args) -> None:
     cfg, store = load_config(), SampleStore()
-    run(b.e6(cfg, store, PILOT["pilot_L"]["firms"], reps=PILOT["scope"]["e6_reps"],
+    run(b.e6(cfg, store, pilot_firms(), reps=PILOT["scope"]["e6_reps"],
              **common(args.prompt, args.agent)), store, args.dry_run, "E6")
+
+
+def stage_e8(args) -> None:
+    cfg, store = load_config(), SampleStore()
+    specs = b.e8(cfg, store, PILOT["pilot_S"]["firms"], reps=PILOT["scope"]["e3_reps"],
+                 **common(args.prompt, args.agent))
+    for s in specs:
+        s.perturbations = [(v, {}) for v in PILOT["scope"]["e8_variants"]]
+    run(specs, store, args.dry_run, "E8")
 
 
 def stage_size(args) -> None:
@@ -118,7 +133,7 @@ def stage_size(args) -> None:
 
     cfg, store = load_config(), SampleStore()
     e0 = pd.read_parquet(RUNS_DIR / "E0.parquet")
-    e0 = e0[e0["firm_id"].isin(PILOT["pilot_L"]["firms"])
+    e0 = e0[e0["firm_id"].isin(pilot_firms())
             & (e0["prompt_version"] == args.prompt)
             & (e0["agent_structure"] == (args.agent or PILOT["agent"]))]
     out = []
@@ -145,7 +160,7 @@ def stage_e3(args) -> None:
     store = SampleStore()
     sizes = {s.firm_id: s for s in load_sizes() if s.perturbation == "cash"}
     perts, reps = {}, {}
-    for fid in PILOT["pilot_L"]["firms"]:
+    for fid in pilot_firms():
         eq = book_equity(store.package(fid))
         p = [("cash", {"x_mn": t * eq}) for t in PILOT["scope"]["e3_tiers"]] if eq and eq > 0 \
             else []
@@ -161,9 +176,9 @@ def stage_e3(args) -> None:
 
 def stage_report(args) -> None:
     cfg, store = load_config(), SampleStore()
-    firms = PILOT["pilot_L"]["firms"]
+    firms = pilot_firms()
     tables = [pd.read_parquet(RUNS_DIR / f"{e}.parquet").dropna(axis=1, how="all")
-              for e in ("E0", "E2", "E3", "E6") if (RUNS_DIR / f"{e}.parquet").exists()]
+              for e in ("E0", "E2", "E3", "E6", "E8") if (RUNS_DIR / f"{e}.parquet").exists()]
     runs = pd.concat(tables, ignore_index=True)
     agent = args.agent or PILOT["agent"]
     runs = runs[runs["firm_id"].isin(firms) & (runs["tag"] == "pilot")
@@ -171,16 +186,20 @@ def stage_report(args) -> None:
                 & ((runs["agent_structure"] == agent) | (runs["schema_name"] == "quiz"))]
     runs = runs.drop_duplicates("job_id")
     sizes = load_sizes()
-    res = evaluate(runs, cfg, sizes=sizes, packages={f: store.package(f) for f in firms})
+    sizes = [s for s in sizes if s.firm_id in firms]
+    cb_truth = pd.read_parquet(CB_TRUTH) if CB_TRUTH.exists() else None
+    res = evaluate(runs, cfg, sizes=sizes, packages={f: store.package(f) for f in firms},
+                   cb_truth=cb_truth)
     cost = cost_estimate(runs, cfg.require_model(PILOT["model"]))
-    text = render(res, f"Pilot Report (P7) — KOSDAQ-independent part "
-                       f"(agent {agent}, prompt {args.prompt})", cost=cost,
+    text = render(res, f"Pilot Report (P7) — agent {agent}, prompt {args.prompt}", cost=cost,
                   sizes=size_table(sizes) if sizes else None)
+    if HISTORY.exists():
+        text += "\n\n" + HISTORY.read_text(encoding="utf-8")
     REPORT.write_text(text, encoding="utf-8")
     print(text[:3000])
 
 
-STAGES = {"dev": stage_dev, "e0": stage_e0, "e2": stage_e2, "e6": stage_e6,
+STAGES = {"dev": stage_dev, "e0": stage_e0, "e2": stage_e2, "e6": stage_e6, "e8": stage_e8,
           "size": stage_size, "e3": stage_e3, "report": stage_report}
 
 

@@ -1,6 +1,6 @@
 # Sample Report (P2)
 
-- Generated: 2026-10-05 20:27
+- Generated: 2026-10-06 09:31
 - `T_post`: 2026-04-01; universe firms: 1432
 
 ## Package builds
@@ -19,9 +19,9 @@
 | market | universe | financial | halted | build | no_3y | impairment | not_filed | eligible |
 |---|---|---|---|---|---|---|---|---|
 | KOSPI | 719 | 0 | 24 | 47 | 1 | 17 | 1 | 643 |
-| KOSDAQ | 713 | 0 | 0 | 64 | 3 | 45 | 2 | 606 |
+| KOSDAQ | 713 | 0 | 45 | 64 | 3 | 45 | 2 | 579 |
 
-- `financial`: KSIC 64–66 (already outside the universe, shown as 0 here). `halted`: zero volume on `T_post` (KOSPI only until KRX KOSDAQ data is available). Administrative-issue status is not yet applied (D0.6, pending).
+- `financial`: KSIC 64–66 (already outside the universe, shown as 0 here). `halted`: zero volume on `T_post` (KRX daily data). Administrative-issue status is not yet applied (D0.6, pending).
 
 ## Sample
 
@@ -29,7 +29,7 @@
 |---|---|---|---|
 | L | 50 | 22.91 | 23 |
 | M | 50 | 0.48 | 25 |
-| S | 50 |  | 22 |
+| S | 50 | 0.09 | 19 |
 
 ## Mid group: newsworthiness contrast within market-cap quintiles
 
@@ -48,7 +48,6 @@
 
 ## Small group (CB)
 
-- Eligible KOSDAQ CB issuers: 606; with outstanding CB at `T_post`: 381; in the money at market price: 227
-- Selected: 50; dilution (ITM convertible shares / common shares) median 36.6%, range 25.0%–81.0%
-- Price source for the ITM test: {'yfinance': 706}
-- **Provisional**: KOSDAQ prices come from yfinance until the KRX KOSDAQ service is approved; yfinance closes are adjusted for later capital changes. Re-run `small`, `select`, `packages`, `truth` after approval.
+- Eligible KOSDAQ CB issuers: 579; with outstanding CB at `T_post`: 368; in the money at market price: 173
+- Selected: 50; dilution (ITM convertible shares / common shares) median 28.8%, range 16.4%–81.0%
+- Price source for the ITM test: {'krx': 712}

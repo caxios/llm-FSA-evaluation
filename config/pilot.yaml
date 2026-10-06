@@ -1,7 +1,6 @@
 # P7 pilot scope (docs/plans/P7_pilot_and_gates.md §5).
-# Status 2026-10-05: the KOSDAQ-dependent part (pilot S, E8, gate G5, preregistration freeze)
-# waits for the KRX KOSDAQ approval; dev-set prompt iteration and pilot L run now.
-prompt_version: v1.1          # v1.1 adds unit rules (P7 round 2)
+# 2026-10-06: KRX KOSDAQ approved; S re-selected with KRX prices, pilot S and E8 added.
+prompt_version: v1.2          # v1.1 unit rules (round 2); v1.2 D&A = capex (round 3)
 model: primary
 agent: T                      # G2 failed under P (round 1)
 
@@ -12,8 +11,8 @@ dev:                          # outside the sample; prompt iteration only (build
 
 pilot_L:                      # every 5th large cap by market-cap rank
   firms: [L001, L006, L011, L016, L021, L026, L031, L036, L041, L046]
-pilot_S:                      # pending KRX KOSDAQ approval (S selection is provisional)
-  firms: []
+pilot_S:                      # every 5th small cap (S selection with KRX prices)
+  firms: [S001, S006, S011, S016, S021, S026, S031, S036, S041, S046]
 
 scope:
   e0_reps: 20                 # sigma stability

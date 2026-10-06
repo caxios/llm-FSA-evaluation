@@ -38,7 +38,7 @@ def build_sample_report(ctx) -> str:
                      "eligible": int(m["eligible"].sum())})
     out += ["## Exclusions (a firm can have several)", "", _md_table(pd.DataFrame(rows)), "",
             "- `financial`: KSIC 64–66 (already outside the universe, shown as 0 here). "
-            "`halted`: zero volume on `T_post` (KOSPI only until KRX KOSDAQ data is available). "
+            "`halted`: zero volume on `T_post` (KRX daily data). "
             "Administrative-issue status is not yet applied (D0.6, pending).", ""]
 
     desc = []
@@ -67,8 +67,9 @@ def build_sample_report(ctx) -> str:
             f"- Selected: {len(s)}; dilution (ITM convertible shares / common shares) median "
             f"{s['dilution'].median():.1%}, range {s['dilution'].min():.1%}–"
             f"{s['dilution'].max():.1%}" if len(s) else "- Selected: 0",
-            f"- Price source for the ITM test: {small['price_source'].value_counts().to_dict()}",
-            "- **Provisional**: KOSDAQ prices come from yfinance until the KRX KOSDAQ service is "
-            "approved; yfinance closes are adjusted for later capital changes. Re-run "
-            "`small`, `select`, `packages`, `truth` after approval.", ""]
+            f"- Price source for the ITM test: {small['price_source'].value_counts().to_dict()}"]
+    if (small["price_source"] == "yfinance").any():
+        out += ["- **Provisional**: some KOSDAQ prices come from yfinance (KRX data missing); "
+                "yfinance closes are adjusted for later capital changes."]
+    out.append("")
     return "\n".join(out)

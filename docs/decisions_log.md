@@ -229,6 +229,14 @@ Format per entry: date, phase, options considered, decision, reason, affected do
 - Pilot L round 1 (P, v1): G1 pass; G2 fail (discounting arithmetic); G4 fail (noise and unit slips for the largest firms).
 - 2026-10-06, user decision: fix both problems. **Prompt v1.1** (unit rules; logged as a post-step-1 prompt change per plan §9, verified on scaled-up dev packages) and **D6: structure T as the primary agent** (P kept for H4).
 - Pilot L round 2 (T, v1.1): G1, G2 pass; unit slips 0%; G4 still fails — missing D&A in 131/150 packages lets the model invent D&A, and the §6.8 parameters (s* = 0.1, 10% cap) require CV ≤ 3.2% at n = 20. Pending decisions: D&A convention or data, s*/cap, D7.5.
+- 2026-10-06, user decisions after round 2:
+  - **D7.6 — D&A convention: prompt v1.2** adds "projected D&A = capex in every year" to all three system prompts (P, P-instr, T). It applies even when a firm reports D&A, so that every firm follows one rule. Trade-off: one projection assumption is fixed by the researcher rather than chosen by the model; the measured quantities (β, R, R_dil) depend on how values respond to perturbations, not on the D&A level. Like v1.1, this change was motivated by pilot outputs, so it is logged here, and the affected modules are re-run in full (plan §9).
+  - **D7.7 — Sizing parameters: s* = 0.2 (was 0.1), cap = 20% of equity value (was 10%)** (`config/experiments.yaml`). A firm is now measurable at n = 20 when CV ≤ 12.6% (17.9% at n = 40). The oracle's synthetic-validation band for mean R widens to 1 ± max(0.1, 2.5 s*/√firms), because each firm's R now has SE ≈ 0.2.
+- 2026-10-06: **KRX KOSDAQ approved.**
+  - P1 `listing, universe, prices` were re-run. Every KOSDAQ price now comes from KRX: 712 at `T_post`, 704 at the cutoff. Compared with the earlier yfinance closes, 173 of 706 `T_post` closes differ by more than 1%, because yfinance closes are adjusted for later capital changes. 45 KOSDAQ firms are halted on `T_post` and are now excluded.
+  - P2 `small, select, packages, truth, report` were re-run. **L and M are unchanged** (same firm IDs and packages, so the pilot L runs stay comparable). **S is re-selected**: 31 of the 50 firms overlap, and the IDs are reassigned. In-the-money issuers: 173. Dilution median 28.8% (range 16.4–81.0%).
+  - The P3 identity sweep was re-run: no inconsistencies. 3 firms are not applicable for V3 because every series is already at its floor.
+  - P4 identifiers and fake names were regenerated. L and M fake names are identical (seeded order), 48 S names are new, and there are 0 leaks.
 
 ---
 

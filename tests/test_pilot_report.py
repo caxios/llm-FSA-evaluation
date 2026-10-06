@@ -68,9 +68,11 @@ def test_extraction_slip_detected(runs):
 
 
 def test_n_rule_and_sigma_stability():
-    assert n_rule(5.0, 100.0, CFG) == CFG.experiments.n_min             # 2 (5/10)^2 -> 1
+    se = CFG.experiments.target_se
+    assert n_rule(5.0, 100.0, CFG) == CFG.experiments.n_min             # 2 (5/(100 s*))^2 < 1
     assert n_rule(1000.0, 100.0, CFG) == CFG.experiments.n_max
-    assert n_rule(30.0, 100.0, CFG) == max(math.ceil(2 * (30 / 10) ** 2), CFG.experiments.n_min)
+    assert n_rule(30.0, 100.0, CFG) == max(math.ceil(2 * (30 / (100 * se)) ** 2),
+                                           CFG.experiments.n_min)
     assert n_rule(float("nan"), 1.0, CFG) == CFG.experiments.n_max
     df = pd.DataFrame({"firm_id": "F", "rep": range(20), "valid": True,
                        "value_per_share": [100 + (i % 5) for i in range(20)]})

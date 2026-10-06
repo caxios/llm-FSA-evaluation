@@ -22,17 +22,24 @@ PROMPTS: dict[str, str] = {
     "valuation_system_v1_1": "valuation_system_v1_1.txt",
     "valuation_system_v1_1_instr": "valuation_system_v1_1_instr.txt",
     "tool_system_v1_1": "tool_system_v1_1.txt",
+    "valuation_system_v1_2": "valuation_system_v1_2.txt",
+    "valuation_system_v1_2_instr": "valuation_system_v1_2_instr.txt",
+    "tool_system_v1_2": "tool_system_v1_2.txt",
     "identification_v1": "identification_v1.txt",
     "memory_quiz_v1": "memory_quiz_v1.txt",
 }
 
 # prompt_version (as used in run records) -> system prompt key
 # v1.1 (P7): explicit unit rules after unit slips for the largest firms in the pilot.
+# v1.2 (P7): projected D&A = capex, since most packages report no D&A line (D7.6).
 SYSTEM_FOR_VERSION = {"v1": "valuation_system_v1", "v1_instr": "valuation_system_v1_instr",
                       "v1.1": "valuation_system_v1_1",
-                      "v1.1_instr": "valuation_system_v1_1_instr"}
+                      "v1.1_instr": "valuation_system_v1_1_instr",
+                      "v1.2": "valuation_system_v1_2",
+                      "v1.2_instr": "valuation_system_v1_2_instr"}
 TOOL_FOR_VERSION = {"v1": "tool_system_v1", "v1_instr": "tool_system_v1",
-                    "v1.1": "tool_system_v1_1", "v1.1_instr": "tool_system_v1_1"}
+                    "v1.1": "tool_system_v1_1", "v1.1_instr": "tool_system_v1_1",
+                    "v1.2": "tool_system_v1_2", "v1.2_instr": "tool_system_v1_2"}
 
 # Filled when the preregistration is tagged (P7): {key: sha256}.
 FROZEN: dict[str, str] = {}

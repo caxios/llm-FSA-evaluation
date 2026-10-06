@@ -207,7 +207,17 @@ def _parse(argv: list[str] | None) -> argparse.Namespace:
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--tag", default="")
     ap.add_argument("--workers", type=int, default=None)
+    ap.add_argument("--sizes", type=Path, default=None,
+                    help="E3 only: size_decisions parquet (cash and non-operating sizes, n)")
+    ap.add_argument("--tiers", action="store_true", help="E3 only: add the tier sizes")
     return ap.parse_args(argv)
+
+
+def load_sizes(path: Path) -> list:
+    from src.perturb.sizing import SizeDecision
+
+    return [SizeDecision(**{k: (None if pd.isna(v) else v) for k, v in r.items()})
+            for r in pd.read_parquet(path).to_dict("records")]
 
 
 def main(argv: list[str] | None = None, store: PackageStore | None = None,
@@ -232,7 +242,10 @@ def main(argv: list[str] | None = None, store: PackageStore | None = None,
     agent, agent_structure, model_key = make_agent(args.agent, args.model, cfg)
     common = {"agent_structure": agent_structure, "model_key": model_key,
               "prompt_version": args.prompt_version, "tag": args.tag}
-    specs = BUILDERS[exp](cfg, store, firms, reps=args.reps, **common)
+    extra = {}
+    if exp == "E3":
+        extra = {"sizes": load_sizes(args.sizes) if args.sizes else None, "tiers": args.tiers}
+    specs = BUILDERS[exp](cfg, store, firms, reps=args.reps, **common, **extra)
     for spec in specs:
         if args.conditions and exp != "E6":
             spec.conditions = args.conditions.split(",")
