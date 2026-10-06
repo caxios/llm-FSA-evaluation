@@ -42,7 +42,14 @@ TOOL_FOR_VERSION = {"v1": "tool_system_v1", "v1_instr": "tool_system_v1",
                     "v1.2": "tool_system_v1_2", "v1.2_instr": "tool_system_v1_2"}
 
 # Filled when the preregistration is tagged (P7): {key: sha256}.
-FROZEN: dict[str, str] = {}
+FROZEN: dict[str, str] = {
+    "tool_system_v1_2": "3f7c9f4fdda604d14b624245883860b0f2eda0c4521eab015452f41f453d508f",
+    "valuation_system_v1_2": "d00d7a1b95d5476b19ca1a4ac74a171ac6127f2b066ecb6166b7aa83117ca16d",
+    "valuation_system_v1_2_instr": "f57a2a469c5109087112e05e5b2bd1e41b672a8bc28b6bbd23fe5c268d2a2f09",
+    "valuation_user_v1": "d8f4940cc00a93448500f00c501a809c413c65ecc76fa2b0b3889857eef0319d",
+    "identification_v1": "c23337f1851484c74caaff40d77ab2fda087b70226bdf66d27af154fcf07f470",
+    "memory_quiz_v1": "d07ccd1ec032d0c475ad472bccbd320a6b7d1f2302927581d4bdbf83686fdda2",
+}
 
 
 @cache
