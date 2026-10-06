@@ -209,6 +209,10 @@ def make_agent(agent: str, model_key: str, cfg: Config) -> tuple[Agent, str, str
         from src.agents.tool import ToolAgent
 
         return ToolAgent(client, mcfg), "T", model_key
+    if agent.upper() == "R":
+        from src.agents.rag import RagAgent
+
+        return RagAgent(client, mcfg), "R", model_key
     from src.agents.plain import PlainAgent
 
     return PlainAgent(client, mcfg), "P", model_key
@@ -217,11 +221,11 @@ def make_agent(agent: str, model_key: str, cfg: Config) -> tuple[Agent, str, str
 def _parse(argv: list[str] | None) -> argparse.Namespace:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawTextHelpFormatter)
-    ap.add_argument("--experiment", required=True, help="E0, E2, E3, E5, E6, E7, E8")
+    ap.add_argument("--experiment", required=True, help="E0, E2, E3, E5, E6, E7, E8, E10")
     ap.add_argument("--groups", default="L,M,S")
     ap.add_argument("--conditions", default=None, help="override the builder's conditions")
     ap.add_argument("--model", default="primary")
-    ap.add_argument("--agent", default="P", help="P | T | SYN:<name>")
+    ap.add_argument("--agent", default="P", help="P | T | R | SYN:<name>")
     ap.add_argument("--firms", default=None)
     ap.add_argument("--reps", type=int, default=None)
     ap.add_argument("--k", default=None, help="E2 only: comma-separated k values to keep")

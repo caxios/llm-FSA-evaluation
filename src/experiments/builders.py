@@ -119,5 +119,18 @@ def e8(cfg: Config, store: PackageStore, firm_ids: list[str], *, reps: int | Non
                     reps=reps or cfg.experiments.n_default, include_cb=True, **common)]
 
 
+def e10(cfg: Config, store: PackageStore, firm_ids: list[str], *, reps: int | None = None,
+        **common) -> list[JobSpec]:
+    """E10 (P9 §5.5): E8 V0 and V1 with the CB block at the front vs in the middle of a
+    fixed-length filler. V1 has no CB block, so its two positions render the same prompt
+    (one set of calls via the cache)."""
+    cb_firms = [f for f in firm_ids if store.package(f).cb is not None]
+    return [JobSpec(experiment="E10", firm_ids=cb_firms, conditions=["C"],
+                    perturbations=[("cb_v0", {}), ("cb_v1", {})],
+                    reps=reps or cfg.experiments.n_default, include_cb=True,
+                    cb_position=pos, **common)
+            for pos in ("front", "middle")]
+
+
 BUILDERS: dict[str, Callable[..., list[JobSpec]]] = {
-    "E0": e0, "E2": e0_e2, "E3": e3, "E5": e5, "E6": e6, "E7": e7, "E8": e8}
+    "E0": e0, "E2": e0_e2, "E3": e3, "E5": e5, "E6": e6, "E7": e7, "E8": e8, "E10": e10}

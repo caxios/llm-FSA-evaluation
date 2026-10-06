@@ -1,0 +1,79 @@
+# P9 extension subsets (seeded stratified draw, 2026-10-06; drawn before any P8 result was inspected)
+seed: 20261028
+e2_firms:
+- L003
+- L014
+- L032
+- L036
+- L038
+- L040
+- L045
+- L046
+- L047
+- L048
+- M001
+- M003
+- M010
+- M014
+- M015
+- M017
+- M030
+- M035
+- M038
+- M039
+- S001
+- S014
+- S023
+- S027
+- S030
+- S038
+- S042
+- S043
+- S044
+- S048
+e8_firms:
+- S001
+- S004
+- S005
+- S006
+- S007
+- S014
+- S015
+- S016
+- S023
+- S026
+- S027
+- S030
+- S035
+- S037
+- S038
+- S042
+- S043
+- S044
+- S048
+- S049
+reps: 10
+runs:
+  structure_P:
+    agent: P
+    model: primary
+    prompt_version: v1.2
+  structure_R:
+    agent: R
+    model: primary
+    prompt_version: v1.2
+  comparison:
+    agent: T
+    model: comparison
+    prompt_version: v1.2
+    conditions:
+    - C
+    - D
+  instruction:               # the rule-6 variant exists for the plain prompt only (frozen)
+    agent: P                 # compared with structure_P (same firms, v1.2)
+    model: primary
+    prompt_version: v1.2_instr
+  e10:
+    agent: T
+    model: primary
+    prompt_version: v1.2

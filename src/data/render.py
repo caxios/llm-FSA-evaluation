@@ -116,6 +116,35 @@ def render_company_block(pkg: InputPackage, condition: Condition,
     return f"기업명: {name}\n업종: {industry}"
 
 
+def render_user_prompt_e10(pkg: InputPackage, filler: str, cb_position: str,
+                           condition: Condition = "C", fake_name: str | None = None,
+                           include_cb: bool = True) -> str:
+    """E10 (P9 §5.5): the same text with the CB block in one of two positions.
+
+    front:  CB block right after the company block; filler under [기타 공시] at the end.
+    middle: CB block inside the filler, at the line break nearest its midpoint.
+    Without a CB block (V1) both positions render the same prompt.
+    """
+    cb = render_additional_filings(pkg, include_cb)
+    half = filler.rfind("\n", 0, len(filler) // 2)
+    half = half if half > 0 else len(filler) // 2
+    body = USER_TEMPLATE_V1.format(
+        company_block=render_company_block(pkg, condition, fake_name),
+        financial_statements=render_financials(pkg),
+        share_info=render_share_info(pkg),
+        notes=render_notes(pkg),
+        additional_filings="{cb}")
+    tail = "[추가 공시]\n{cb}"
+    if cb_position == "front":
+        head, rest = body.split("\n\n[재무제표]", 1)
+        rest = rest.replace(tail, "[기타 공시]\n" + filler)
+        return f"{head}\n\n[추가 공시]\n{cb}\n\n[재무제표]{rest}"
+    if cb_position == "middle":
+        return body.replace(tail, "[기타 공시]\n" + filler[:half] + "\n\n[추가 공시]\n" + cb
+                            + "\n\n" + filler[half:].lstrip("\n"))
+    raise ValueError(f"unknown cb_position {cb_position}")
+
+
 def render_user_prompt(pkg: InputPackage, condition: Condition = "C",
                        fake_name: str | None = None, include_cb: bool = False,
                        template_version: str = "v1") -> str:

@@ -12,7 +12,7 @@ from __future__ import annotations
 from collections.abc import Iterator
 from dataclasses import dataclass, field
 from datetime import date
-from typing import Protocol
+from typing import Literal, Protocol
 
 import pandas as pd
 from pydantic import BaseModel
@@ -38,6 +38,7 @@ class JobSpec(BaseModel):
     prompt_version: str = "v1"
     schema_name: SchemaName = "valuation"
     include_cb: bool = False
+    cb_position: Literal["front", "middle"] | None = None   # E10 only
     tag: str = ""
 
     def perturbations_for(self, firm_id: str) -> Perturbations:
@@ -99,6 +100,11 @@ class SampleStore:
     def real_name(self, firm_id: str) -> str:
         return self.package(firm_id).meta.real_name
 
+    def filler(self, firm_id: str) -> str:
+        """E10 filler text (scripts/build_e10_filler.py)."""
+        return (self.pl.PROCESSED / "e10_filler" / f"{firm_id}.txt").read_text(
+            encoding="utf-8")
+
     def eval_date(self) -> date:
         return next(iter(self._pkgs.values())).meta.eval_date if self._pkgs else \
             self.package(self.sample.index[0]).meta.eval_date
@@ -124,8 +130,15 @@ def build_messages(spec: JobSpec, cp: ConditionedPackage | None, store: PackageS
         assert cp is not None
         text, sha = system_prompt(spec.agent_structure, spec.prompt_version)
         user_sha = get_prompt("valuation_user_v1")[1]
-        return ([{"role": "system", "content": text},
-                 {"role": "user", "content": cp.render(include_cb=spec.include_cb)}],
+        if spec.cb_position is not None:
+            from src.data.render import render_user_prompt_e10
+
+            user = render_user_prompt_e10(cp.package, store.filler(firm_id),  # type: ignore
+                                          spec.cb_position, cp.condition, cp.fake_name,
+                                          include_cb=spec.include_cb)
+        else:
+            user = cp.render(include_cb=spec.include_cb)
+        return ([{"role": "system", "content": text}, {"role": "user", "content": user}],
                 stable_hash([sha, user_sha])[:16])
     if spec.schema_name == "identification":
         assert cp is not None
@@ -141,8 +154,9 @@ def build_messages(spec: JobSpec, cp: ConditionedPackage | None, store: PackageS
 
 def _job_id(spec: JobSpec, firm_id: str, cond: str, name: str, params: dict, rep: int) -> str:
     p = ",".join(f"{k}={v}" for k, v in sorted(params.items()))
+    pos = f"|pos={spec.cb_position}" if spec.cb_position else ""   # E10 only
     return (f"{spec.experiment}|{firm_id}|{cond}|{name}({p})|{spec.agent_structure}|"
-            f"{spec.model_key}|{spec.prompt_version}|r{rep}")
+            f"{spec.model_key}|{spec.prompt_version}|r{rep}{pos}")
 
 
 def expand(spec: JobSpec, store: PackageStore, stats: ExpandStats | None = None
