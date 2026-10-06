@@ -1,6 +1,6 @@
 # Hypothesis table
 
-_Generated 2026-10-06 19:47 (code 5a392ff)_
+_Generated 2026-10-06 20:56 (code e642d40)_
 
 | H | type | statistic | estimate | 95% CI | p | p (Holm) | n | verdict | ref |
 |---|---|---|---|---|---|---|---|---|---|
@@ -12,7 +12,7 @@ _Generated 2026-10-06 19:47 (code 5a392ff)_
 | H2a-L | exploratory | median E_i (L) | 0.014 | [-0.029, 0.072] | 0.2893 | – | 50 | not consistent (exploratory) | T5 |
 | H2a-M | exploratory | median E_i (M) | 0.109 | [-0.069, 0.165] | 0.2796 | – | 50 | not consistent (exploratory) | T5 |
 | H2a-S | exploratory | median E_i (S) | -0.127 | [-0.322, 0.239] | 0.6564 | – | 45 | not consistent (exploratory) | T5 |
-| H2b | primary | gamma_1 (M_i), WLS, HC3 | 0.178 | [-0.788, 1.144] | 0.3592 | 1.0000 | 145 | inconclusive | T6 |
+| H2b | primary | gamma_1 (M_i), WLS, HC3 | 0.096 | [-0.550, 0.742] | 0.3857 | 1.0000 | 145 | inconclusive | T6 |
 | H2c | exploratory | b2 (log P_old) in log V_C ~ log V_A + log P_old | 0.245 | [0.069, 0.420] | 0.0031 | – | 114 | consistent (exploratory) | T7 |
 | H2d | exploratory | median beta_A - beta_B | 0.006 | [-0.077, 0.163] | 0.2470 | – | 145 | not consistent (exploratory) | T8 |
 | H3 | primary | DL weighted mean R_dil (V0 vs V1), ITM small caps | 0.744 | [-0.138, 1.626] | 0.2849 | 1.0000 | 15 | inconclusive | T9 |

@@ -1,6 +1,6 @@
 # Results summary (P10)
 
-_Generated 2026-10-06 19:47 (code 5a392ff)_
+_Generated 2026-10-06 20:56 (code e642d40)_
 
 ## Hypotheses
 
@@ -14,7 +14,7 @@ _Generated 2026-10-06 19:47 (code 5a392ff)_
 | H2a-L | exploratory | median E_i (L) | 0.014 | [-0.029, 0.072] | 0.2893 | – | 50 | not consistent (exploratory) | T5 |
 | H2a-M | exploratory | median E_i (M) | 0.109 | [-0.069, 0.165] | 0.2796 | – | 50 | not consistent (exploratory) | T5 |
 | H2a-S | exploratory | median E_i (S) | -0.127 | [-0.322, 0.239] | 0.6564 | – | 45 | not consistent (exploratory) | T5 |
-| H2b | primary | gamma_1 (M_i), WLS, HC3 | 0.178 | [-0.788, 1.144] | 0.3592 | 1.0000 | 145 | inconclusive | T6 |
+| H2b | primary | gamma_1 (M_i), WLS, HC3 | 0.096 | [-0.550, 0.742] | 0.3857 | 1.0000 | 145 | inconclusive | T6 |
 | H2c | exploratory | b2 (log P_old) in log V_C ~ log V_A + log P_old | 0.245 | [0.069, 0.420] | 0.0031 | – | 114 | consistent (exploratory) | T7 |
 | H2d | exploratory | median beta_A - beta_B | 0.006 | [-0.077, 0.163] | 0.2470 | – | 145 | not consistent (exploratory) | T8 |
 | H3 | primary | DL weighted mean R_dil (V0 vs V1), ITM small caps | 0.744 | [-0.138, 1.626] | 0.2849 | 1.0000 | 15 | inconclusive | T9 |
@@ -41,13 +41,13 @@ _Generated 2026-10-06 19:47 (code 5a392ff)_
 |---|---|---|---|---|---|---|
 | H1-unweighted | mean beta_C (L), t test | 0.948 | [0.765, 1.130] | 0.2838 | 50 |  |
 | H1-wilcoxon | median beta_C (L), Wilcoxon | 0.981 | [–, –] | 0.5608 | 50 |  |
-| H2b-OLS | gamma_1 (M_i), OLS, HC3 | -0.276 | [-2.551, 1.999] | 0.5940 | 145 | R2 0.082; industry dummies 11 |
+| H2b-OLS | gamma_1 (M_i), OLS, HC3 | -0.355 | [-1.779, 1.068] | 0.6877 | 145 | R2 0.083; industry dummies 11 |
 | H3-unweighted | mean R_dil, t test | -3.459 | [-7.901, 0.983] | 0.0246 | 15 |  |
 | H3-wilcoxon | median R_dil, Wilcoxon | -1.014 | [–, –] | 0.0603 | 15 |  |
 | R1-id_rate_D-H2a | median E_i (all) | 0.014 | [-0.052, 0.096] | 0.4674 | 144 | excluding 1 firms with id_rate_D >= 0.5; mean 0.0039, 95% CI -0.119..0.126 |
-| R1-id_rate_D-H2b | gamma_1 (M_i), WLS, HC3 | 0.180 | [-0.782, 1.142] | 0.3570 | 144 | excluding 1 firms with id_rate_D >= 0.5; R2 0.105; industry dummies 11; VIF(M_i) 1.17, VIF(ln_cap) 1.18 |
+| R1-id_rate_D-H2b | gamma_1 (M_i), WLS, HC3 | 0.096 | [-0.546, 0.739] | 0.3842 | 144 | excluding 1 firms with id_rate_D >= 0.5; R2 0.104; industry dummies 11; VIF(M_i) 1.32, VIF(ln_cap) 1.32 |
 | R1-id_rate_A-H2a | median E_i (all) | 0.020 | [-0.052, 0.108] | 0.4511 | 143 | excluding 2 firms with id_rate_A >= 0.5; mean 0.0065, 95% CI -0.117..0.130 |
-| R1-id_rate_A-H2b | gamma_1 (M_i), WLS, HC3 | 0.176 | [-0.802, 1.153] | 0.3622 | 143 | excluding 2 firms with id_rate_A >= 0.5; R2 0.109; industry dummies 11; VIF(M_i) 1.17, VIF(ln_cap) 1.18 |
+| R1-id_rate_A-H2b | gamma_1 (M_i), WLS, HC3 | 0.094 | [-0.562, 0.750] | 0.3892 | 143 | excluding 2 firms with id_rate_A >= 0.5; R2 0.108; industry dummies 11; VIF(M_i) 1.31, VIF(ln_cap) 1.33 |
 | R2 | Spearman rho(tier, R) | 0.042 | [–, –] | 0.2220 | 832 | median R by tier: cash 2% -0.04; cash 5% 0.78; cash 10% 1.73; non_operating 2% 0.87; non_operating 5% 1.16; non_operating 10% 0.73 |
 | R3 | mean beta_C (L) with half the reps (100 draws) | 0.855 | [0.597, 1.043] | – | 100 |  |
 | R4-H1 | DL weighted mean beta_C (L) | 0.996 | [0.956, 1.036] | 0.4165 | 48 | anomaly-flagged runs excluded (45.2% of runs); tau2 = 0.0068 |

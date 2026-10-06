@@ -1,4 +1,4 @@
-# E9 stage shares, ITM small caps (main) (code 5a392ff)
+# E9 stage shares, ITM small caps (main) (code e642d40)
 stage,mean_share,ci_lo,ci_hi,n_firms
 extraction_failure,0.0,0.0,0.1843181350088518,17
 reflection_failure,0.0,0.0,0.1843181350088518,17

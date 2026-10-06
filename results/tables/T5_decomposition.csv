@@ -1,4 +1,4 @@
-# Decomposition of attenuation (code 5a392ff)
+# Decomposition of attenuation (code e642d40)
 group,component,mean,ci_lo,ci_hi,share_of_total,n
 all,industry_eff,0.04291315340771208,-0.07865575689424094,0.16411024061600235,3.080424347681021,145
 all,name_eff,-0.037002092188518874,-0.14836265277084099,0.0738476624819745,-2.6561120924794843,145

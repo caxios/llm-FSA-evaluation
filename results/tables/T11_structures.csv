@@ -1,4 +1,4 @@
-# Structures P / R / T on the extension firms (code 5a392ff)
+# Structures P / R / T on the extension firms (code e642d40)
 structure,n_firms,extraction_failure,reflection_failure,computation_failure,success,median_beta_C
 T,20,0.0,0.0,0.0,1.0,1.0049677831266002
 P,20,0.0,0.0,0.9850000000000001,0.015,0.8886862136220497

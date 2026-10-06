@@ -285,6 +285,13 @@ Format per entry: date, phase, options considered, decision, reason, affected do
 - **Pooled response ratios (exploratory, not preregistered; user request).** Firm-cell R is too imprecise to judge firm by firm, so R is pooled across firms with the DL random-effects mean. SE = bootstrap CI width ÷ 3.92; a firm's cells are combined by inverse variance before pooling; D7.5 exclusions apply (`src/analysis/pooled.py`, tables T13 and T14, figure F8).
 - **Channel decomposition (exploratory).** The perturbed item is carried into the bridge almost exactly: Δnet debt / X has median 1.00 (IQR 1.00–1.00) for cash, and Δnon-operating assets / X has median 1.00 for non-operating assets (≥ 0.9 in 95.8% of cells). The enterprise value, which depends on the model's projection assumptions, moves by IQR about ±4 X between the perturbed and baseline cells. Most of the imprecision in R is therefore assumption noise in the EV, not a failure to read or apply the disclosure.
 
+- **Q5 (main business) scoring (2026-10-06, user review).**
+  - Keyword drafts come from each firm's annual report, section II, via an LLM. The quiz answers were not shown to that LLM.
+  - The researcher reviewed the drafts and edited 39 firms, often adding the model's own phrasing. One row with unquoted commas was repaired so that the whole phrase is one keyword.
+  - The keywords are applied to `quiz_truth` through `scripts/apply_q5_keywords.py`, and the P2 truth stage now applies the same file.
+  - Q5 correct share: L 96%, M 84%, S 32%. 42 answers that matched no keyword stay unscored (left for a person).
+  - Sensitivity of H2b γ₁: 0.23 without Q5, 0.44 with draft keywords, 0.10 with reviewed keywords. Every CI includes 0 (T15).
+
 ## Research-plan revision
 
 - 2026-10-05: `llm_valuation_research_plan.md` revised to v0.2, reflecting D1, D2.2, D3.3, D3.5, D5.2, D7.4, D8/D2.5. `implementation_plan.md` revised to v0.2.

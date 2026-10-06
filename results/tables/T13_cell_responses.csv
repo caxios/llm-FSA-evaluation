@@ -1,4 +1,4 @@
-# Firm-cell response ratios (main, D7.5 applied) (code 5a392ff)
+# Firm-cell response ratios (main, D7.5 applied) (code e642d40)
 firm_id,perturbation_type,perturbation_params,R,ci_lo,ci_hi,delta_obs,delta_star,n_base,n_pert,se,size,group
 L001,cash,"{""dividend_line"": ""cf_008"", ""dps_delta"": 1456.1673511693464, ""x_mn"": 8486265.1}",-8.664957637337007,-31.150923705348987,13.375707022144658,12617.628410755628,-1456.1673511693464,20,10,11.358834369258583,2%,L
 L001,cash,"{""dividend_line"": ""cf_008"", ""dps_delta"": 3640.4183779233663, ""x_mn"": 21215662.75}",-0.2480579917272009,-6.258521818403723,18.470574118713994,903.0348718744644,-3640.4183779233663,20,10,6.308442841101458,5%,L

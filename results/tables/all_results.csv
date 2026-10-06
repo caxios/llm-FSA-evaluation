@@ -1,4 +1,4 @@
-# Every test and estimate (code 5a392ff)
+# Every test and estimate (code e642d40)
 id,kind,statistic,estimate,ci_lo,ci_hi,p,p_holm,n,direction,note
 H1,primary,DL weighted mean beta_C (L),0.9931827973395524,0.9509333928760162,1.0354322018030886,0.3759032982879113,1.0,50,< 1,tau2 = 0.0090
 H1-unweighted,robustness,"mean beta_C (L), t test",0.9477684650251628,0.7654064653873166,1.130130464663009,0.28376790660220835,,50,< 1,
@@ -10,8 +10,8 @@ H2a,primary,median E_i (all),0.020062457108172227,-0.045802781975508876,0.094613
 H2a-L,exploratory,median E_i (L),0.014490927916902596,-0.029485862764823567,0.0719198722491754,0.28931460687813804,,50,> 0,"mean 0.0623, 95% CI -0.165..0.290"
 H2a-M,exploratory,median E_i (M),0.10860765998944055,-0.06888139662223758,0.16450604455884177,0.279552311596758,,50,> 0,"mean -0.0068, 95% CI -0.173..0.160"
 H2a-S,exploratory,median E_i (S),-0.12663003722368016,-0.3221741068301167,0.23852238093987332,0.6563527111750886,,45,> 0,"mean -0.0359, 95% CI -0.289..0.217"
-H2b,primary,"gamma_1 (M_i), WLS, HC3",0.17768433473714984,-0.7884266692437955,1.1437953387180952,0.35924503337773145,1.0,145,> 0,"R2 0.109; industry dummies 11; VIF(M_i) 1.17, VIF(ln_cap) 1.19"
-H2b-OLS,robustness,"gamma_1 (M_i), OLS, HC3",-0.27616669044238834,-2.551224811410218,1.9988914305254413,0.594029261172971,,145,> 0,R2 0.082; industry dummies 11
+H2b,primary,"gamma_1 (M_i), WLS, HC3",0.09570185532218718,-0.5501431085547953,0.7415468191991698,0.38574194015652413,1.0,145,> 0,"R2 0.108; industry dummies 11; VIF(M_i) 1.32, VIF(ln_cap) 1.33"
+H2b-OLS,robustness,"gamma_1 (M_i), OLS, HC3",-0.3553658285612126,-1.7787575917759926,1.0680259346535672,0.6876981287377155,,145,> 0,R2 0.083; industry dummies 11
 H2c,exploratory,b2 (log P_old) in log V_C ~ log V_A + log P_old,0.24467252772166953,0.06915532304708774,0.42018973239625135,0.003145100316114919,,114,> 0,b1 = 0.845
 H2d,exploratory,median beta_A - beta_B,0.006426381083965982,-0.07748549267884745,0.1633117994942716,0.24701451659118528,,145,> 0,
 H3,primary,"DL weighted mean R_dil (V0 vs V1), ITM small caps",0.744172330649371,-0.13790305604315178,1.6262477173418939,0.28486223091610935,1.0,15,< 1,tau2 = 0.8726
@@ -27,9 +27,9 @@ H4-beta-R,exploratory,median paired |1-beta_C|: R - T,0.030420681209836764,,,0.1
 H4-Rdil-R,exploratory,median paired |1-R_dil|: R - T,0.7694644394644712,,,0.625,,3,> 0,
 H4-eps-R,exploratory,median epsilon (R; T = 0),0.7698654506106648,,,,,30,,
 R1-id_rate_D-H2a,robustness,median E_i (all),0.014368971834959554,-0.05151419904234178,0.09579526941312194,0.46741620541221396,,144,> 0,"excluding 1 firms with id_rate_D >= 0.5; mean 0.0039, 95% CI -0.119..0.126"
-R1-id_rate_D-H2b,robustness,"gamma_1 (M_i), WLS, HC3",0.1799882791353261,-0.782284273510194,1.1422608317808463,0.3569556381517233,,144,> 0,"excluding 1 firms with id_rate_D >= 0.5; R2 0.105; industry dummies 11; VIF(M_i) 1.17, VIF(ln_cap) 1.18"
+R1-id_rate_D-H2b,robustness,"gamma_1 (M_i), WLS, HC3",0.09645523434888759,-0.5457659306066988,0.7386763993044739,0.3842366335145161,,144,> 0,"excluding 1 firms with id_rate_D >= 0.5; R2 0.104; industry dummies 11; VIF(M_i) 1.32, VIF(ln_cap) 1.32"
 R1-id_rate_A-H2a,robustness,median E_i (all),0.020062457108172227,-0.05151419904234178,0.1083843353370918,0.45108268107668487,,143,> 0,"excluding 2 firms with id_rate_A >= 0.5; mean 0.0065, 95% CI -0.117..0.130"
-R1-id_rate_A-H2b,robustness,"gamma_1 (M_i), WLS, HC3",0.17577552069633745,-0.801637970686534,1.153189012079209,0.3622386537954463,,143,> 0,"excluding 2 firms with id_rate_A >= 0.5; R2 0.109; industry dummies 11; VIF(M_i) 1.17, VIF(ln_cap) 1.18"
+R1-id_rate_A-H2b,robustness,"gamma_1 (M_i), WLS, HC3",0.0941899977221248,-0.5616929902091097,0.7500729856533592,0.389174376418624,,143,> 0,"excluding 2 firms with id_rate_A >= 0.5; R2 0.108; industry dummies 11; VIF(M_i) 1.31, VIF(ln_cap) 1.33"
 R2,robustness,"Spearman rho(tier, R)",0.04238676915013164,,,0.22196029278710525,,832,,median R by tier: cash 2% -0.04; cash 5% 0.78; cash 10% 1.73; non_operating 2% 0.87; non_operating 5% 1.16; non_operating 10% 0.73
 R3,robustness,mean beta_C (L) with half the reps (100 draws),0.8545492536966764,0.5967145802749257,1.042546116583588,,,100,,
 R4-H1,robustness,DL weighted mean beta_C (L),0.9956985783004065,0.9557229436531016,1.0356742129477114,0.4164833822774033,,48,< 1,anomaly-flagged runs excluded (45.2% of runs); tau2 = 0.0068

@@ -1,0 +1,4 @@
+version,Q5 scored,Q5 correct by group,review list,M_i mean,gamma1,CI,p
+no Q5 (before),0,{},-,0.171,0.228,"(np.float64(-0.854), np.float64(1.309))",0.34
+draft keywords,341,"{'L': 0.948, 'M': 0.818, 'S': 0.19}",109,0.234,0.436,"(np.float64(-0.589), np.float64(1.461))",0.202
+reviewed keywords,408,"{'L': 0.957, 'M': 0.844, 'S': 0.324}",42,0.26,0.096,"(np.float64(-0.55), np.float64(0.742))",0.386
