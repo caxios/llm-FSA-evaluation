@@ -58,10 +58,14 @@ class CallCache:
                 self.conn.execute("ROLLBACK")
                 raise
 
-    def records(self, model_key: str | None = None) -> list[RunRecord]:
+    def records(self, model_key: str | None = None, limit: int | None = None
+                ) -> list[RunRecord]:
+        """Cached records (newest first when `limit` is given)."""
         sql, args = "SELECT record_json FROM calls", ()
         if model_key:
             sql, args = sql + " WHERE model_key = ?", (model_key,)
+        if limit:
+            sql, args = sql + " ORDER BY rowid DESC LIMIT ?", (*args, limit)
         with self.lock:
             rows = self.conn.execute(sql, args).fetchall()
         return [RunRecord.model_validate_json(r[0]) for r in rows]
@@ -86,7 +90,8 @@ class NullCache:
     def put(self, record: RunRecord) -> None:
         return None
 
-    def records(self, model_key: str | None = None) -> list[RunRecord]:
+    def records(self, model_key: str | None = None, limit: int | None = None
+                ) -> list[RunRecord]:
         return []
 
     def __len__(self) -> int:

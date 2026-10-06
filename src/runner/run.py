@@ -54,6 +54,14 @@ class RunSummary:
     cost: list[CostLine] = field(default_factory=list)
 
 
+def slim(rec: RunRecord) -> RunRecord:
+    """The record without prompt and response texts (the run table needs neither; the cache
+    and the JSONL log keep them). Keeps a 10,000-job batch within a few hundred MB."""
+    return rec.model_copy(update={
+        "request": rec.request.model_copy(update={"messages": []}),
+        "raw": [r.model_copy(update={"text": ""}) for r in rec.raw]})
+
+
 class Runner:
     def __init__(self, agent: Agent, cache: CallCache, *, runs_dir: Path | None = None,
                  max_workers: int = 4, log_runs: bool = True):
@@ -94,7 +102,7 @@ class Runner:
 
     def _collect(self, s: RunSummary, batch: list) -> None:
         recs = self._execute(batch)
-        s.records += recs
+        s.records += [slim(r) for r in recs]
         s.executed += len(recs)
         s.failed += len(batch) - len(recs)
 
@@ -109,7 +117,7 @@ class Runner:
                 hit = self.cache.get(key)
                 if hit is not None:
                     s.cached += 1
-                    s.records.append(hit.model_copy(update={"request": req}))
+                    s.records.append(slim(hit.model_copy(update={"request": req})))
                     continue
                 if dry_run or (limit is not None and s.executed + len(batch) >= limit):
                     s.pending += 1
@@ -123,7 +131,8 @@ class Runner:
             self._collect(s, batch)
         if dry_run:
             s.cost = estimate(dict(s.calls_by_schema), cfg,
-                              mean_tokens(self.cache.records(specs[0].model_key))
+                              mean_tokens(self.cache.records(specs[0].model_key,
+                                                             limit=2000))
                               if specs else None)
         return s
 
