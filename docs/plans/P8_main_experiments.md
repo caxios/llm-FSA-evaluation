@@ -4,7 +4,7 @@
 |---|---|
 | Roadmap | R§10 |
 | Weeks | 9–13 |
-| Status | Tooling built (2026-10-06); main run waits for `prereg-v1` and budget confirmation |
+| Status | Done (2026-10-06): all modules complete, valid ≥ 99.4% per module, one model version, about $39 spent; tag `data-v1` |
 | Version | v0.1 (2026-10-05) |
 | Depends on | P7 (`prereg-v1` tag, final `config/experiments.yaml`, size decisions) |
 | Unlocks | P10 (and P9 cost decision) |
