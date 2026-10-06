@@ -23,7 +23,14 @@ run_batch() {
   echo "=== $id ==="
   $PY -m src.runner.run $args $COMMON --dry-run
   [ -n "${DRY:-}" ] && return 0
-  $PY -m src.runner.run $args $COMMON
+  # exit code 4 = some calls failed after retries (network/provider outage): wait, resume
+  local try=1 rc=0
+  while :; do
+    rc=0; $PY -m src.runner.run $args $COMMON || rc=$?
+    [ $rc -eq 4 ] && [ $try -lt 6 ] || break
+    echo "  $id: failed calls, retry $try in 120 s"; sleep 120; try=$((try + 1))
+  done
+  [ $rc -eq 0 ] || { echo "  $id: runner exit code $rc"; exit $rc; }
   $PY scripts/monitor.py --batch "$id"
 }
 

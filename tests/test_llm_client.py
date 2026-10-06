@@ -69,8 +69,8 @@ def test_transient_errors_are_retried(client_factory):
     assert len(c.session.bodies) == 4
 
 
-def test_gives_up_after_six_attempts(client_factory):
-    c = client_factory([Resp(500)] * 6)
+def test_gives_up_after_ten_attempts(client_factory):
+    c = client_factory([Resp(500)] * 10)
     with pytest.raises(TransientError):
         c.complete([{"role": "user", "content": "x"}])
 

@@ -104,3 +104,24 @@ def test_cli_with_synthetic_agent(tmp_path, monkeypatch, capsys):
              store=STORE, cache=cache)
     assert s.cached == 2 and s.pending == 0
     assert "estimated cost" in capsys.readouterr().out
+
+
+def test_transient_failures_skip_job_and_keep_the_rest(tmp_path):
+    from src.agents.llm_client import TransientError
+
+    calls = {"n": 0}
+
+    def flaky(messages):
+        calls["n"] += 1
+        if calls["n"] % 5 == 0:
+            raise TransientError("getaddrinfo failed")
+        return valuation_json()
+
+    cache = CallCache(tmp_path / "c.sqlite")
+    runner = Runner(PlainAgent(FakeClient(flaky), MODEL), cache, runs_dir=tmp_path,
+                    max_workers=1)
+    first = runner.run(specs(), STORE)
+    assert first.failed == 4 and first.executed == 16 and len(first.records) == 16
+    second = Runner(PlainAgent(FakeClient(lambda m: valuation_json()), MODEL), cache,
+                    runs_dir=tmp_path).run(specs(), STORE)
+    assert second.cached == 16 and second.executed == 4 and second.failed == 0

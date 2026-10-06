@@ -26,7 +26,7 @@ from pathlib import Path
 import pandas as pd
 
 from src.agents.base import Agent, RunRecord, RunRequest, cache_key
-from src.agents.llm_client import max_concurrency
+from src.agents.llm_client import TransientError, max_concurrency
 from src.config import Config, load_config
 from src.data.package_schema import InputPackage
 from src.runner.cache import CallCache
@@ -48,6 +48,7 @@ class RunSummary:
     cached: int = 0
     executed: int = 0
     pending: int = 0              # to run but not run (dry run or --limit)
+    failed: int = 0               # infrastructure failures after retries; not cached, rerun
     stats: ExpandStats = field(default_factory=ExpandStats)
     calls_by_schema: Counter = field(default_factory=Counter)
     cost: list[CostLine] = field(default_factory=list)
@@ -65,11 +66,18 @@ class Runner:
                  ) -> list[RunRecord]:
         def one(item):
             req, pkg, _ = item
-            return self.agent.run(req, pkg)
+            try:
+                return self.agent.run(req, pkg)
+            except TransientError as e:   # network/provider outage: leave for the next run
+                log.warning("job %s failed after retries: %s", req.job_id, str(e)[:120])
+                return None
 
         with ThreadPoolExecutor(max_workers=self.max_workers) as ex:
             out = list(ex.map(one, batch))
+        done = []
         for rec, (_, _, key) in zip(out, batch, strict=True):
+            if rec is None:
+                continue
             if rec.cache_key != key:
                 raise RuntimeError("agent produced a different cache key than the runner")
             if rec.model_reported and rec.raw:
@@ -81,7 +89,14 @@ class Runner:
             self.cache.put(rec)
             if self.log_runs:
                 log_record(rec, self.runs_dir)
-        return out
+            done.append(rec)
+        return done
+
+    def _collect(self, s: RunSummary, batch: list) -> None:
+        recs = self._execute(batch)
+        s.records += recs
+        s.executed += len(recs)
+        s.failed += len(batch) - len(recs)
 
     def run(self, specs: list[JobSpec], store: PackageStore, *, dry_run: bool = False,
             limit: int | None = None, cfg=None) -> RunSummary:
@@ -102,12 +117,10 @@ class Runner:
                     continue
                 batch.append((req, pkg, key))
                 if len(batch) >= BATCH:
-                    s.records += self._execute(batch)
-                    s.executed += len(batch)
+                    self._collect(s, batch)
                     batch = []
         if batch:
-            s.records += self._execute(batch)
-            s.executed += len(batch)
+            self._collect(s, batch)
         if dry_run:
             s.cost = estimate(dict(s.calls_by_schema), cfg,
                               mean_tokens(self.cache.records(specs[0].model_key))
@@ -276,12 +289,16 @@ def main(argv: list[str] | None = None, store: PackageStore | None = None,
         path = write_table(summary.records, exp)
         valid = sum(r.valid for r in summary.records)
         print(f"valid {valid}/{len(summary.records)}; table: {path}")
+    if summary.failed:
+        print(f"failed {summary.failed} (network/provider errors after retries; re-run to "
+              f"complete)")
     return summary
 
 
 if __name__ == "__main__":
     try:
-        main()
+        if main().failed:
+            sys.exit(4)
     except ModelChanged as e:
         print(f"halted: {e}", file=sys.stderr)
         sys.exit(2)

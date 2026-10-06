@@ -103,15 +103,22 @@ class OpenAICompatibleClient:
         self.sem = threading.BoundedSemaphore(max_concurrency(cfg))
         self.limiter = RateLimiter(rpm)
         self.timeout = timeout
-        self.session = session or requests.Session()
+        if session is None:
+            session = requests.Session()
+            n = max_concurrency(cfg)
+            adapter = requests.adapters.HTTPAdapter(pool_connections=n, pool_maxsize=n)
+            session.mount("https://", adapter)
+            session.mount("http://", adapter)
+        self.session = session
 
     def complete(self, messages: list[dict], cfg: ModelConfig | None = None) -> RawResponse:
         cfg = cfg or self.cfg
         with self.sem:
             return self._post(messages, cfg)
 
-    @retry(retry=retry_if_exception_type(TransientError), stop=stop_after_attempt(6),
-           wait=wait_exponential(multiplier=2, min=2, max=120), reraise=True)
+    # network outages (DNS, resets) can last minutes: up to ~15 minutes of backoff per call
+    @retry(retry=retry_if_exception_type(TransientError), stop=stop_after_attempt(10),
+           wait=wait_exponential(multiplier=2, min=2, max=180), reraise=True)
     def _post(self, messages: list[dict], cfg: ModelConfig) -> RawResponse:
         self.limiter.wait()
         dec = decoding(cfg)
