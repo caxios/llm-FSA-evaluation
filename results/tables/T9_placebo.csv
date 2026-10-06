@@ -1,4 +1,4 @@
-# Placebo equivalence (TOST +- sigma) (code 09269f4)
+# Placebo equivalence (TOST +- sigma) (code 475fc0f)
 firm_id,placebo,shift,lo,hi,sigma,equivalent,shift_over_sigma
 S001,redeemed_cb,-2160.4767120659153,-7017.16520982114,4452.2398512550335,2887.695185494633,False,-0.7481664695492601
 S001,irrelevant,-2676.134677818489,-6697.713284691374,1017.8105100659276,2887.695185494633,False,-0.926737244035019

@@ -56,6 +56,8 @@ def firm_tables(runs: pd.DataFrame, sample: pd.DataFrame, reuse: bool, n_boot: i
     ids = {f: pl.load_identifiers(f) for f in sample["firm_id"]}
     out = {}
     for name, v in VARIANTS.items():
+        if name == "ext_e10":            # no E0 cell; analysed from runs (e10_result)
+            continue
         path = OUT / f"firm_level_{name}.parquet"
         if reuse and path.exists():
             out[name] = pd.read_parquet(path)
