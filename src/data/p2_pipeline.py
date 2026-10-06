@@ -25,7 +25,7 @@ import pandas as pd
 from src.config import PROJECT_ROOT, Config
 from src.data.cb_truth import build_cb_block, current_instruments
 from src.data.dart_client import DartClient
-from src.data.ground_truth import anchor_row, cb_truth_rows, quiz_truth_row
+from src.data.ground_truth import anchor_row, apply_q5_keywords, cb_truth_rows, quiz_truth_row
 from src.data.p2_inputs import P1_DIR, P1Data, iter_builds
 from src.data.sample import (
     apply_exclusions,
@@ -246,7 +246,10 @@ def stage_truth(ctx: P2Context) -> None:
     ctx.truth_dir.mkdir(parents=True, exist_ok=True)
     for name, rows in (("cb_truth", cb_rows), ("quiz_truth", quiz_rows),
                        ("anchor_prices", anchor_rows)):
-        pd.DataFrame(rows).to_parquet(ctx.truth_dir / f"{name}.parquet", index=False)
+        df = pd.DataFrame(rows)
+        if name == "quiz_truth":
+            df = apply_q5_keywords(df)
+        df.to_parquet(ctx.truth_dir / f"{name}.parquet", index=False)
         log.info("wrote ground truth %s (%d rows)", name, len(rows))
 
 

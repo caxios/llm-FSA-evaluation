@@ -7,7 +7,11 @@ from datetime import date
 
 import pandas as pd
 
+from src.config import PROJECT_ROOT
 from src.data.package_schema import InputPackage
+
+# reviewed Q5 keywords (scripts/draft_q5_keywords.py -> human review)
+Q5_KEYWORDS = PROJECT_ROOT / "data" / "ground_truth" / "q5_keywords.csv"
 
 E7_THRESHOLD = 0.30
 
@@ -66,3 +70,14 @@ def anchor_row(firm_id: str, corp_code: str, p_old: float | None, p_new: float |
 
 def to_frame(rows: list[dict]) -> pd.DataFrame:
     return pd.DataFrame(rows)
+
+
+def apply_q5_keywords(quiz: pd.DataFrame) -> pd.DataFrame:
+    """quiz_truth with `main_business` from the reviewed keyword file (if present)."""
+    if not Q5_KEYWORDS.exists():
+        return quiz
+    kw = pd.read_csv(Q5_KEYWORDS, encoding="utf-8-sig", dtype=str).fillna("")
+    m = dict(zip(kw["firm_id"], kw["main_business"].str.strip(), strict=False))
+    out = quiz.copy()
+    out["main_business"] = out["firm_id"].map(m).replace("", None)
+    return out
