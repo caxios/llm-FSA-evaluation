@@ -204,9 +204,11 @@ def e10_result(ft_e10: pd.DataFrame | None, runs: pd.DataFrame):
     rows = []
     for fid in r["firm_id"].unique():
         try:
-            v1 = med.loc[(fid, "front", "cb_v1")]
-            rows.append({"firm_id": fid, "front": med.loc[(fid, "front", "cb_v0")] - v1,
-                         "middle": med.loc[(fid, "middle", "cb_v0")] - v1})
+            rows.append({"firm_id": fid,
+                         "front": med.loc[(fid, "front", "cb_v0")]
+                         - med.loc[(fid, "front", "cb_v1")],
+                         "middle": med.loc[(fid, "middle", "cb_v0")]
+                         - med.loc[(fid, "middle", "cb_v1")]})
         except KeyError:
             continue
     d = pd.DataFrame(rows).dropna()

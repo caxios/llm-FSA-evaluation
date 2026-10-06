@@ -4,7 +4,7 @@
 |---|---|
 | Roadmap | R§11 |
 | Weeks | 12–15 (overlaps with the end of P8) |
-| Status | Provisional (finalize with P7 outputs and P8 spend) |
+| Status | Done (2026-10-06): structures P and R, comparison model, instruction effect, E10 all run (valid >= 99.7%); tag `data-v2` |
 | Version | v0.1 (2026-10-05) |
 | Depends on | P7 (prereg), P8 spend through module 5 |
 | Unlocks | P10 (H4, model and instruction robustness) |

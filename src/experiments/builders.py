@@ -122,8 +122,8 @@ def e8(cfg: Config, store: PackageStore, firm_ids: list[str], *, reps: int | Non
 def e10(cfg: Config, store: PackageStore, firm_ids: list[str], *, reps: int | None = None,
         **common) -> list[JobSpec]:
     """E10 (P9 §5.5): E8 V0 and V1 with the CB block at the front vs in the middle of a
-    fixed-length filler. V1 has no CB block, so its two positions render the same prompt
-    (one set of calls via the cache)."""
+    fixed-length filler. V1 shows "없음" in the CB slot, so each position has its own V1
+    baseline."""
     cb_firms = [f for f in firm_ids if store.package(f).cb is not None]
     return [JobSpec(experiment="E10", firm_ids=cb_firms, conditions=["C"],
                     perturbations=[("cb_v0", {}), ("cb_v1", {})],
