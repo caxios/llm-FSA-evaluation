@@ -68,11 +68,13 @@ def e3(cfg: Config, store: PackageStore, firm_ids: list[str], *, reps: int | Non
                 if eq and eq > 0:
                     perts[fid] = [(kind, {"x_mn": exp.size_floor * eq})]
                     nreps[fid] = n
-        if tiers:
-            for fid in list(perts):
+        if tiers:   # every firm with positive book equity (D7.8), not only rule-size firms
+            for fid in firm_ids:
                 eq = book_equity(store.package(fid))
                 if eq and eq > 0:
+                    perts.setdefault(fid, [])
                     perts[fid] += [(kind, {"x_mn": t * eq}) for t in exp.tiers]
+                    nreps.setdefault(fid, n)
         specs.append(JobSpec(experiment="E3", firm_ids=sorted(perts), conditions=["C"],
                              perturbations=perts, reps=nreps, **common))
     return specs
