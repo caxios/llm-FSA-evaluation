@@ -83,3 +83,15 @@ def test_decomposition_and_stages():
 def test_exploratory_verdicts():
     r = Result("H2c", "exploratory", "b2", 0.3, p=0.01)
     assert verdict(r).startswith("consistent")
+
+
+def test_pooled_dl_recovers_mean_and_reports_heterogeneity():
+    from src.analysis.pooled import dl_pool
+
+    rng = np.random.default_rng(1)
+    r = 0.8 + rng.normal(0, 0.05, 50)
+    out = dl_pool(r, np.full(50, 0.05))
+    assert out["mean"] == pytest.approx(0.8, abs=0.03) and out["p_vs_1"] < 1e-6
+    assert out["p_vs_0"] < 1e-6 and 0 <= out["I2"] < 0.5 and out["k"] == 50
+    wide = dl_pool(np.array([1.0, 5.0, -3.0]), np.array([0.1, 0.1, 0.1]))
+    assert wide["I2"] > 0.9 and wide["tau2"] > 1

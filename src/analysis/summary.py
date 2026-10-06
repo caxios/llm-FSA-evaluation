@@ -34,6 +34,9 @@ def verdict(r: Result) -> str:
         if not (math.isnan(lo) or math.isnan(hi)) and NOT_SUPPORTED[r.id](lo, hi):
             return "not supported"
         return "inconclusive"
+    if r.kind == "pooled" and not math.isnan(r.p):
+        side = "over" if r.estimate > 1 else "under"
+        return f"differs from 1 ({side}-reaction)" if r.p < 0.05 else "not distinguishable from 1"
     if r.kind == "exploratory" and not math.isnan(r.p):
         return "consistent (exploratory)" if r.p < 0.05 else "not consistent (exploratory)"
     return "—"

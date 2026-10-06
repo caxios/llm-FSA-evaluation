@@ -1,4 +1,4 @@
-# Every test and estimate (code 475fc0f)
+# Every test and estimate (code 5a392ff)
 id,kind,statistic,estimate,ci_lo,ci_hi,p,p_holm,n,direction,note
 H1,primary,DL weighted mean beta_C (L),0.9931827973395524,0.9509333928760162,1.0354322018030886,0.3759032982879113,1.0,50,< 1,tau2 = 0.0090
 H1-unweighted,robustness,"mean beta_C (L), t test",0.9477684650251628,0.7654064653873166,1.130130464663009,0.28376790660220835,,50,< 1,
@@ -30,11 +30,11 @@ R1-id_rate_D-H2a,robustness,median E_i (all),0.014368971834959554,-0.05151419904
 R1-id_rate_D-H2b,robustness,"gamma_1 (M_i), WLS, HC3",0.1799882791353261,-0.782284273510194,1.1422608317808463,0.3569556381517233,,144,> 0,"excluding 1 firms with id_rate_D >= 0.5; R2 0.105; industry dummies 11; VIF(M_i) 1.17, VIF(ln_cap) 1.18"
 R1-id_rate_A-H2a,robustness,median E_i (all),0.020062457108172227,-0.05151419904234178,0.1083843353370918,0.45108268107668487,,143,> 0,"excluding 2 firms with id_rate_A >= 0.5; mean 0.0065, 95% CI -0.117..0.130"
 R1-id_rate_A-H2b,robustness,"gamma_1 (M_i), WLS, HC3",0.17577552069633745,-0.801637970686534,1.153189012079209,0.3622386537954463,,143,> 0,"excluding 2 firms with id_rate_A >= 0.5; R2 0.109; industry dummies 11; VIF(M_i) 1.17, VIF(ln_cap) 1.18"
-R2,robustness,"Spearman rho(tier, R)",-0.04583295983780432,,,0.6376297976039028,,108,,median R by tier: cash 2% 1.10; cash 5% 1.24; cash 10% 1.03; non_operating 2% 0.14; non_operating 5% 1.17; non_operating 10% 0.50
+R2,robustness,"Spearman rho(tier, R)",0.04238676915013164,,,0.22196029278710525,,832,,median R by tier: cash 2% -0.04; cash 5% 0.78; cash 10% 1.73; non_operating 2% 0.87; non_operating 5% 1.16; non_operating 10% 0.73
 R3,robustness,mean beta_C (L) with half the reps (100 draws),0.8545492536966764,0.5967145802749257,1.042546116583588,,,100,,
-R4-H1,robustness,DL weighted mean beta_C (L),0.9956985783004065,0.9557229436531016,1.0356742129477114,0.4164833822774033,,48,< 1,anomaly-flagged runs excluded (44.6% of runs); tau2 = 0.0068
-R4-H2a,robustness,median E_i (all),0.029384927578860465,-0.041418152894107385,0.08337194472224682,0.2937527042407113,,102,> 0,"anomaly-flagged runs excluded (44.6% of runs); mean -0.0472, 95% CI -0.242..0.148"
-R4-H3,robustness,"DL weighted mean R_dil (V0 vs V1), ITM small caps",1.1698866161914871,0.6915939870876872,1.648179245295287,0.7568419478565442,,8,< 1,anomaly-flagged runs excluded (44.6% of runs); tau2 = 0.1853
+R4-H1,robustness,DL weighted mean beta_C (L),0.9956985783004065,0.9557229436531016,1.0356742129477114,0.4164833822774033,,48,< 1,anomaly-flagged runs excluded (45.2% of runs); tau2 = 0.0068
+R4-H2a,robustness,median E_i (all),0.029384927578860465,-0.041418152894107385,0.08337194472224682,0.2937527042407113,,102,> 0,"anomaly-flagged runs excluded (45.2% of runs); mean -0.0472, 95% CI -0.242..0.148"
+R4-H3,robustness,"DL weighted mean R_dil (V0 vs V1), ITM small caps",1.1698866161914871,0.6915939870876872,1.648179245295287,0.7568419478565442,,8,< 1,anomaly-flagged runs excluded (45.2% of runs); tau2 = 0.1853
 R5-beta_C-comparison,robustness,"median beta_C (comparison, 30 firms)",0.9791815500571931,,,0.02884396445006132,,30,< 1,
 R5-E-comparison,robustness,"median E_i (comparison, 30 firms)",0.0328852856053089,,,0.13962087780237198,,27,> 0,
 R5-beta_C-primary,robustness,"median beta_C (primary, 30 firms)",1.0049677831266002,,,0.6271726628765464,,30,< 1,
@@ -46,3 +46,9 @@ R8-H2a,robustness,median E_i (all),0.020062457108172227,-0.045802781975508876,0.
 R8-H3,robustness,"DL weighted mean R_dil (V0 vs V1), ITM small caps",0.7152719746102113,-0.1502050510012578,1.5807490002216804,0.25952565128685035,,15,< 1,cells below 70% validity excluded; tau2 = 0.8803
 R9-H1,robustness,"mean median-based beta_C (L), t test",1.009203850759671,0.910128664520301,1.108279036999041,0.5736607127683676,,50,< 1,
 E10,exploratory,median paired |dV front| - |dV middle| (KRW),-6.541427373161341,,,0.8983173370361328,,20,,positive = the CB block moves the value more at the front
+POOL-cash,pooled,"pooled R, 현금 배당 (DL, firms)",1.6116002805349805,1.1338374938329705,2.0893630672369907,0.012105216601798335,,119,= 1,p vs 0 3.8e-11; I2 0.81; unweighted median 1.42
+POOL-non_operating,pooled,"pooled R, 비영업자산 (DL, firms)",0.8747398576989565,0.6086465115816361,1.140833203816277,0.3561918770160879,,122,= 1,p vs 0 1.17e-10; I2 0.86; unweighted median 0.76
+POOL-shares,pooled,"pooled R, 주식 수 2배 (DL, firms)",1.0067759528851534,0.9951028025073442,1.0184491032629628,0.25523416288356227,,122,= 1,p vs 0 0; I2 0.00; unweighted median 1.00
+POOL-V0,pooled,"pooled R, CB 희석 V0 (DL, firms)",0.744172330649371,-0.13790305604315178,1.6262477173418939,0.5697244618322187,,15,= 1,p vs 0 0.0982; I2 0.60; unweighted median -1.01
+POOL-V2,pooled,"pooled R, CB 희석 V2(액면 증가) (DL, firms)",0.3608876540321029,-0.33225636253920543,1.0540316706034112,0.07072877783190738,,15,= 1,p vs 0 0.308; I2 0.76; unweighted median -0.31
+POOL-V3,pooled,"pooled R, CB 희석 V3(전환가 인하) (DL, firms)",1.1448589649356946,0.3106364917796117,1.9790814380917774,0.7335966209218789,,16,= 1,p vs 0 0.00715; I2 0.72; unweighted median 0.81

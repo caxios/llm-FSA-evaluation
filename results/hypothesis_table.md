@@ -1,6 +1,6 @@
 # Hypothesis table
 
-_Generated 2026-10-06 18:45 (code 475fc0f)_
+_Generated 2026-10-06 19:47 (code 5a392ff)_
 
 | H | type | statistic | estimate | 95% CI | p | p (Holm) | n | verdict | ref |
 |---|---|---|---|---|---|---|---|---|---|
@@ -26,3 +26,9 @@ _Generated 2026-10-06 18:45 (code 475fc0f)_
 | H4-Rdil-R | exploratory | median paired |1-R_dil|: R - T | 0.769 | [–, –] | 0.6250 | – | 3 | not consistent (exploratory) | T11 |
 | H4-eps-R | exploratory | median epsilon (R; T = 0) | 0.770 | [–, –] | – | – | 30 | — | T11 |
 | E10 | exploratory | median paired |dV front| - |dV middle| (KRW) | -6.541 | [–, –] | 0.8983 | – | 20 | not consistent (exploratory) |  |
+| POOL-cash | pooled | pooled R, 현금 배당 (DL, firms) | 1.612 | [1.134, 2.089] | 0.0121 | – | 119 | differs from 1 (over-reaction) |  |
+| POOL-non_operating | pooled | pooled R, 비영업자산 (DL, firms) | 0.875 | [0.609, 1.141] | 0.3562 | – | 122 | not distinguishable from 1 |  |
+| POOL-shares | pooled | pooled R, 주식 수 2배 (DL, firms) | 1.007 | [0.995, 1.018] | 0.2552 | – | 122 | not distinguishable from 1 |  |
+| POOL-V0 | pooled | pooled R, CB 희석 V0 (DL, firms) | 0.744 | [-0.138, 1.626] | 0.5697 | – | 15 | not distinguishable from 1 |  |
+| POOL-V2 | pooled | pooled R, CB 희석 V2(액면 증가) (DL, firms) | 0.361 | [-0.332, 1.054] | 0.0707 | – | 15 | not distinguishable from 1 |  |
+| POOL-V3 | pooled | pooled R, CB 희석 V3(전환가 인하) (DL, firms) | 1.145 | [0.311, 1.979] | 0.7336 | – | 16 | not distinguishable from 1 |  |

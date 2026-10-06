@@ -20,7 +20,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import pandas as pd  # noqa: E402
 import yaml  # noqa: E402
 
-from src.analysis import figures, h4, robustness, rq1, rq2, rq3  # noqa: E402
+from src.analysis import figures, h4, pooled, robustness, rq1, rq2, rq3  # noqa: E402
 from src.analysis.common import (  # noqa: E402
     TRUTH,
     VARIANTS,
@@ -171,6 +171,14 @@ def main() -> int:
     if e10 is not None:
         results.append(e10)
 
+    # pooled response ratios (exploratory, added after the main results)
+    cells = pooled.cell_responses(main_runs, store)
+    write_table(cells.drop(columns=["agent_structure", "model_key"], errors="ignore"),
+                "T13_cell_responses", "Firm-cell response ratios (main, D7.5 applied)")
+    pool = pooled.pooled_table(cells, main_ft)
+    write_table(pool, "T14_pooled_R", "Pooled response ratios (DL random effects)")
+    results += pooled.pooled_results(pool)
+
     apply_holm(results)
     write_table(results_frame(results), "all_results", "Every test and estimate")
 
@@ -183,8 +191,9 @@ def main() -> int:
         figs += figures.f6_stages(t11)
     if not tiers.empty:
         figs += figures.f7_tiers(tiers)
+    figs += figures.f8_pooled(pool)
 
-    write_reports(results, main_ft, dec, t10, t11, tiers, runs)
+    write_reports(results, main_ft, dec, t10, t11, tiers, runs, pool)
     print(f"results: {len(results)}; figures: {len(figs) // 2}")
     for r in results:
         if r.kind == "primary":
@@ -225,7 +234,7 @@ def e10_result(ft_e10: pd.DataFrame | None, runs: pd.DataFrame):
                   note="positive = the CB block moves the value more at the front")
 
 
-def write_reports(results, main_ft, dec, t10, t11, tiers, runs) -> None:
+def write_reports(results, main_ft, dec, t10, t11, tiers, runs, pool=None) -> None:
     head = f"_Generated {datetime.now():%Y-%m-%d %H:%M} ({provenance()})_"
     (OUT / "hypothesis_table.md").write_text(
         "# Hypothesis table\n\n" + head + "\n\n" + hypothesis_table(results, REFS) + "\n",
@@ -239,6 +248,9 @@ def write_reports(results, main_ft, dec, t10, t11, tiers, runs) -> None:
             "## E9 stages, ITM small caps (T10)", "", md(t10), "",
             "## Structures (T11)", "", md(t11), "",
             "## R by tier (R2)", "", md(tiers), "",
+            "## Pooled response ratios (T14, exploratory)", "",
+            md(pool[["label", "size", "group", "k", "mean", "ci_lo", "ci_hi", "p_vs_1",
+                     "p_vs_0", "I2", "median_unweighted"]]) if pool is not None else "", "",
             "## Firm counts", "",
             md(main_ft.groupby("group").agg(firms=("firm_id", "nunique"),
                                             beta_C_median=("beta_C", "median")).reset_index()),

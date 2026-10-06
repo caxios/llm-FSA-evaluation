@@ -279,6 +279,12 @@ Format per entry: date, phase, options considered, decision, reason, affected do
   - H2b: the CI upper bound is below 0.
 - R7 (complex CBs) cannot run: `cb_complex` is unknown for every firm (D2.8).
 
+## Post-results additions (2026-10-06, evening)
+
+- **E3 tiers completed (implementation bug fixed).** The preregistration (§7, D7.8) runs the 2/5/10% tiers for every firm with positive book equity. The E3 builder attached tiers only to firms that the size rule accepted (8 cash, 28 non-operating). The builder was fixed, and the missing cells were run: 6,790 calls, valid 11,450/11,500 for E3 in total. Cash tiers above a firm's cash are skipped by design.
+- **Pooled response ratios (exploratory, not preregistered; user request).** Firm-cell R is too imprecise to judge firm by firm, so R is pooled across firms with the DL random-effects mean. SE = bootstrap CI width ÷ 3.92; a firm's cells are combined by inverse variance before pooling; D7.5 exclusions apply (`src/analysis/pooled.py`, tables T13 and T14, figure F8).
+- **Channel decomposition (exploratory).** The perturbed item is carried into the bridge almost exactly: Δnet debt / X has median 1.00 (IQR 1.00–1.00) for cash, and Δnon-operating assets / X has median 1.00 for non-operating assets (≥ 0.9 in 95.8% of cells). The enterprise value, which depends on the model's projection assumptions, moves by IQR about ±4 X between the perturbed and baseline cells. Most of the imprecision in R is therefore assumption noise in the EV, not a failure to read or apply the disclosure.
+
 ## Research-plan revision
 
 - 2026-10-05: `llm_valuation_research_plan.md` revised to v0.2, reflecting D1, D2.2, D3.3, D3.5, D5.2, D7.4, D8/D2.5. `implementation_plan.md` revised to v0.2.

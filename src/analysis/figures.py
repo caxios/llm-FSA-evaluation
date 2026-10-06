@@ -164,3 +164,27 @@ def f7_tiers(tiers: pd.DataFrame) -> list[str]:
     ax.set_title("F7. Response ratio by perturbation size")
     ax.legend(fontsize=8)
     return _save(fig, "F7_tiers")
+
+
+def f8_pooled(pool: pd.DataFrame) -> list[str]:
+    """Pooled R (DL mean, 95% CI) per item: all firms, all sizes; CB variants for S."""
+    _style()
+    d = pool[((pool["size"] == "all sizes") & (pool["group"] == "all"))
+             | (pool["size"] == "CB")].dropna(subset=["mean"]).iloc[::-1]
+    names = {"cash": "Cash distribution", "non_operating": "Non-operating assets",
+             "shares": "Shares x2", "V0": "CB dilution V0", "V2": "CB dilution V2",
+             "V3": "CB dilution V3"}
+    fig, ax = plt.subplots(figsize=(6, 3.2))
+    y = np.arange(len(d))
+    ax.hlines(y, d["ci_lo"], d["ci_hi"], color=SERIES[0], linewidth=2, zorder=3)
+    ax.scatter(d["mean"], y, s=40, color=SERIES[0], edgecolor=SURFACE, linewidth=1.5,
+               zorder=4)
+    for yi, (_, r) in zip(y, d.iterrows(), strict=True):
+        ax.text(max(r["ci_hi"], r["mean"]) + 0.05, yi, f"{r['mean']:.2f}  (firms {int(r['k'])})",
+                va="center", fontsize=8, color=INK2)
+    ax.axvline(1, color=INK2, linestyle="--", linewidth=1)
+    ax.axvline(0, color=GRID, linewidth=1)
+    ax.set_yticks(y, [names.get(i, i) for i in d["item"]])
+    ax.set_xlabel("pooled response ratio R (1 = full reflection, 0 = none)")
+    ax.set_title("F8. Average response across firms (DL random effects, 95% CI)")
+    return _save(fig, "F8_pooled")

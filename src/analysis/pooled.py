@@ -132,9 +132,9 @@ def pooled_table(cells: pd.DataFrame, dilution: pd.DataFrame | None = None) -> p
 
 def pooled_results(table: pd.DataFrame) -> list[Result]:
     out = []
-    for _, r in table[(table["group"].isin(["all", "S"])) &
-                      (table["size"].isin(["all sizes", "CB"]))].iterrows():
-        out.append(Result(f"POOL-{r['item']}", "exploratory",
+    keep = ((table["group"] == "all") & (table["size"] == "all sizes")) | (table["size"] == "CB")
+    for _, r in table[keep].iterrows():
+        out.append(Result(f"POOL-{r['item']}", "pooled",
                           f"pooled R, {r['label']} (DL, firms)", r["mean"],
                           (r["ci_lo"], r["ci_hi"]), r["p_vs_1"], int(r["k"]), "= 1",
                           f"p vs 0 {r['p_vs_0']:.3g}; I2 {r['I2']:.2f}; unweighted median "

@@ -38,3 +38,6 @@ Dated notes: batches, incidents, spend.
 - Sizing (`size_decisions_main.parquet`): the cash rule size was accepted for 8 of 150 firms, and the non-operating size for 28 (D7.8 fallback). Tiers ran for every firm with positive book equity.
 - QA: `results/qa/main_run_qa.md` lists 736 extreme values in E2, most of them sign flips around near-zero medians. Following §5.5 they are reviewed, not removed.
 - Pilot E2 rows in `results/runs/E2.parquet` were overwritten by identical main-run job ids, because the job id carries no tag. The pilot results remain in the cache and the JSONL logs, and `docs/pilot_report.md` was written beforehand.
+- 2026-10-06 19:44 monitor E3: 11500 runs, valid 99.6%, cumulative spend $48.82
+
+- 2026-10-06 19:45: E3 tiers for the remaining firms (builder fix, D7.8 as preregistered): 6,790 calls; E3 total valid 11,450/11,500; monitor cumulative spend $48.82 (double-counted E7; measured main-run spend about $46).

@@ -1,6 +1,6 @@
 # Results summary (P10)
 
-_Generated 2026-10-06 18:45 (code 475fc0f)_
+_Generated 2026-10-06 19:47 (code 5a392ff)_
 
 ## Hypotheses
 
@@ -28,6 +28,12 @@ _Generated 2026-10-06 18:45 (code 475fc0f)_
 | H4-Rdil-R | exploratory | median paired |1-R_dil|: R - T | 0.769 | [–, –] | 0.6250 | – | 3 | not consistent (exploratory) | T11 |
 | H4-eps-R | exploratory | median epsilon (R; T = 0) | 0.770 | [–, –] | – | – | 30 | — | T11 |
 | E10 | exploratory | median paired |dV front| - |dV middle| (KRW) | -6.541 | [–, –] | 0.8983 | – | 20 | not consistent (exploratory) |  |
+| POOL-cash | pooled | pooled R, 현금 배당 (DL, firms) | 1.612 | [1.134, 2.089] | 0.0121 | – | 119 | differs from 1 (over-reaction) |  |
+| POOL-non_operating | pooled | pooled R, 비영업자산 (DL, firms) | 0.875 | [0.609, 1.141] | 0.3562 | – | 122 | not distinguishable from 1 |  |
+| POOL-shares | pooled | pooled R, 주식 수 2배 (DL, firms) | 1.007 | [0.995, 1.018] | 0.2552 | – | 122 | not distinguishable from 1 |  |
+| POOL-V0 | pooled | pooled R, CB 희석 V0 (DL, firms) | 0.744 | [-0.138, 1.626] | 0.5697 | – | 15 | not distinguishable from 1 |  |
+| POOL-V2 | pooled | pooled R, CB 희석 V2(액면 증가) (DL, firms) | 0.361 | [-0.332, 1.054] | 0.0707 | – | 15 | not distinguishable from 1 |  |
+| POOL-V3 | pooled | pooled R, CB 희석 V3(전환가 인하) (DL, firms) | 1.145 | [0.311, 1.979] | 0.7336 | – | 16 | not distinguishable from 1 |  |
 
 ## Robustness
 
@@ -42,11 +48,11 @@ _Generated 2026-10-06 18:45 (code 475fc0f)_
 | R1-id_rate_D-H2b | gamma_1 (M_i), WLS, HC3 | 0.180 | [-0.782, 1.142] | 0.3570 | 144 | excluding 1 firms with id_rate_D >= 0.5; R2 0.105; industry dummies 11; VIF(M_i) 1.17, VIF(ln_cap) 1.18 |
 | R1-id_rate_A-H2a | median E_i (all) | 0.020 | [-0.052, 0.108] | 0.4511 | 143 | excluding 2 firms with id_rate_A >= 0.5; mean 0.0065, 95% CI -0.117..0.130 |
 | R1-id_rate_A-H2b | gamma_1 (M_i), WLS, HC3 | 0.176 | [-0.802, 1.153] | 0.3622 | 143 | excluding 2 firms with id_rate_A >= 0.5; R2 0.109; industry dummies 11; VIF(M_i) 1.17, VIF(ln_cap) 1.18 |
-| R2 | Spearman rho(tier, R) | -0.046 | [–, –] | 0.6376 | 108 | median R by tier: cash 2% 1.10; cash 5% 1.24; cash 10% 1.03; non_operating 2% 0.14; non_operating 5% 1.17; non_operating 10% 0.50 |
+| R2 | Spearman rho(tier, R) | 0.042 | [–, –] | 0.2220 | 832 | median R by tier: cash 2% -0.04; cash 5% 0.78; cash 10% 1.73; non_operating 2% 0.87; non_operating 5% 1.16; non_operating 10% 0.73 |
 | R3 | mean beta_C (L) with half the reps (100 draws) | 0.855 | [0.597, 1.043] | – | 100 |  |
-| R4-H1 | DL weighted mean beta_C (L) | 0.996 | [0.956, 1.036] | 0.4165 | 48 | anomaly-flagged runs excluded (44.6% of runs); tau2 = 0.0068 |
-| R4-H2a | median E_i (all) | 0.029 | [-0.041, 0.083] | 0.2938 | 102 | anomaly-flagged runs excluded (44.6% of runs); mean -0.0472, 95% CI -0.242..0.148 |
-| R4-H3 | DL weighted mean R_dil (V0 vs V1), ITM small caps | 1.170 | [0.692, 1.648] | 0.7568 | 8 | anomaly-flagged runs excluded (44.6% of runs); tau2 = 0.1853 |
+| R4-H1 | DL weighted mean beta_C (L) | 0.996 | [0.956, 1.036] | 0.4165 | 48 | anomaly-flagged runs excluded (45.2% of runs); tau2 = 0.0068 |
+| R4-H2a | median E_i (all) | 0.029 | [-0.041, 0.083] | 0.2938 | 102 | anomaly-flagged runs excluded (45.2% of runs); mean -0.0472, 95% CI -0.242..0.148 |
+| R4-H3 | DL weighted mean R_dil (V0 vs V1), ITM small caps | 1.170 | [0.692, 1.648] | 0.7568 | 8 | anomaly-flagged runs excluded (45.2% of runs); tau2 = 0.1853 |
 | R5-beta_C-comparison | median beta_C (comparison, 30 firms) | 0.979 | [–, –] | 0.0288 | 30 |  |
 | R5-E-comparison | median E_i (comparison, 30 firms) | 0.033 | [–, –] | 0.1396 | 27 |  |
 | R5-beta_C-primary | median beta_C (primary, 30 firms) | 1.005 | [–, –] | 0.6272 | 30 |  |
@@ -100,12 +106,41 @@ _Generated 2026-10-06 18:45 (code 475fc0f)_
 
 | perturbation | tier | median | mean | count |
 |---|---|---|---|---|
-| cash | 0.020 | 1.098 | 4.476 | 8 |
-| cash | 0.050 | 1.242 | 2.428 | 8 |
-| cash | 0.100 | 1.031 | 1.381 | 8 |
-| non_operating | 0.020 | 0.136 | -1.912 | 28 |
-| non_operating | 0.050 | 1.171 | -5.071 | 28 |
-| non_operating | 0.100 | 0.498 | -0.473 | 28 |
+| cash | 0.020 | -0.043 | -4.032 | 147 |
+| cash | 0.050 | 0.777 | 1.030 | 133 |
+| cash | 0.100 | 1.731 | 3.293 | 102 |
+| non_operating | 0.020 | 0.868 | 2.502 | 150 |
+| non_operating | 0.050 | 1.156 | -0.068 | 150 |
+| non_operating | 0.100 | 0.731 | 0.555 | 150 |
+
+## Pooled response ratios (T14, exploratory)
+
+| label | size | group | k | mean | ci_lo | ci_hi | p_vs_1 | p_vs_0 | I2 | median_unweighted |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 현금 배당 | all sizes | all | 119 | 1.612 | 1.134 | 2.089 | 0.012 | 0.000 | 0.809 | 1.423 |
+| 현금 배당 | all sizes | L | 45 | 1.517 | 0.793 | 2.241 | 0.162 | 0.000 | 0.825 | 1.556 |
+| 현금 배당 | all sizes | M | 44 | 2.315 | 1.172 | 3.457 | 0.024 | 0.000 | 0.805 | 1.234 |
+| 현금 배당 | all sizes | S | 30 | 1.059 | -0.367 | 2.485 | 0.935 | 0.145 | 0.791 | 1.513 |
+| 현금 배당 | 10% | all | 86 | 1.886 | 1.163 | 2.610 | 0.016 | 0.000 | 0.755 | 2.294 |
+| 현금 배당 | 2% | all | 119 | 1.429 | -0.784 | 3.641 | 0.704 | 0.206 | 0.626 | 0.977 |
+| 현금 배당 | 5% | all | 110 | 1.562 | 0.442 | 2.681 | 0.325 | 0.006 | 0.679 | 0.873 |
+| 현금 배당 | rule | all | 8 | 1.068 | 0.837 | 1.298 | 0.565 | 0.000 | 0.367 | 0.982 |
+| 비영업자산 | all sizes | all | 122 | 0.875 | 0.609 | 1.141 | 0.356 | 0.000 | 0.857 | 0.759 |
+| 비영업자산 | all sizes | L | 46 | 0.637 | 0.286 | 0.988 | 0.043 | 0.000 | 0.874 | 0.776 |
+| 비영업자산 | all sizes | M | 44 | 1.141 | 0.697 | 1.584 | 0.534 | 0.000 | 0.823 | 0.943 |
+| 비영업자산 | all sizes | S | 32 | 0.821 | -0.239 | 1.880 | 0.740 | 0.129 | 0.781 | 0.315 |
+| 비영업자산 | 10% | all | 122 | 0.626 | 0.163 | 1.088 | 0.112 | 0.008 | 0.622 | 0.498 |
+| 비영업자산 | 2% | all | 122 | -1.732 | -4.320 | 0.856 | 0.039 | 0.190 | 0.701 | -0.176 |
+| 비영업자산 | 5% | all | 122 | -0.120 | -1.217 | 0.977 | 0.045 | 0.831 | 0.873 | 0.244 |
+| 비영업자산 | rule | all | 28 | 0.786 | 0.619 | 0.953 | 0.012 | 0.000 | 0.737 | 0.865 |
+| 주식 수 2배 | all sizes | all | 122 | 1.007 | 0.995 | 1.018 | 0.255 | 0.000 | 0.000 | 1.002 |
+| 주식 수 2배 | all sizes | L | 46 | 1.015 | 0.989 | 1.041 | 0.250 | 0.000 | 0.126 | 0.995 |
+| 주식 수 2배 | all sizes | M | 44 | 1.004 | 0.959 | 1.049 | 0.864 | 0.000 | 0.000 | 1.008 |
+| 주식 수 2배 | all sizes | S | 32 | 1.058 | 0.910 | 1.207 | 0.441 | 0.000 | 0.273 | 0.977 |
+| 주식 수 2배 | m=2 | all | 122 | 1.007 | 0.995 | 1.018 | 0.255 | 0.000 | 0.000 | 1.002 |
+| CB 희석 V0 | CB | S | 15 | 0.744 | -0.138 | 1.626 | 0.570 | 0.098 | 0.601 | -1.014 |
+| CB 희석 V2(액면 증가) | CB | S | 15 | 0.361 | -0.332 | 1.054 | 0.071 | 0.308 | 0.761 | -0.310 |
+| CB 희석 V3(전환가 인하) | CB | S | 16 | 1.145 | 0.311 | 1.979 | 0.734 | 0.007 | 0.715 | 0.808 |
 
 ## Firm counts
 
@@ -124,8 +159,8 @@ _Generated 2026-10-06 18:45 (code 475fc0f)_
 | ext | R | primary | v1.2 | 2690 | 0.999 |
 | ext | T | comparison | v1.2 | 3000 | 1.000 |
 | ext | T | primary | v1.2 | 800 | 0.998 |
-| main | T | primary | v1.2 | 42160 | 0.997 |
+| main | T | primary | v1.2 | 49400 | 0.997 |
 | pilot | P | primary | v1 | 1230 | 0.998 |
 | pilot | T | primary | v1.1 | 1230 | 0.999 |
-| pilot | T | primary | v1.2 | 850 | 1.000 |
+| pilot | T | primary | v1.2 | 400 | 1.000 |
 | smoke | P | primary | v1 | 8 | 0.875 |
