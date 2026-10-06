@@ -4,7 +4,7 @@
 |---|---|
 | Roadmap | R§12 |
 | Weeks | 16–19 (code written in weeks 12–15 on pilot data) |
-| Status | Done (2026-10-06): `scripts/run_analysis.py` on `data-v2`; report `docs/results_report.md` |
+| Status | Done (2026-10-06): `scripts/run_analysis.py` on `data-v2`; report `docs/final/results_report.md` |
 | Version | v0.1 (2026-10-05) |
 | Depends on | P8 (`data-v1`), P9 (`data-v2`), P7 preregistration |
 | Unlocks | P11 |

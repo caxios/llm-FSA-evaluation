@@ -16,7 +16,7 @@
   - **소형주의 과잉 반응(H1b).** 소형주 기울기는 대형주보다 0.29 크다(p = 0.025).
   - **계산 위임 여부가 가장 큰 차이.** 모델이 직접 계산하는 구조(P, R)는 실행의 98%에서 계산 단계가 틀렸다. 자기 일관성 오차의 중앙값은 76~77%다.
   - **"외부 정보를 쓰지 말라"는 지시문의 효과.** 지시문은 오히려 β_C를 0.28 낮췄다(p = 0.036).
-- **공시 항목 변화의 반영(사후 추가 분석, 상세는 `docs/disclosure_response_report.md`).**
+- **공시 항목 변화의 반영(사후 추가 분석, 상세는 `docs/final/disclosure_response_report.md`).**
   - **반영 경로는 정확하다.** 모델은 바뀐 현금을 순차입금에(Δ/X 중앙값 1.00), 추가된 비영업자산을 주주가치 가산 항목에(중앙값 1.00, 셀의 95.8%) 정확히 옮겨 넣는다.
   - **최종 가치에서는 묻힌다.** 기업가치(EV)를 정하는 가정이 실행마다 변형 크기의 ±4배 넘게 흔들린다.
   - **회사들을 모은 평균 반응 비율.**
@@ -90,7 +90,7 @@
 | 현금 배당 | 1.612 [1.134, 2.089] | 119 | 1보다 큼, 과잉 반응 (이질성 I² = 0.81) |
 | CB 희석 V0 | 0.744 [−0.138, 1.626] | 15 | 판단 불가 |
 
-**반영 경로 분해** (`docs/disclosure_response_report.md`)
+**반영 경로 분해** (`docs/final/disclosure_response_report.md`)
 - 바뀐 현금은 순차입금에, 추가된 비영업자산은 주주가치 가산 항목에 사실상 100% 정확히 옮겨진다.
 - 반면 기업가치(EV)는 변형 전후로 변형 크기의 ±4배 수준에서 흔들린다.
 - 따라서 "반영하지 못한다"가 아니다. **"정확히 반영하지만, 실행마다 바뀌는 가정 때문에 최종 가치에서는 그 효과가 잘 보이지 않는다"**가 정확한 해석이다.
@@ -133,11 +133,11 @@
 
 | 종류 | 위치 |
 |---|---|
-| 가설 판정표 | `results/hypothesis_table.md` |
-| 전체 결과 | `results/summary.md`, `results/tables/all_results.csv` |
+| 가설 판정표 | `docs/final/hypothesis_table.md` (생성본: `results/hypothesis_table.md`) |
+| 전체 결과 | `docs/final/summary.md` (생성본: `results/summary.md`), `results/tables/all_results.csv` |
 | 표 | `results/tables/T2~T15, R2` |
 | 그림 | `results/figures/F2~F8` (PNG, PDF) |
-| 공시 변화 반영 분석 (사후 추가) | `docs/disclosure_response_report.md`, 표 T13·T14, 그림 F8 |
+| 공시 변화 반영 분석 (사후 추가) | `docs/final/disclosure_response_report.md`, 표 T13·T14, 그림 F8 |
 | 기업 수준 데이터 | `results/firm_level.parquet` (변형별 `firm_level_*.parquet`) |
 | 파일럿 | `docs/pilot_report.md`, `docs/pilot_history.md` |
 | 결정과 이탈 기록 | `docs/decisions_log.md`, `docs/preregistration.md` |

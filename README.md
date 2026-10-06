@@ -4,7 +4,7 @@ Do LLM valuation agents compute from filings or recall from memory? Metamorphic 
 
 **Paper:** Dong Gyu Park (2026), *Do LLM Valuation Agents Read the Filing? Metamorphic Tests of Filing Fidelity on Korean Listed Firms* — source in [`paper/`](paper/main.tex), PDF in [`release/ssrn/`](release/ssrn/). Cite via [`CITATION.cff`](CITATION.cff).
 
-- Results: [`docs/results_report.md`](docs/results_report.md) (Korean), [`results/hypothesis_table.md`](results/hypothesis_table.md), [`results/summary.md`](results/summary.md)
+- Results: [`docs/final/results_report.md`](docs/final/results_report.md), [`docs/final/disclosure_response_report.md`](docs/final/disclosure_response_report.md) (Korean), [`docs/final/hypothesis_table.md`](docs/final/hypothesis_table.md), [`docs/final/summary.md`](docs/final/summary.md)
 - Preregistration: [`docs/preregistration.md`](docs/preregistration.md) (git tag `prereg-v1`); data tags `data-v1`, `data-v2`
 - Reproduction: [`docs/reproduce.md`](docs/reproduce.md); replication data package built by `scripts/build_release.py`
 - Licenses: code MIT ([`LICENSE`](LICENSE)); data and paper see [`DATA_LICENSE.md`](DATA_LICENSE.md)
