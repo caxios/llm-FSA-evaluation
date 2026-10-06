@@ -131,13 +131,16 @@ class OpenAICompatibleClient:
             resp = self.session.post(f"{(cfg.base_url or '').rstrip('/')}/chat/completions",
                                      json=body, timeout=self.timeout,
                                      headers={"Authorization": f"Bearer {self.key}"})
-        except (requests.Timeout, requests.ConnectionError) as e:
+        except requests.RequestException as e:   # timeouts, DNS, resets, broken chunked reads
             raise TransientError(str(e)) from e
         if resp.status_code == 429 or resp.status_code >= 500:
             raise TransientError(f"HTTP {resp.status_code}: {resp.text[:200]}")
         if resp.status_code != 200:
             raise RuntimeError(f"HTTP {resp.status_code}: {resp.text[:500]}")
-        data = resp.json()
+        try:
+            data = resp.json()
+        except (ValueError, requests.RequestException) as e:   # truncated body
+            raise TransientError(f"bad response body: {e}") from e
         choice = (data.get("choices") or [{}])[0]
         msg = choice.get("message") or {}
         text = msg.get("content") or ""
