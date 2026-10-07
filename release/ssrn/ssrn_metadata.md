@@ -6,7 +6,7 @@
 | Author | Dong Gyu Park, Independent Researcher (parkdong1015@gmail.com) |
 | File | `Park_2026_LLM_Valuation_Filing_Fidelity.pdf` |
 | Date written | October 6, 2026 |
-| Number of pages | 11 |
+| Number of pages | 12 |
 | Keywords | large language models, equity valuation, metamorphic testing, look-ahead bias, memorization, financial filings, convertible bonds, Korea |
 | JEL codes | G12 (Asset Pricing; Trading Volume; Bond Interest Rates), G14 (Information and Market Efficiency; Event Studies), C45 (Neural Networks and Related Topics), M41 (Accounting) |
 | Suggested eJournals / networks | Financial Economics Network (FEN): Capital Markets: Asset Pricing & Valuation; Accounting Research Network (ARN); Information Systems & eBusiness / Artificial Intelligence eJournal |
