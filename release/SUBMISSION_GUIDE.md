@@ -7,7 +7,7 @@
 | arXiv 업로드용 소스 | `release/arxiv/arxiv_source.tar.gz` (main.tex, main.bbl, references.bib, 그림 5개; pdflatex만으로 컴파일 확인) |
 | arXiv 입력 정보 | `release/arxiv/arxiv_metadata.md` (제목, 분류, 코멘트, 초록) |
 | 미리보기 PDF | `release/arxiv/main_preview.pdf` |
-| SSRN 업로드용 PDF | `release/ssrn/Park_2026_LLM_Valuation_Filing_Fidelity.pdf` (11쪽) |
+| SSRN 업로드용 PDF | `release/ssrn/Park_2026_LLM_Valuation_Filing_Fidelity.pdf` (12쪽) |
 | SSRN 입력 정보 | `release/ssrn/ssrn_metadata.md` (키워드, JEL 코드, 추천 분야, 초록) |
 | 초록 (일반 텍스트) | `release/abstract.txt` (1,854자; arXiv 제한 1,920자) |
 | 재현 데이터 패키지 | `release/replication_data.zip` (39 MB; GitHub Release·Zenodo 업로드용) |
